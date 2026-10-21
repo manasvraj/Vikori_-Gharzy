@@ -1,407 +1,235 @@
-  <!-- Brand Logo -->
-  <a href="javascript:showSection('home')" class="flex items-center gap-2.5 group">
-    <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-600 text-white flex items-center justify-center text-xl shadow-lg shadow-brand-500/20 group-hover:scale-105 transition-transform">
-      <i class="fa-solid fa-house-chimney-crack"></i>
-    </div>
-    <div>
-      <span class="text-xl sm:text-2xl font-black font-display tracking-tight text-slate-900 block leading-tight">
-        Vikori<span class="text-brand-600">Gharzy</span>
-      </span>
-      <span class="text-[10px] text-slate-400 uppercase tracking-widest font-bold hidden sm:block">Home Service Network</span>
-    </div>
-  </a>
-
-  <!-- Desktop Navigation Links -->
-  <nav class="hidden md:flex items-center gap-1 bg-slate-100/70 p-1.5 rounded-2xl border border-slate-200/80">
-    <button onclick="showSection('home')" id="navHome" class="px-4 py-2 text-xs font-bold rounded-xl text-brand-600 bg-white shadow-sm transition">
-      <i class="fa-solid fa-compass mr-1.5 opacity-80"></i> Explore
-    </button>
-    <button onclick="showSection('providers')" id="navProviders" class="px-4 py-2 text-xs font-bold rounded-xl text-slate-600 hover:text-slate-900 hover:bg-white/60 transition">
-      <i class="fa-solid fa-user-gear mr-1.5 opacity-80"></i> Find Workers
-    </button>
-    <button onclick="showSection('bookings')" id="navBookings" class="px-4 py-2 text-xs font-bold rounded-xl text-slate-600 hover:text-slate-900 hover:bg-white/60 transition">
-      <i class="fa-solid fa-calendar-check mr-1.5 opacity-80"></i> My Orders
-    </button>
+  <nav class="nav-tabs">
+    <button onclick="showSection('home')" id="tabHome" class="nav-btn active">Explore</button>
+    <button onclick="showSection('providers')" id="tabProviders" class="nav-btn">Find Workers</button>
+    <button onclick="showSection('bookings')" id="tabBookings" class="nav-btn">My Orders</button>
   </nav>
 
-  <!-- Worker Registration Button & Auth Actions -->
-  <div class="flex items-center gap-2 sm:gap-3">
-    <!-- Worker Register Trigger CTA -->
-    <button onclick="openWorkerModal()" class="flex items-center gap-2 text-xs font-bold text-amber-900 bg-gradient-to-r from-amber-200 to-amber-300 hover:from-amber-300 hover:to-amber-400 border border-amber-400/80 px-3.5 py-2.5 rounded-xl transition shadow-sm active:scale-95">
-      <i class="fa-solid fa-screwdriver-wrench text-amber-800"></i>
-      <span class="font-extrabold hidden sm:inline">Worker Register</span>
-      <span class="font-extrabold sm:hidden">Register</span>
-    </button>
-
-    <!-- Auth Navigation status container -->
-    <div id="authNavButtons" class="flex items-center gap-2"></div>
-  </div>
-</div>
-
-
-<!-- ================= SECTION: HOME ================= -->
-<div id="sectionHome" class="space-y-12 sm:space-y-16 pb-16">
-  
-  <!-- HERO BANNER -->
-  <div class="relative overflow-hidden bg-gradient-to-b from-brand-50/70 via-white to-slate-50 pt-10 sm:pt-16 pb-12 sm:pb-20 border-b border-slate-200/60">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100/80 text-brand-700 text-xs font-bold uppercase tracking-wider shadow-sm">
-        <span class="w-2 h-2 rounded-full bg-brand-600 animate-pulse"></span>
-        India's Direct Worker Marketplace
-      </div>
-      
-      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black font-display tracking-tight text-slate-900 leading-[1.15]">
-        Ghar ke har kaam ke liye <br>
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-indigo-600 to-blue-700">Verified Service Experts</span>
-      </h1>
-
-      <p class="max-w-2xl mx-auto text-sm sm:text-base text-slate-600 leading-relaxed">
-        Plumber, Electrician, Painter ya AC Repairer ko seedhe unke hourly rate (₹) par hire kijiye. Koi beech ka commission nahi, seedha customer to worker connection.
-      </p>
-
-      <!-- Search Box -->
-      <div class="max-w-3xl mx-auto bg-white p-2 sm:p-2.5 rounded-3xl shadow-xl shadow-slate-200/80 border border-slate-200 flex flex-col sm:flex-row items-center gap-2">
-        <div class="flex items-center gap-3 w-full px-4 py-2 border-b sm:border-b-0 sm:border-r border-slate-200">
-          <i class="fa-solid fa-magnifying-glass text-slate-400"></i>
-          <input id="searchInput" type="text" placeholder="Search service e.g. Plumber, Electrician, Painter..." class="w-full bg-transparent text-sm focus:outline-none text-slate-800 placeholder-slate-400 font-medium">
-        </div>
-        <div class="w-full sm:w-auto flex items-center gap-2">
-          <select id="rateFilter" class="w-full sm:w-44 px-3 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none text-slate-700 font-bold">
-            <option value="all">Any Price</option>
-            <option value="300">Under ₹300 / hr</option>
-            <option value="500">Under ₹500 / hr</option>
-            <option value="800">Under ₹800 / hr</option>
-          </select>
-          <button onclick="handleSearch()" class="w-full sm:w-auto px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white rounded-2xl text-xs font-bold shadow-md shadow-brand-500/25 transition shrink-0 active:scale-95">
-            Search
-          </button>
-        </div>
-      </div>
-
-      <!-- Quick Service Filter Badges -->
-      <div class="pt-2 flex flex-wrap justify-center gap-2 text-xs">
-        <span class="text-slate-400 font-bold py-1.5">Popular:</span>
-        <button onclick="filterByCategory('Plumber')" class="px-3.5 py-1.5 bg-white hover:bg-brand-50 hover:text-brand-600 font-semibold rounded-full border border-slate-200 shadow-sm transition">🔧 Plumber</button>
-        <button onclick="filterByCategory('Electrician')" class="px-3.5 py-1.5 bg-white hover:bg-brand-50 hover:text-brand-600 font-semibold rounded-full border border-slate-200 shadow-sm transition">⚡ Electrician</button>
-        <button onclick="filterByCategory('Painter')" class="px-3.5 py-1.5 bg-white hover:bg-brand-50 hover:text-brand-600 font-semibold rounded-full border border-slate-200 shadow-sm transition">🎨 Painter</button>
-        <button onclick="filterByCategory('Carpenter')" class="px-3.5 py-1.5 bg-white hover:bg-brand-50 hover:text-brand-600 font-semibold rounded-full border border-slate-200 shadow-sm transition">🪚 Carpenter</button>
-        <button onclick="filterByCategory('AC Repair')" class="px-3.5 py-1.5 bg-white hover:bg-brand-50 hover:text-brand-600 font-semibold rounded-full border border-slate-200 shadow-sm transition">❄️ AC Repair</button>
-        <button onclick="filterByCategory('Cleaner')" class="px-3.5 py-1.5 bg-white hover:bg-brand-50 hover:text-brand-600 font-semibold rounded-full border border-slate-200 shadow-sm transition">🧹 Cleaning</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- WORKER ONBOARDING PROMO BANNER -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 rounded-3xl p-6 sm:p-10 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
-      <div class="space-y-2 text-center md:text-left z-10">
-        <span class="px-3 py-1 bg-white/20 backdrop-blur rounded-full text-[11px] font-black uppercase tracking-wider inline-block">
-          Kya aap skilled professional hain?
-        </span>
-        <h2 class="text-2xl sm:text-3xl font-display font-extrabold tracking-tight">
-          Electrician, Painter ya Plumber ho? Vikori Gharzy se judo!
-        </h2>
-        <p class="text-xs sm:text-sm text-amber-50 max-w-xl font-medium">
-          Apna worker profile banaiye, apna hourly rate (₹/hr) khud set kijiye, aur apne sheher me seedhe customer call & orders paayein.
-        </p>
-      </div>
-      <button onclick="openWorkerModal()" class="shrink-0 whitespace-nowrap px-6 py-4 bg-white text-orange-600 hover:bg-slate-50 font-display font-extrabold text-sm rounded-2xl shadow-xl transition-transform hover:scale-105 active:scale-95 z-10">
-        <i class="fa-solid fa-id-card mr-2 text-amber-600"></i> Worker Registration Karein →
-      </button>
-      
-      <div class="absolute -right-10 -bottom-10 w-44 h-44 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
-    </div>
-  </div>
-
-  <!-- SERVICE CATEGORIES GRID -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-    <div class="flex items-end justify-between">
-      <div>
-        <h2 class="text-2xl sm:text-3xl font-display font-black text-slate-900 tracking-tight">Explore Categories</h2>
-        <p class="text-xs sm:text-sm text-slate-500 mt-1">Verified local trade experts ready on call</p>
-      </div>
-      <button onclick="filterByCategory('all')" class="text-xs font-bold text-brand-600 hover:underline">View All Workers →</button>
-    </div>
-
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-      <!-- Plumber -->
-      <div onclick="filterByCategory('Plumber')" class="cursor-pointer group p-5 bg-white rounded-3xl border border-slate-200/80 hover:border-brand-500 hover:shadow-xl transition-all text-center">
-        <div class="w-14 h-14 mx-auto rounded-2xl bg-blue-50 text-brand-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
-          <i class="fa-solid fa-wrench"></i>
-        </div>
-        <h3 class="mt-4 font-bold text-slate-800 text-sm">Plumbing</h3>
-        <p class="text-[11px] text-slate-400 mt-0.5">Pipe leaks & taps</p>
-        <span class="inline-block mt-3 text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-md">From ₹249/hr</span>
-      </div>
-
-      <!-- Electrician -->
-      <div onclick="filterByCategory('Electrician')" class="cursor-pointer group p-5 bg-white rounded-3xl border border-slate-200/80 hover:border-amber-500 hover:shadow-xl transition-all text-center">
-        <div class="w-14 h-14 mx-auto rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
-          <i class="fa-solid fa-bolt"></i>
-        </div>
-        <h3 class="mt-4 font-bold text-slate-800 text-sm">Electrician</h3>
-        <p class="text-[11px] text-slate-400 mt-0.5">Wiring, fans & MCB</p>
-        <span class="inline-block mt-3 text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-md">From ₹299/hr</span>
-      </div>
-
-      <!-- Painter -->
-      <div onclick="filterByCategory('Painter')" class="cursor-pointer group p-5 bg-white rounded-3xl border border-slate-200/80 hover:border-emerald-500 hover:shadow-xl transition-all text-center">
-        <div class="w-14 h-14 mx-auto rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
-          <i class="fa-solid fa-paint-roller"></i>
-        </div>
-        <h3 class="mt-4 font-bold text-slate-800 text-sm">House Painter</h3>
-        <p class="text-[11px] text-slate-400 mt-0.5">Interior & exterior</p>
-        <span class="inline-block mt-3 text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-md">From ₹250/hr</span>
-      </div>
-
-      <!-- Carpenter -->
-      <div onclick="filterByCategory('Carpenter')" class="cursor-pointer group p-5 bg-white rounded-3xl border border-slate-200/80 hover:border-orange-500 hover:shadow-xl transition-all text-center">
-        <div class="w-14 h-14 mx-auto rounded-2xl bg-orange-50 text-orange-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
-          <i class="fa-solid fa-hammer"></i>
-        </div>
-        <h3 class="mt-4 font-bold text-slate-800 text-sm">Carpentry</h3>
-        <p class="text-[11px] text-slate-400 mt-0.5">Doors & furniture</p>
-        <span class="inline-block mt-3 text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-md">From ₹299/hr</span>
-      </div>
-
-      <!-- AC Repair -->
-      <div onclick="filterByCategory('AC Repair')" class="cursor-pointer group p-5 bg-white rounded-3xl border border-slate-200/80 hover:border-indigo-500 hover:shadow-xl transition-all text-center">
-        <div class="w-14 h-14 mx-auto rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
-          <i class="fa-solid fa-snowflake"></i>
-        </div>
-        <h3 class="mt-4 font-bold text-slate-800 text-sm">AC & Cooling</h3>
-        <p class="text-[11px] text-slate-400 mt-0.5">Gas refill & filter</p>
-        <span class="inline-block mt-3 text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-md">From ₹399/hr</span>
-      </div>
-
-      <!-- Cleaning -->
-      <div onclick="filterByCategory('Cleaner')" class="cursor-pointer group p-5 bg-white rounded-3xl border border-slate-200/80 hover:border-teal-500 hover:shadow-xl transition-all text-center">
-        <div class="w-14 h-14 mx-auto rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
-          <i class="fa-solid fa-broom"></i>
-        </div>
-        <h3 class="mt-4 font-bold text-slate-800 text-sm">Deep Cleaning</h3>
-        <p class="text-[11px] text-slate-400 mt-0.5">Bathroom & sofa</p>
-        <span class="inline-block mt-3 text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-md">From ₹199/hr</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- PLATFORM PILLARS -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="bg-gradient-to-r from-slate-900 to-slate-800 rounded-3xl p-8 sm:p-12 text-white shadow-xl">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="space-y-2">
-          <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-brand-400 text-xl">
-            <i class="fa-solid fa-shield-halved"></i>
-          </div>
-          <h3 class="text-lg font-bold font-display">100% Verified Partners</h3>
-          <p class="text-xs text-slate-300 leading-relaxed">Identity verification and trade checks for all listed independent service providers.</p>
-        </div>
-        <div class="space-y-2">
-          <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-emerald-400 text-xl">
-            <i class="fa-solid fa-indian-rupee-sign"></i>
-          </div>
-          <h3 class="text-lg font-bold font-display">Transparent Rates in ₹</h3>
-          <p class="text-xs text-slate-300 leading-relaxed">Exact hourly rates with zero hidden charges or middleman platform cuts.</p>
-        </div>
-        <div class="space-y-2">
-          <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-amber-400 text-xl">
-            <i class="fa-solid fa-phone-volume"></i>
-          </div>
-          <h3 class="text-lg font-bold font-display">Direct Customer Contact</h3>
-          <p class="text-xs text-slate-300 leading-relaxed">Direct mobile & WhatsApp connection to discuss repairs instantly.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<!-- ================= SECTION: BROWSE PROVIDERS ================= -->
-<section id="sectionProviders" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
-  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
-    <div>
-      <h2 class="text-2xl sm:text-3xl font-display font-black text-slate-900 tracking-tight">Available Professionals</h2>
-      <p class="text-xs sm:text-sm text-slate-500 mt-1" id="providersSubtitle">Showing active tradespeople ready for service</p>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="text-xs text-slate-400 font-bold uppercase tracking-wider">Filter Trade:</span>
-      <select id="activeCategoryFilter" onchange="filterByCategory(this.value)" class="text-xs font-bold px-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:outline-none text-slate-700 shadow-sm">
-        <option value="all">All Specialties</option>
-        <option value="Plumber">Plumber</option>
-        <option value="Electrician">Electrician</option>
-        <option value="Painter">Painter</option>
-        <option value="Carpenter">Carpenter</option>
-        <option value="AC Repair">AC Repair</option>
-        <option value="Cleaner">Cleaner</option>
-      </select>
-    </div>
-  </div>
-
-  <!-- Worker Profiles Grid -->
-  <div id="providersContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-</section>
-
-<!-- ================= SECTION: MY BOOKINGS ================= -->
-<section id="sectionBookings" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-6">
-  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
-    <div>
-      <h2 class="text-2xl sm:text-3xl font-display font-black text-slate-900 tracking-tight">Orders & Service Status</h2>
-      <p class="text-xs sm:text-sm text-slate-500 mt-1">Track appointments, assignments and technician reviews</p>
-    </div>
-  </div>
-  <div id="bookingsContainer" class="space-y-4"></div>
-</section>
-
-
-  <div class="text-center mb-6">
-    <div class="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mx-auto text-2xl mb-3 shadow-inner">
+  <div class="nav-actions">
+    <button onclick="openModal('workerModal')" class="btn-worker-reg">
       <i class="fa-solid fa-screwdriver-wrench"></i>
+      <span>Worker Register</span>
+    </button>
+    <div id="authSlot"></div>
+  </div>
+</div>
+
+
+<!-- SECTION: HOME -->
+<section id="secHome">
+  <!-- Hero -->
+  <div class="hero">
+    <div class="badge-tag">
+      <i class="fa-solid fa-shield-halved"></i> 100% Direct Worker Connection
     </div>
-    <h3 class="text-2xl font-display font-extrabold text-slate-900 tracking-tight">Service Partner Registration</h3>
-    <p class="text-xs text-slate-500 mt-1">Apna kaam chunhein aur Vikori Gharzy par direct orders paayein</p>
+    <h1 class="hero-title">
+      Ghar ke har kaam ke liye<br>
+      <span>Verified Service Experts</span>
+    </h1>
+    <p class="hero-desc">
+      Plumber, Electrician, Painter ya AC Technician ko seedhe unke hourly rate (₹/hr) par hire kijiye. Bina kisi commission ya delay ke.
+    </p>
+
+    <!-- Search Bar -->
+    <div class="search-box">
+      <div class="search-input-wrap">
+        <i class="fa-solid fa-magnifying-glass" style="color: #94a3b8;"></i>
+        <input type="text" id="searchInput" placeholder="Search service e.g. Plumber, Electrician...">
+      </div>
+      <select id="rateFilter" class="search-select">
+        <option value="all">Any Price</option>
+        <option value="300">Under ₹300/hr</option>
+        <option value="500">Under ₹500/hr</option>
+        <option value="800">Under ₹800/hr</option>
+      </select>
+      <button onclick="handleSearch()" class="btn-search">Search</button>
+    </div>
   </div>
 
-  <form id="workerRegisterForm" onsubmit="handleWorkerRegister(event)" class="space-y-4">
+  <!-- Worker Promotion Banner -->
+  <div class="worker-banner">
     <div>
-      <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Full Name (Pura Naam) *</label>
-      <input type="text" id="wpName" required placeholder="e.g. Ramesh Kumar" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-amber-500">
+      <span style="font-size: 11px; font-weight: 800; background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 999px;">
+        KHAAS SKILLED WORKERS KE LIYE
+      </span>
+      <h2 style="font-size: 24px; margin-top: 8px;">Electrician, Painter ya Plumber ho? Register Karein!</h2>
+      <p style="font-size: 13px; opacity: 0.9; margin-top: 4px;">
+        Apna worker card banaiye, apna rate (₹/hr) khud set karein aur direct customer calls paayein.
+      </p>
     </div>
+    <button onclick="openModal('workerModal')" class="worker-btn-white">
+      <i class="fa-solid fa-id-card"></i> Join as Service Partner
+    </button>
+  </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-      <div>
-        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Profession (Kaam) *</label>
-        <select id="wpCategory" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-amber-500 font-medium">
+  <!-- Categories -->
+  <div class="section-title-wrap">
+    <div>
+      <h2 style="font-size: 24px;">Explore Categories</h2>
+      <p style="font-size: 13px; color: var(--slate);">Top tradespeople ready on call</p>
+    </div>
+    <a href="javascript:showSection('providers')" style="color: var(--primary); font-weight: 700; font-size: 13px;">View All →</a>
+  </div>
+
+  <div class="cat-grid">
+    <div class="cat-card" onclick="filterByCategory('Plumber')">
+      <div class="cat-icon" style="background: #eff6ff; color: #2563eb;"><i class="fa-solid fa-wrench"></i></div>
+      <div class="cat-name">Plumber</div>
+      <div class="cat-rate">From ₹249/hr</div>
+    </div>
+    <div class="cat-card" onclick="filterByCategory('Electrician')">
+      <div class="cat-icon" style="background: #fffbeb; color: #d97706;"><i class="fa-solid fa-bolt"></i></div>
+      <div class="cat-name">Electrician</div>
+      <div class="cat-rate">From ₹299/hr</div>
+    </div>
+    <div class="cat-card" onclick="filterByCategory('Painter')">
+      <div class="cat-icon" style="background: #ecfdf5; color: #059669;"><i class="fa-solid fa-paint-roller"></i></div>
+      <div class="cat-name">Painter</div>
+      <div class="cat-rate">From ₹250/hr</div>
+    </div>
+    <div class="cat-card" onclick="filterByCategory('Carpenter')">
+      <div class="cat-icon" style="background: #fff7ed; color: #ea580c;"><i class="fa-solid fa-hammer"></i></div>
+      <div class="cat-name">Carpenter</div>
+      <div class="cat-rate">From ₹299/hr</div>
+    </div>
+    <div class="cat-card" onclick="filterByCategory('AC Repair')">
+      <div class="cat-icon" style="background: #eef2ff; color: #4f46e5;"><i class="fa-solid fa-snowflake"></i></div>
+      <div class="cat-name">AC Repair</div>
+      <div class="cat-rate">From ₹399/hr</div>
+    </div>
+    <div class="cat-card" onclick="filterByCategory('Cleaner')">
+      <div class="cat-icon" style="background: #f0fdfa; color: #0d9488;"><i class="fa-solid fa-broom"></i></div>
+      <div class="cat-name">Deep Clean</div>
+      <div class="cat-rate">From ₹199/hr</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: BROWSE PROVIDERS -->
+<section id="secProviders" style="display: none; padding: 32px 0;">
+  <div class="section-title-wrap">
+    <div>
+      <h2 style="font-size: 26px;">Available Service Workers</h2>
+      <p id="secProvidersSubtitle" style="font-size: 13px; color: var(--slate);">Verified professionals active now</p>
+    </div>
+    <select id="categorySelector" onchange="filterByCategory(this.value)" class="search-select">
+      <option value="all">All Specialties</option>
+      <option value="Plumber">Plumber</option>
+      <option value="Electrician">Electrician</option>
+      <option value="Painter">Painter</option>
+      <option value="Carpenter">Carpenter</option>
+      <option value="AC Repair">AC Repair</option>
+      <option value="Cleaner">Cleaner</option>
+    </select>
+  </div>
+
+  <div id="providersGrid" class="cards-grid"></div>
+</section>
+
+<!-- SECTION: ORDERS -->
+<section id="secBookings" style="display: none; padding: 32px 0;">
+  <h2 style="font-size: 26px; margin-bottom: 8px;">My Service Orders</h2>
+  <p style="font-size: 13px; color: var(--slate); margin-bottom: 24px;">Track your bookings and worker assignments</p>
+  <div id="ordersContainer"></div>
+</section>
+
+
+  <form onsubmit="handleWorkerRegister(event)">
+    <div class="form-group">
+      <label>Full Name (Pura Naam) *</label>
+      <input type="text" id="wpName" class="form-control" required placeholder="e.g. Ramesh Kumar">
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+      <div class="form-group">
+        <label>Work Type *</label>
+        <select id="wpCategory" class="form-control" required>
           <option value="Electrician">⚡ Electrician</option>
           <option value="Painter">🎨 Painter</option>
           <option value="Plumber">🔧 Plumber</option>
           <option value="Carpenter">🪚 Carpenter</option>
           <option value="AC Repair">❄️ AC Repair</option>
-          <option value="Cleaner">🧹 Home Cleaner</option>
+          <option value="Cleaner">🧹 Cleaner</option>
         </select>
       </div>
-      <div>
-        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Hourly Rate (₹/hr) *</label>
-        <input type="number" id="wpRate" required min="100" max="3000" value="350" placeholder="e.g. 350" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-amber-500 font-bold text-emerald-700">
+      <div class="form-group">
+        <label>Rate (₹/hr) *</label>
+        <input type="number" id="wpRate" class="form-control" required value="350">
       </div>
     </div>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-      <div>
-        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Mobile / WhatsApp *</label>
-        <input type="tel" id="wpPhone" required placeholder="e.g. 9876543210" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-amber-500">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+      <div class="form-group">
+        <label>Phone / WhatsApp *</label>
+        <input type="tel" id="wpPhone" class="form-control" required placeholder="9876543210">
       </div>
-      <div>
-        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Experience *</label>
-        <select id="wpExperience" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-amber-500 font-medium">
-          <option value="1-2 yrs">1 - 2 Years</option>
-          <option value="3-5 yrs" selected>3 - 5 Years</option>
-          <option value="6-10 yrs">6 - 10 Years</option>
-          <option value="10+ yrs">10+ Years Expert</option>
+      <div class="form-group">
+        <label>Experience *</label>
+        <select id="wpExp" class="form-control">
+          <option>1-2 Years</option>
+          <option selected>3-5 Years</option>
+          <option>6-10 Years</option>
+          <option>10+ Years</option>
         </select>
       </div>
     </div>
-
-    <div>
-      <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">City / Area *</label>
-      <input type="text" id="wpCity" required placeholder="e.g. Patna, Kankarbagh, Boring Road" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-amber-500">
+    <div class="form-group">
+      <label>City / Location *</label>
+      <input type="text" id="wpCity" class="form-control" required placeholder="e.g. Patna, Boring Road">
     </div>
 
-    <div class="p-3.5 bg-amber-50/70 rounded-2xl border border-amber-200 text-xs text-amber-900 space-y-1">
-      <p class="font-bold"><i class="fa-solid fa-circle-check text-amber-600 mr-1"></i> Instant Marketplace Listing</p>
-      <p class="text-[11px] text-amber-800">Submit karte hi aapka profile turant "Find Workers" directory mein live ho jayega aur customers direct contact kar sakenge.</p>
-    </div>
-
-    <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white rounded-xl text-sm font-bold shadow-lg shadow-amber-500/25 transition active:scale-95">
-      Register & Go Live on Vikori Gharzy
+    <button type="submit" class="btn-submit btn-submit-amber">
+      Register & List Profile Live
     </button>
   </form>
 </div>
 
 
-  <div class="text-center mb-6">
-    <div class="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center mx-auto text-xl mb-3 shadow-inner">
-      <i class="fa-solid fa-mobile-screen-button"></i>
+  <!-- Step 1: Mobile Number -->
+  <form id="stepPhoneForm" onsubmit="handleSendOTP(event)">
+    <div class="form-group">
+      <label>Your Name</label>
+      <input type="text" id="authName" class="form-control" required placeholder="e.g. Viraj Manas">
     </div>
-    <h3 class="text-xl font-display font-extrabold text-slate-900 tracking-tight">Phone Login / Sign In</h3>
-    <p class="text-xs text-slate-500 mt-1">Enter mobile number to receive 6-digit OTP</p>
-  </div>
-
-  <!-- Step 1: Phone Number Input Form -->
-  <form id="phoneStepForm" onsubmit="handleSendOTP(event)" class="space-y-4">
-    <div>
-      <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Your Name</label>
-      <input type="text" id="authUserName" required placeholder="e.g. Viraj Manas" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-brand-500 font-medium">
-    </div>
-    <div>
-      <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Mobile Number (India +91)</label>
-      <div class="flex items-center">
-        <span class="inline-flex items-center px-3.5 py-2.5 rounded-l-xl border border-r-0 border-slate-200 bg-slate-100 text-slate-600 text-sm font-bold">
-          🇮🇳 +91
-        </span>
-        <input type="tel" id="authUserPhone" required pattern="[0-9]{10}" maxlength="10" placeholder="9876543210" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-r-xl text-sm outline-none focus:ring-2 focus:ring-brand-500 font-bold tracking-wider">
+    <div class="form-group">
+      <label>Mobile Number (+91)</label>
+      <div style="display: flex;">
+        <span style="background: #f1f5f9; border: 1px solid var(--border); border-right: none; padding: 12px 14px; border-radius: 12px 0 0 12px; font-weight: 700; font-size: 14px;">🇮🇳 +91</span>
+        <input type="tel" id="authPhone" class="form-control" style="border-radius: 0 12px 12px 0;" maxlength="10" required placeholder="9876543210">
       </div>
-      <span class="text-[10px] text-slate-400 mt-1 block">A 6-digit verification code will be sent via SMS</span>
     </div>
-
-    <button type="submit" id="btnSendOtp" class="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-sm font-bold shadow-md shadow-brand-500/25 transition active:scale-95 flex items-center justify-center gap-2">
-      <span>Send OTP via SMS</span>
-      <i class="fa-solid fa-arrow-right text-xs"></i>
+    <button type="submit" id="btnSendOtp" class="btn-submit">
+      <span>Send OTP via SMS</span> →
     </button>
   </form>
 
-  <!-- Step 2: OTP Verification Form (Hidden Initially) -->
-  <form id="otpStepForm" onsubmit="handleVerifyOTP(event)" class="space-y-4 hidden">
-    <div class="text-center p-3 bg-blue-50/60 rounded-2xl border border-blue-100">
-      <p class="text-xs text-brand-900 font-medium">OTP sent to: <strong id="displayTargetPhone" class="font-bold">+91 ...</strong></p>
-      <button type="button" onclick="resetToPhoneStep()" class="text-[11px] text-brand-600 font-bold underline mt-1">Change phone number</button>
+  <!-- Step 2: OTP Verification -->
+  <form id="stepOtpForm" onsubmit="handleVerifyOTP(event)" style="display: none;">
+    <div style="background: #f1f5f9; padding: 10px; border-radius: 12px; text-align: center; font-size: 12px; margin-bottom: 14px;">
+      Code sent to: <strong id="otpDisplayPhone">+91 ...</strong>
     </div>
-
-    <div>
-      <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 text-center">Enter 6-Digit OTP</label>
-      <input type="text" id="authOtpCode" required maxlength="6" pattern="[0-9]{6}" placeholder="• • • • • •" class="w-full text-center tracking-[0.5em] text-xl font-bold py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-brand-500 text-slate-900">
+    <div class="form-group">
+      <label style="text-align: center;">Enter 6-Digit Code</label>
+      <input type="text" id="authOtpCode" class="form-control" maxlength="6" style="text-align: center; letter-spacing: 6px; font-size: 22px; font-weight: 800;" placeholder="••••••" required>
     </div>
-
-    <button type="submit" id="btnVerifyOtp" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-bold shadow-md shadow-emerald-500/25 transition active:scale-95 flex items-center justify-center gap-2">
-      <span>Verify OTP & Login</span>
-      <i class="fa-solid fa-circle-check text-xs"></i>
+    <button type="submit" id="btnVerifyOtp" class="btn-submit" style="background: var(--emerald);">
+      Verify & Continue
     </button>
   </form>
-
 </div>
 
 
-  <div class="flex items-center gap-4 pb-6 border-b border-slate-200">
-    <div id="bmAvatar" class="w-14 h-14 rounded-2xl bg-brand-600 text-white flex items-center justify-center text-xl font-bold font-display shadow-md">
-      VG
+  <form onsubmit="submitBooking(event)">
+    <div class="form-group">
+      <label>Problem Description (Kaam kya karwana hai?) *</label>
+      <textarea id="bmNotes" class="form-control" rows="3" required placeholder="Describe issue in detail..."></textarea>
     </div>
-    <div>
-      <span class="text-[11px] font-bold text-brand-600 uppercase tracking-wider block">Direct Booking Request</span>
-      <h3 id="bmName" class="text-xl font-bold text-slate-900 leading-tight">Provider Name</h3>
-      <div class="flex items-center gap-2 text-xs text-slate-500 mt-1">
-        <span id="bmCategory" class="px-2 py-0.5 rounded-md bg-slate-100 font-semibold text-slate-700">Plumber</span>
-        <span id="bmRate" class="font-bold text-emerald-600">₹350 / hr</span>
-      </div>
-    </div>
-  </div>
-
-  <form onsubmit="submitBooking(event)" class="mt-6 space-y-4">
-    <input type="hidden" id="bmProviderId">
-    <div>
-      <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Issue Description (Kaam ki Jankari) *</label>
-      <textarea id="bmNotes" rows="3" required placeholder="Describe what needs repair or servicing in detail..." class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm outline-none focus:ring-2 focus:ring-brand-500"></textarea>
-    </div>
-    <div>
-      <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Urgency (Kab Chahiye) *</label>
-      <select id="bmUrgency" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium">
-        <option value="Urgent (Within 2 Hours)">⚡ Urgent (Within 2 Hours)</option>
-        <option value="Today Evening">🕒 Today Evening</option>
-        <option value="Tomorrow Morning">📅 Tomorrow Morning</option>
-        <option value="Flexible Schedule">🗓️ Flexible / Coordinate over call</option>
+    <div class="form-group">
+      <label>Urgency *</label>
+      <select id="bmUrgency" class="form-control">
+        <option>Urgent (Within 2 Hours)</option>
+        <option>Today Evening</option>
+        <option>Tomorrow Morning</option>
+        <option>Flexible Schedule</option>
       </select>
     </div>
-    <button type="submit" class="w-full py-3.5 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-sm font-bold shadow-md shadow-brand-500/25 transition active:scale-95">
-      Confirm Appointment Request
-    </button>
+    <button type="submit" class="btn-submit">Confirm Appointment</button>
   </form>
 </div>
