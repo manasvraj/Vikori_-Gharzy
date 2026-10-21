@@ -2,191 +2,268 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vikori Gharzy | Trusted Local Service Marketplace</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Vikori Gharzy | Trusted Local Electricians, Plumbers & Home Services</title>
   
+  <!-- SEO & Meta Tags -->
+  <meta name="description" content="Vikori Gharzy connects you with verified local electricians, painters, plumbers, carpenters, and appliance repair professionals at transparent hourly rates.">
+  <meta name="keywords" content="Vikori Gharzy, Plumber, Electrician, Painter, Carpenter, AC Repair, Home Services, Patna, India">
+  <meta name="author" content="Vikori Gharzy">
+  <meta property="og:title" content="Vikori Gharzy - Reliable Home Services Marketplace">
+  <meta property="og:description" content="Book expert electricians, plumbers, and technicians directly at standard hourly rates with verified profiles.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vikorigharzy.vercel.app">
+
+  <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Cabinet+Grotesk:wght@700;800;900&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            display: ['Plus Jakarta Sans', 'sans-serif']
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Cabinet Grotesk"', '"Plus Jakarta Sans"', 'sans-serif']
           },
           colors: {
             brand: {
               50: '#eff6ff',
               100: '#dbeafe',
-              500: '#2563eb',
-              600: '#1d4ed8',
-              700: '#1e40af',
-              800: '#1e3a8a',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a'
             }
           }
         }
       }
     }
   </script>
-</head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-brand-500 selection:text-white flex flex-col min-h-screen">
 
-  <div id="toast" class="fixed top-5 right-5 z-50 transform -translate-y-24 opacity-0 transition-all duration-300 max-w-sm flex items-center gap-3 px-4 py-3 bg-slate-900 text-white rounded-2xl shadow-2xl border border-slate-800">
-    <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
-    <span id="toastMsg" class="text-sm font-medium">Notification message</span>
+  <style>
+    body {
+      -webkit-tap-highlight-color: transparent;
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
+
+  <!-- ================= TOP NOTIFICATION TOAST ================= -->
+  <div id="toast" class="fixed top-5 right-5 z-50 transform translate-y-[-120%] opacity-0 transition-all duration-300 pointer-events-none max-w-sm bg-slate-900/95 text-white backdrop-blur-md px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 border border-slate-700">
+    <div id="toastIcon" class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+      <i class="fa-solid fa-check"></i>
+    </div>
+    <p id="toastMessage" class="text-xs sm:text-sm font-medium leading-snug">Action succeeded</p>
   </div>
 
-  <header class="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+  <!-- ================= NAVBAR ================= -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-4">
       
-      <a href="#" onclick="showSection('home')" class="flex items-center gap-3 group">
-        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-700 to-brand-500 flex items-center justify-center text-white shadow-lg shadow-brand-500/25 group-hover:scale-105 transition-transform">
-          <i class="fa-solid fa-house-chimney-crack text-xl"></i>
+      <!-- Brand Logo -->
+      <a href="javascript:showSection('home')" class="flex items-center gap-2.5 group">
+        <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-600 text-white flex items-center justify-center text-xl shadow-lg shadow-brand-500/20 group-hover:scale-105 transition-transform">
+          <i class="fa-solid fa-house-chimney-crack"></i>
         </div>
         <div>
-          <span class="font-display font-extrabold text-2xl tracking-tight text-slate-900">Vikori<span class="text-brand-600">Gharzy</span></span>
-          <span class="block text-[10px] uppercase font-bold tracking-widest text-slate-400">Home Care & Services</span>
+          <span class="text-xl sm:text-2xl font-black font-display tracking-tight text-slate-900 block leading-tight">
+            Vikori<span class="text-brand-600">Gharzy</span>
+          </span>
+          <span class="text-[10px] text-slate-400 uppercase tracking-widest font-bold hidden sm:block">Home Service Network</span>
         </div>
       </a>
 
-      <nav class="hidden md:flex items-center gap-1">
-        <button onclick="showSection('home')" id="navHome" class="px-4 py-2 text-sm font-semibold rounded-xl text-brand-600 bg-brand-50 transition">
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-1 bg-slate-100/70 p-1.5 rounded-2xl border border-slate-200/80">
+        <button onclick="showSection('home')" id="navHome" class="px-4 py-2 text-xs font-bold rounded-xl text-brand-600 bg-white shadow-sm transition">
           <i class="fa-solid fa-compass mr-1.5 opacity-80"></i> Explore
         </button>
-        <button onclick="showSection('providers')" id="navProviders" class="px-4 py-2 text-sm font-semibold rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition">
+        <button onclick="showSection('providers')" id="navProviders" class="px-4 py-2 text-xs font-bold rounded-xl text-slate-600 hover:text-slate-900 hover:bg-white/60 transition">
           <i class="fa-solid fa-user-gear mr-1.5 opacity-80"></i> Find Workers
         </button>
-        <button onclick="showSection('bookings')" id="navBookings" class="px-4 py-2 text-sm font-semibold rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition">
-          <i class="fa-solid fa-calendar-check mr-1.5 opacity-80"></i> My Bookings
+        <button onclick="showSection('bookings')" id="navBookings" class="px-4 py-2 text-xs font-bold rounded-xl text-slate-600 hover:text-slate-900 hover:bg-white/60 transition">
+          <i class="fa-solid fa-calendar-check mr-1.5 opacity-80"></i> My Orders
         </button>
       </nav>
 
-      <div class="flex items-center gap-3">
-        <a href="mailto:virajmanas07@gmail.com" class="hidden lg:flex items-center gap-1.5 text-xs text-slate-500 hover:text-brand-600 font-semibold px-2.5 py-1.5 rounded-lg border border-slate-200 hover:border-brand-500 transition">
-          <i class="fa-regular fa-envelope text-brand-600"></i> virajmanas07@gmail.com
-        </a>
+      <!-- Worker Registration Button & Auth Actions -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Worker Register Trigger CTA -->
+        <button onclick="openWorkerModal()" class="flex items-center gap-2 text-xs font-bold text-amber-900 bg-gradient-to-r from-amber-200 to-amber-300 hover:from-amber-300 hover:to-amber-400 border border-amber-400/80 px-3.5 py-2.5 rounded-xl transition shadow-sm active:scale-95">
+          <i class="fa-solid fa-screwdriver-wrench text-amber-800"></i>
+          <span class="font-extrabold">Worker Register</span>
+        </button>
+
+        <!-- Auth Navigation status container -->
         <div id="authNavButtons" class="flex items-center gap-2"></div>
       </div>
     </div>
   </header>
 
+  <!-- ================= MAIN CONTENT WRAPPER ================= -->
   <main class="flex-grow">
-    <section id="sectionHome" class="space-y-12">
-      <div class="bg-gradient-to-b from-blue-50/70 via-slate-50/50 to-white pt-14 pb-20 px-4 sm:px-6 lg:px-8 border-b border-slate-200/60">
-        <div class="max-w-4xl mx-auto text-center space-y-6">
-          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-100/70 border border-blue-200 text-brand-700 text-xs font-bold shadow-sm">
-            <span class="w-2.5 h-2.5 rounded-full bg-brand-600 animate-ping"></span>
-            Verified Experts Across India • Direct Booking
+    
+    <!-- ================= SECTION: HOME ================= -->
+    <div id="sectionHome" class="space-y-12 sm:space-y-16 pb-16">
+      
+      <!-- HERO BANNER -->
+      <div class="relative overflow-hidden bg-gradient-to-b from-brand-50/70 via-white to-slate-50 pt-10 sm:pt-16 pb-12 sm:pb-20 border-b border-slate-200/60">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100/80 text-brand-700 text-xs font-bold uppercase tracking-wider shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-brand-600 animate-pulse"></span>
+            India's Direct Worker Marketplace
           </div>
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-extrabold text-slate-900 tracking-tight leading-[1.15]">
-            Book Reliable Help For All Your <br>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-indigo-600">Home Needs</span>
+          
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black font-display tracking-tight text-slate-900 leading-[1.15]">
+            Ghar ke har kaam ke liye <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-indigo-600 to-blue-700">Verified Service Experts</span>
           </h1>
-          <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
-            From emergency plumbing to electrical wiring, carpentry, painting & deep cleaning — guaranteed reliability with transparent rates in <strong>Rupees (₹)</strong>.
+
+          <p class="max-w-2xl mx-auto text-sm sm:text-base text-slate-600 leading-relaxed">
+            Plumber, Electrician, Painter ya AC Repairer ko seedhe unke hourly rate (₹) par hire kijiye. Koi beech ka commission nahi, seedha customer to worker connection.
           </p>
 
-          <div class="max-w-3xl mx-auto bg-white p-2.5 rounded-2xl shadow-xl shadow-slate-200/70 border border-slate-200 flex flex-col sm:flex-row items-center gap-2">
-            <div class="flex items-center gap-3 w-full px-3 py-2 border-b sm:border-b-0 sm:border-r border-slate-200">
+          <!-- Search Box -->
+          <div class="max-w-3xl mx-auto bg-white p-2 sm:p-2.5 rounded-3xl shadow-xl shadow-slate-200/80 border border-slate-200 flex flex-col sm:flex-row items-center gap-2">
+            <div class="flex items-center gap-3 w-full px-4 py-2 border-b sm:border-b-0 sm:border-r border-slate-200">
               <i class="fa-solid fa-magnifying-glass text-slate-400"></i>
-              <input id="searchInput" type="text" placeholder="Search service e.g. Plumber, Electrician, Painter..." class="w-full bg-transparent text-sm focus:outline-none text-slate-800 placeholder-slate-400">
+              <input id="searchInput" type="text" placeholder="Search service e.g. Plumber, Electrician, Painter..." class="w-full bg-transparent text-sm focus:outline-none text-slate-800 placeholder-slate-400 font-medium">
             </div>
             <div class="w-full sm:w-auto flex items-center gap-2">
-              <select id="rateFilter" class="w-full sm:w-44 px-3 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none text-slate-700 font-medium">
+              <select id="rateFilter" class="w-full sm:w-44 px-3 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none text-slate-700 font-bold">
                 <option value="all">Any Price</option>
                 <option value="300">Under ₹300 / hr</option>
                 <option value="500">Under ₹500 / hr</option>
                 <option value="800">Under ₹800 / hr</option>
               </select>
-              <button onclick="handleSearch()" class="w-full sm:w-auto px-7 py-2.5 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-sm font-bold shadow-md shadow-brand-500/25 transition">
+              <button onclick="handleSearch()" class="w-full sm:w-auto px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white rounded-2xl text-xs font-bold shadow-md shadow-brand-500/25 transition shrink-0 active:scale-95">
                 Search
               </button>
             </div>
           </div>
 
+          <!-- Quick Service Filter Badges -->
           <div class="pt-2 flex flex-wrap justify-center gap-2 text-xs">
             <span class="text-slate-400 font-bold py-1.5">Popular:</span>
             <button onclick="filterByCategory('Plumber')" class="px-3.5 py-1.5 bg-white hover:bg-brand-50 hover:text-brand-600 font-semibold rounded-full border border-slate-200 shadow-sm transition">🔧 Plumber</button>
             <button onclick="filterByCategory('Electrician')" class="px-3.5 py-1.5 bg-white hover:bg-brand-50 hover:text-brand-600 font-semibold rounded-full border border-slate-200 shadow-sm transition">⚡ Electrician</button>
+            <button onclick="filterByCategory('Painter')" class="px-3.5 py-1.5 bg-white hover:bg-brand-50 hover:text-brand-600 font-semibold rounded-full border border-slate-200 shadow-sm transition">🎨 Painter</button>
             <button onclick="filterByCategory('Carpenter')" class="px-3.5 py-1.5 bg-white hover:bg-brand-50 hover:text-brand-600 font-semibold rounded-full border border-slate-200 shadow-sm transition">🪚 Carpenter</button>
-            <button onclick="filterByCategory('Cleaner')" class="px-3.5 py-1.5 bg-white hover:bg-brand-50 hover:text-brand-600 font-semibold rounded-full border border-slate-200 shadow-sm transition">🧹 Cleaning</button>
             <button onclick="filterByCategory('AC Repair')" class="px-3.5 py-1.5 bg-white hover:bg-brand-50 hover:text-brand-600 font-semibold rounded-full border border-slate-200 shadow-sm transition">❄️ AC Repair</button>
+            <button onclick="filterByCategory('Cleaner')" class="px-3.5 py-1.5 bg-white hover:bg-brand-50 hover:text-brand-600 font-semibold rounded-full border border-slate-200 shadow-sm transition">🧹 Cleaning</button>
           </div>
         </div>
       </div>
 
+      <!-- WORKER ONBOARDING PROMO BANNER -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 rounded-3xl p-6 sm:p-10 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
+          <div class="space-y-2 text-center md:text-left z-10">
+            <span class="px-3 py-1 bg-white/20 backdrop-blur rounded-full text-[11px] font-black uppercase tracking-wider inline-block">
+              Kya aap skilled professional hain?
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-display font-extrabold tracking-tight">
+              Electrician, Painter ya Plumber ho? Vikori Gharzy se judo!
+            </h2>
+            <p class="text-xs sm:text-sm text-amber-50 max-w-xl font-medium">
+              Apna worker profile banaiye, apna hourly rate (₹/hr) khud set kijiye, aur apne sheher me seedhe customer call & orders paayein.
+            </p>
+          </div>
+          <button onclick="openWorkerModal()" class="shrink-0 whitespace-nowrap px-6 py-4 bg-white text-orange-600 hover:bg-slate-50 font-display font-extrabold text-sm rounded-2xl shadow-xl transition-transform hover:scale-105 active:scale-95 z-10">
+            <i class="fa-solid fa-id-card mr-2 text-amber-600"></i> Worker Registration Karein →
+          </button>
+          
+          <div class="absolute -right-10 -bottom-10 w-44 h-44 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+        </div>
+      </div>
+
+      <!-- SERVICE CATEGORIES GRID -->
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div class="flex items-end justify-between">
           <div>
-            <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-900">Explore Services</h2>
-            <p class="text-sm text-slate-500 mt-1">Verified and trained specialists ready to help</p>
+            <h2 class="text-2xl sm:text-3xl font-display font-black text-slate-900 tracking-tight">Explore Categories</h2>
+            <p class="text-xs sm:text-sm text-slate-500 mt-1">Verified local trade experts ready on call</p>
           </div>
-          <button onclick="filterByCategory('all')" class="text-sm font-bold text-brand-600 hover:underline">View All Services →</button>
+          <button onclick="filterByCategory('all')" class="text-xs font-bold text-brand-600 hover:underline">View All Workers →</button>
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-          <div onclick="filterByCategory('Plumber')" class="cursor-pointer group p-5 bg-white rounded-3xl border border-slate-200 hover:border-brand-500 hover:shadow-xl transition-all text-center">
+          <!-- Plumber -->
+          <div onclick="filterByCategory('Plumber')" class="cursor-pointer group p-5 bg-white rounded-3xl border border-slate-200/80 hover:border-brand-500 hover:shadow-xl transition-all text-center">
             <div class="w-14 h-14 mx-auto rounded-2xl bg-blue-50 text-brand-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
               <i class="fa-solid fa-wrench"></i>
             </div>
             <h3 class="mt-4 font-bold text-slate-800 text-sm">Plumbing</h3>
-            <p class="text-[11px] text-slate-400 mt-0.5">Pipes, leaks & taps</p>
-            <span class="inline-block mt-3 text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">From ₹249/hr</span>
+            <p class="text-[11px] text-slate-400 mt-0.5">Pipe leaks & taps</p>
+            <span class="inline-block mt-3 text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-md">From ₹249/hr</span>
           </div>
 
-          <div onclick="filterByCategory('Electrician')" class="cursor-pointer group p-5 bg-white rounded-3xl border border-slate-200 hover:border-amber-500 hover:shadow-xl transition-all text-center">
+          <!-- Electrician -->
+          <div onclick="filterByCategory('Electrician')" class="cursor-pointer group p-5 bg-white rounded-3xl border border-slate-200/80 hover:border-amber-500 hover:shadow-xl transition-all text-center">
             <div class="w-14 h-14 mx-auto rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
               <i class="fa-solid fa-bolt"></i>
             </div>
             <h3 class="mt-4 font-bold text-slate-800 text-sm">Electrician</h3>
-            <p class="text-[11px] text-slate-400 mt-0.5">Wiring, lights & fans</p>
-            <span class="inline-block mt-3 text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">From ₹299/hr</span>
+            <p class="text-[11px] text-slate-400 mt-0.5">Wiring, fans & MCB</p>
+            <span class="inline-block mt-3 text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-md">From ₹299/hr</span>
           </div>
 
-          <div onclick="filterByCategory('Carpenter')" class="cursor-pointer group p-5 bg-white rounded-3xl border border-slate-200 hover:border-orange-500 hover:shadow-xl transition-all text-center">
+          <!-- Painter -->
+          <div onclick="filterByCategory('Painter')" class="cursor-pointer group p-5 bg-white rounded-3xl border border-slate-200/80 hover:border-emerald-500 hover:shadow-xl transition-all text-center">
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-paint-roller"></i>
+            </div>
+            <h3 class="mt-4 font-bold text-slate-800 text-sm">House Painter</h3>
+            <p class="text-[11px] text-slate-400 mt-0.5">Interior & exterior</p>
+            <span class="inline-block mt-3 text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-md">From ₹250/hr</span>
+          </div>
+
+          <!-- Carpenter -->
+          <div onclick="filterByCategory('Carpenter')" class="cursor-pointer group p-5 bg-white rounded-3xl border border-slate-200/80 hover:border-orange-500 hover:shadow-xl transition-all text-center">
             <div class="w-14 h-14 mx-auto rounded-2xl bg-orange-50 text-orange-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
               <i class="fa-solid fa-hammer"></i>
             </div>
             <h3 class="mt-4 font-bold text-slate-800 text-sm">Carpentry</h3>
-            <p class="text-[11px] text-slate-400 mt-0.5">Furniture & locks</p>
-            <span class="inline-block mt-3 text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">From ₹299/hr</span>
+            <p class="text-[11px] text-slate-400 mt-0.5">Doors & furniture</p>
+            <span class="inline-block mt-3 text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-md">From ₹299/hr</span>
           </div>
 
-          <div onclick="filterByCategory('Cleaner')" class="cursor-pointer group p-5 bg-white rounded-3xl border border-slate-200 hover:border-teal-500 hover:shadow-xl transition-all text-center">
-            <div class="w-14 h-14 mx-auto rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
-              <i class="fa-solid fa-broom"></i>
-            </div>
-            <h3 class="mt-4 font-bold text-slate-800 text-sm">Deep Cleaning</h3>
-            <p class="text-[11px] text-slate-400 mt-0.5">Kitchen & home</p>
-            <span class="inline-block mt-3 text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">From ₹199/hr</span>
-          </div>
-
-          <div onclick="filterByCategory('AC Repair')" class="cursor-pointer group p-5 bg-white rounded-3xl border border-slate-200 hover:border-indigo-500 hover:shadow-xl transition-all text-center">
+          <!-- AC Repair -->
+          <div onclick="filterByCategory('AC Repair')" class="cursor-pointer group p-5 bg-white rounded-3xl border border-slate-200/80 hover:border-indigo-500 hover:shadow-xl transition-all text-center">
             <div class="w-14 h-14 mx-auto rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
               <i class="fa-solid fa-snowflake"></i>
             </div>
             <h3 class="mt-4 font-bold text-slate-800 text-sm">AC & Cooling</h3>
-            <p class="text-[11px] text-slate-400 mt-0.5">Service & gas refill</p>
-            <span class="inline-block mt-3 text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">From ₹399/hr</span>
+            <p class="text-[11px] text-slate-400 mt-0.5">Gas refill & filter</p>
+            <span class="inline-block mt-3 text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-md">From ₹399/hr</span>
           </div>
 
-          <div onclick="filterByCategory('Painter')" class="cursor-pointer group p-5 bg-white rounded-3xl border border-slate-200 hover:border-emerald-500 hover:shadow-xl transition-all text-center">
-            <div class="w-14 h-14 mx-auto rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
-              <i class="fa-solid fa-paint-roller"></i>
+          <!-- Cleaning -->
+          <div onclick="filterByCategory('Cleaner')" class="cursor-pointer group p-5 bg-white rounded-3xl border border-slate-200/80 hover:border-teal-500 hover:shadow-xl transition-all text-center">
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-broom"></i>
             </div>
-            <h3 class="mt-4 font-bold text-slate-800 text-sm">House Painting</h3>
-            <p class="text-[11px] text-slate-400 mt-0.5">Interior & exterior</p>
-            <span class="inline-block mt-3 text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">From ₹250/hr</span>
+            <h3 class="mt-4 font-bold text-slate-800 text-sm">Deep Cleaning</h3>
+            <p class="text-[11px] text-slate-400 mt-0.5">Bathroom & sofa</p>
+            <span class="inline-block mt-3 text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-md">From ₹199/hr</span>
           </div>
         </div>
       </div>
 
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <!-- PLATFORM PILLARS -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="bg-gradient-to-r from-slate-900 to-slate-800 rounded-3xl p-8 sm:p-12 text-white shadow-xl">
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="space-y-2">
@@ -194,119 +271,213 @@
                 <i class="fa-solid fa-shield-halved"></i>
               </div>
               <h3 class="text-lg font-bold font-display">100% Verified Partners</h3>
-              <p class="text-xs text-slate-300">Identity verification and skill assessments for all active providers.</p>
+              <p class="text-xs text-slate-300 leading-relaxed">Identity verification and trade checks for all listed independent service providers.</p>
             </div>
             <div class="space-y-2">
               <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-emerald-400 text-xl">
                 <i class="fa-solid fa-indian-rupee-sign"></i>
               </div>
-              <h3 class="text-lg font-bold font-display">Standard Rates in ₹</h3>
-              <p class="text-xs text-slate-300">Transparent hourly billing with direct booking confirmation.</p>
+              <h3 class="text-lg font-bold font-display">Transparent Rates in ₹</h3>
+              <p class="text-xs text-slate-300 leading-relaxed">Exact hourly rates with zero hidden charges or middleman platform cuts.</p>
             </div>
             <div class="space-y-2">
               <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-amber-400 text-xl">
-                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-phone-volume"></i>
               </div>
-              <h3 class="text-lg font-bold font-display">Genuine User Ratings</h3>
-              <p class="text-xs text-slate-300">Ratings calculated only after verified jobs are completed.</p>
+              <h3 class="text-lg font-bold font-display">Direct Customer Contact</h3>
+              <p class="text-xs text-slate-300 leading-relaxed">Direct mobile & WhatsApp connection to discuss repairs instantly.</p>
             </div>
           </div>
         </div>
       </div>
-    </section>
 
-    <section id="sectionProviders" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
+    </div>
+
+    <!-- ================= SECTION: BROWSE PROVIDERS ================= -->
+    <section id="sectionProviders" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
-          <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-900">Available Professionals</h2>
-          <p class="text-sm text-slate-500 mt-1" id="providersSubtitle">Showing registered service experts near you</p>
+          <h2 class="text-2xl sm:text-3xl font-display font-black text-slate-900 tracking-tight">Available Professionals</h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1" id="providersSubtitle">Showing active tradespeople ready for service</p>
         </div>
         <div class="flex items-center gap-3">
-          <span class="text-xs text-slate-400 font-semibold uppercase">Filter Trade:</span>
-          <select id="activeCategoryFilter" onchange="filterByCategory(this.value)" class="text-sm px-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:outline-none text-slate-700 shadow-sm font-semibold">
+          <span class="text-xs text-slate-400 font-bold uppercase tracking-wider">Filter Trade:</span>
+          <select id="activeCategoryFilter" onchange="filterByCategory(this.value)" class="text-xs font-bold px-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:outline-none text-slate-700 shadow-sm">
             <option value="all">All Specialties</option>
             <option value="Plumber">Plumber</option>
             <option value="Electrician">Electrician</option>
-            <option value="Carpenter">Carpenter</option>
-            <option value="Cleaner">Cleaner</option>
-            <option value="AC Repair">AC Repair</option>
             <option value="Painter">Painter</option>
+            <option value="Carpenter">Carpenter</option>
+            <option value="AC Repair">AC Repair</option>
+            <option value="Cleaner">Cleaner</option>
           </select>
         </div>
       </div>
 
+      <!-- Worker Profiles Grid -->
       <div id="providersContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
-    <section id="sectionBookings" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
+    <!-- ================= SECTION: MY BOOKINGS ================= -->
+    <section id="sectionBookings" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-6">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
-          <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-900">Bookings & Order Status</h2>
-          <p class="text-sm text-slate-500 mt-1">Track appointments, worker assignments, and reviews</p>
+          <h2 class="text-2xl sm:text-3xl font-display font-black text-slate-900 tracking-tight">Orders & Service Status</h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1">Track appointments, assignments and technician reviews</p>
         </div>
       </div>
-
       <div id="bookingsContainer" class="space-y-4"></div>
     </section>
+
   </main>
 
-  <div id="authModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm">
-    <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl relative border border-slate-100">
-      <button onclick="closeAuthModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 text-slate-500 hover:text-slate-900 flex items-center justify-center">
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-white border-t border-slate-200 py-10 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-xl bg-brand-600 text-white flex items-center justify-center text-sm font-bold">
+          <i class="fa-solid fa-house-chimney-crack"></i>
+        </div>
+        <span class="text-lg font-black font-display text-slate-900">Vikori<span class="text-brand-600">Gharzy</span></span>
+      </div>
+      <p class="text-xs text-slate-500">
+        © 2026 Vikori Gharzy. All rights reserved. Connecting home service experts directly to customers.
+      </p>
+      <div class="flex items-center gap-4 text-xs font-bold text-slate-600">
+        <a href="javascript:openWorkerModal()" class="text-amber-600 hover:underline">Worker Register</a>
+        <span>•</span>
+        <a href="javascript:showSection('providers')" class="hover:underline">Find Experts</a>
+        <span>•</span>
+        <a href="https://vikorigharzy.vercel.app" class="hover:underline">Official Portal</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= MODAL: WORKER REGISTRATION ================= -->
+  <div id="workerModal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-100 my-8 relative">
+      <button onclick="closeWorkerModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 flex items-center justify-center text-sm transition">
         <i class="fa-solid fa-xmark"></i>
       </button>
 
       <div class="text-center mb-6">
-        <div class="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center mx-auto text-xl mb-3">
-          <i class="fa-solid fa-user-lock"></i>
+        <div class="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mx-auto text-2xl mb-3 shadow-inner">
+          <i class="fa-solid fa-screwdriver-wrench"></i>
         </div>
-        <h3 id="authTitle" class="text-2xl font-display font-extrabold text-slate-900">Welcome to Vikori Gharzy</h3>
-        <p id="authSubtitle" class="text-xs text-slate-500 mt-1">Sign in with your email to manage or request services</p>
+        <h3 class="text-2xl font-display font-extrabold text-slate-900 tracking-tight">Service Partner Registration</h3>
+        <p class="text-xs text-slate-500 mt-1">Apna kaam chunhein aur Vikori Gharzy par direct orders paayein</p>
       </div>
 
-      <div class="grid grid-cols-2 p-1 bg-slate-100 rounded-xl mb-6 text-sm font-semibold">
-        <button id="modalTabLogin" onclick="switchAuthMode('login')" class="py-2 rounded-lg bg-white text-slate-900 shadow-sm transition">Sign In</button>
-        <button id="modalTabRegister" onclick="switchAuthMode('register')" class="py-2 rounded-lg text-slate-500 hover:text-slate-900 transition">Register</button>
+      <form id="workerRegisterForm" onsubmit="handleWorkerRegister(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Full Name (Pura Naam) *</label>
+          <input type="text" id="wpName" required placeholder="e.g. Ramesh Kumar" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-amber-500">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Profession (Kaam) *</label>
+            <select id="wpCategory" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-amber-500 font-medium">
+              <option value="Electrician">⚡ Electrician</option>
+              <option value="Painter">🎨 Painter</option>
+              <option value="Plumber">🔧 Plumber</option>
+              <option value="Carpenter">🪚 Carpenter</option>
+              <option value="AC Repair">❄️ AC Repair</option>
+              <option value="Cleaner">🧹 Home Cleaner</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Hourly Rate (₹/hr) *</label>
+            <input type="number" id="wpRate" required min="100" max="3000" value="350" placeholder="e.g. 350" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-amber-500 font-bold text-emerald-700">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Mobile / WhatsApp *</label>
+            <input type="tel" id="wpPhone" required placeholder="e.g. 9876543210" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-amber-500">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Experience *</label>
+            <select id="wpExperience" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-amber-500 font-medium">
+              <option value="1-2 yrs">1 - 2 Years</option>
+              <option value="3-5 yrs" selected>3 - 5 Years</option>
+              <option value="6-10 yrs">6 - 10 Years</option>
+              <option value="10+ yrs">10+ Years Expert</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">City / Area *</label>
+          <input type="text" id="wpCity" required placeholder="e.g. Patna, Kankarbagh, Boring Road" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-amber-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Email (Optional)</label>
+          <input type="email" id="wpEmail" placeholder="ramesh.kumar@example.com" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-amber-500">
+        </div>
+
+        <div class="p-3.5 bg-amber-50/70 rounded-2xl border border-amber-200 text-xs text-amber-900 space-y-1">
+          <p class="font-bold"><i class="fa-solid fa-circle-check text-amber-600 mr-1"></i> Instant Marketplace Listing</p>
+          <p class="text-[11px] text-amber-800">Submit karte hi aapka profile turant "Find Workers" directory mein live ho jayega aur customers direct contact kar sakenge.</p>
+        </div>
+
+        <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white rounded-xl text-sm font-bold shadow-lg shadow-amber-500/25 transition active:scale-95">
+          Register & Go Live on Vikori Gharzy
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: AUTHENTICATION (SIGN IN / REGISTER) ================= -->
+  <div id="authModal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 sm:p-8 shadow-2xl border border-slate-100 relative">
+      <button onclick="closeAuthModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 flex items-center justify-center text-sm transition">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="grid grid-cols-2 p-1 bg-slate-100 rounded-xl mb-6 text-xs font-bold">
+        <button id="modalTabLogin" onclick="switchAuthMode('login')" class="py-2.5 rounded-lg bg-white text-slate-900 shadow-sm transition">Sign In</button>
+        <button id="modalTabRegister" onclick="switchAuthMode('register')" class="py-2.5 rounded-lg text-slate-500 hover:text-slate-900 transition">Register</button>
       </div>
 
       <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-4">
         <div id="fieldFullName" class="hidden">
-          <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Full Name</label>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Full Name</label>
           <input type="text" id="inputName" placeholder="e.g. Viraj Manas" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-brand-500">
         </div>
-
         <div>
-          <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Email Address</label>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Email Address</label>
           <input type="email" id="inputEmail" required value="virajmanas07@gmail.com" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-brand-500">
         </div>
-
         <div>
-          <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Password</label>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Password</label>
           <input type="password" id="inputPassword" required placeholder="••••••••" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-brand-500">
         </div>
-
-        <button type="submit" id="authSubmitBtn" class="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-sm font-bold shadow-md shadow-brand-500/25 transition">
+        <button type="submit" id="authSubmitBtn" class="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-sm font-bold shadow-md shadow-brand-500/25 transition active:scale-95">
           Sign In
         </button>
       </form>
     </div>
   </div>
 
-  <div id="bookingModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm">
-    <div class="bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl relative border border-slate-100">
-      <button onclick="closeBookingModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 text-slate-500 hover:text-slate-900 flex items-center justify-center">
+  <!-- ================= MODAL: BOOKING DIALOG ================= -->
+  <div id="bookingModal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-100 relative">
+      <button onclick="closeBookingModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 flex items-center justify-center text-sm transition">
         <i class="fa-solid fa-xmark"></i>
       </button>
 
       <div class="flex items-center gap-4 pb-6 border-b border-slate-200">
-        <div id="bmAvatar" class="w-14 h-14 rounded-2xl bg-brand-600 text-white flex items-center justify-center text-xl font-bold font-display">
+        <div id="bmAvatar" class="w-14 h-14 rounded-2xl bg-brand-600 text-white flex items-center justify-center text-xl font-bold font-display shadow-md">
           VG
         </div>
         <div>
-          <span class="text-xs font-semibold text-brand-600 uppercase tracking-wider">Book Expert Appointment</span>
-          <h3 id="bmName" class="text-xl font-bold text-slate-900">Provider Name</h3>
-          <div class="flex items-center gap-3 text-xs text-slate-500 mt-1">
-            <span id="bmCategory" class="px-2 py-0.5 rounded-md bg-slate-100 font-medium">Plumber</span>
+          <span class="text-[11px] font-bold text-brand-600 uppercase tracking-wider block">Direct Booking Request</span>
+          <h3 id="bmName" class="text-xl font-bold text-slate-900 leading-tight">Provider Name</h3>
+          <div class="flex items-center gap-2 text-xs text-slate-500 mt-1">
+            <span id="bmCategory" class="px-2 py-0.5 rounded-md bg-slate-100 font-semibold text-slate-700">Plumber</span>
             <span id="bmRate" class="font-bold text-emerald-600">₹350 / hr</span>
           </div>
         </div>
@@ -315,243 +486,221 @@
       <form onsubmit="submitBooking(event)" class="mt-6 space-y-4">
         <input type="hidden" id="bmProviderId">
         <div>
-          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Problem Description</label>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Issue Description (Kaam ki Jankari) *</label>
           <textarea id="bmNotes" rows="3" required placeholder="Describe what needs repair or servicing in detail..." class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm outline-none focus:ring-2 focus:ring-brand-500"></textarea>
         </div>
         <div>
-          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Urgency</label>
-          <select id="bmUrgency" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm">
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Urgency (Kab Chahiye) *</label>
+          <select id="bmUrgency" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium">
             <option value="Urgent (Within 2 Hours)">⚡ Urgent (Within 2 Hours)</option>
             <option value="Today Evening">🕒 Today Evening</option>
             <option value="Tomorrow Morning">📅 Tomorrow Morning</option>
             <option value="Flexible Schedule">🗓️ Flexible / Coordinate over call</option>
           </select>
         </div>
-        <button type="submit" class="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-sm font-bold shadow-md shadow-brand-500/25 transition">
-          Confirm Appointment
+        <button type="submit" class="w-full py-3.5 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-sm font-bold shadow-md shadow-brand-500/25 transition active:scale-95">
+          Confirm Appointment Request
         </button>
       </form>
     </div>
   </div>
 
-  <footer class="bg-white border-t border-slate-200 py-10 mt-auto">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
-      <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-xl bg-brand-600 flex items-center justify-center text-white">
-          <i class="fa-solid fa-house-chimney-crack"></i>
-        </div>
-        <span class="font-display font-extrabold text-lg text-slate-900">Vikori<span class="text-brand-600">Gharzy</span></span>
-      </div>
-      <div class="text-center md:text-left text-xs text-slate-500 space-y-1">
-        <p>&copy; 2026 Vikori Gharzy Platform. All rights reserved.</p>
-        <p>Contact Support / Founder: <a href="mailto:virajmanas07@gmail.com" class="text-brand-600 font-bold hover:underline">virajmanas07@gmail.com</a></p>
-      </div>
-      <div class="flex items-center gap-4 text-slate-400 text-sm">
-        <a href="mailto:virajmanas07@gmail.com" class="hover:text-brand-600 transition" title="Email Us"><i class="fa-solid fa-envelope"></i></a>
-        <a href="https://github.com/manasvraj/Vikori_-Gharzy" target="_blank" class="hover:text-brand-600 transition" title="GitHub Repo"><i class="fa-brands fa-github"></i></a>
-      </div>
-    </div>
-  </footer>
-
+  <!-- ================= CORE FRONTEND LOGIC SCRIPT ================= -->
   <script>
+    // Initial Verified Service Providers in India
+    const DEFAULT_PROVIDERS = [
+      {
+        id: 101,
+        name: "Ramesh Sharma",
+        service_type: "Electrician",
+        hourly_rate: 350,
+        phone: "+91 98350 12345",
+        city: "Patna, Bihar",
+        experience: "6 yrs",
+        rating: 4.9,
+        reviews_count: 38,
+        verified: true
+      },
+      {
+        id: 102,
+        name: "Mohan Lal Painter",
+        service_type: "Painter",
+        hourly_rate: 300,
+        phone: "+91 94310 98765",
+        city: "Patna (Kankarbagh)",
+        experience: "8 yrs",
+        rating: 4.8,
+        reviews_count: 52,
+        verified: true
+      },
+      {
+        id: 103,
+        name: "Sunil Verma",
+        service_type: "Plumber",
+        hourly_rate: 280,
+        phone: "+91 91234 56789",
+        city: "Patna (Boring Road)",
+        experience: "5 yrs",
+        rating: 4.9,
+        reviews_count: 64,
+        verified: true
+      },
+      {
+        id: 104,
+        name: "Vikram Mistri",
+        service_type: "Carpenter",
+        hourly_rate: 380,
+        phone: "+91 98765 43210",
+        city: "Danapur, Bihar",
+        experience: "10+ yrs",
+        rating: 5.0,
+        reviews_count: 41,
+        verified: true
+      },
+      {
+        id: 105,
+        name: "Dinesh Cooling Services",
+        service_type: "AC Repair",
+        hourly_rate: 450,
+        phone: "+91 97654 32109",
+        city: "Patna, Bihar",
+        experience: "7 yrs",
+        rating: 4.7,
+        reviews_count: 29,
+        verified: true
+      },
+      {
+        id: 106,
+        name: "Geeta Devi & Team",
+        service_type: "Cleaner",
+        hourly_rate: 220,
+        phone: "+91 96543 21098",
+        city: "Patna (Bailey Road)",
+        experience: "4 yrs",
+        rating: 4.9,
+        reviews_count: 73,
+        verified: true
+      }
+    ];
+
+    // Local Storage State Managers
+    let providers = JSON.parse(localStorage.getItem('vg_providers')) || DEFAULT_PROVIDERS;
+    let bookings = JSON.parse(localStorage.getItem('vg_bookings')) || [];
     let currentUser = JSON.parse(localStorage.getItem('vg_user')) || {
-      id: 1,
       name: "Viraj Manas",
       email: "virajmanas07@gmail.com",
       role: "customer"
     };
-    let activeCategory = 'all';
 
-    let mockProviders = [
-      { id: 101, name: "Rajesh Kumar", service_type: "Plumber", hourly_rate: 299, rating: 4.9, total_reviews: 38, experience: "8 yrs", avatar: "RK" },
-      { id: 102, name: "Vikram Sharma", service_type: "Electrician", hourly_rate: 349, rating: 4.8, total_reviews: 52, experience: "10 yrs", avatar: "VS" },
-      { id: 103, name: "Mohammad Arif", service_type: "Carpenter", hourly_rate: 320, rating: 4.7, total_reviews: 21, experience: "5 yrs", avatar: "MA" },
-      { id: 104, name: "Sunita Devi", service_type: "Cleaner", hourly_rate: 249, rating: 5.0, total_reviews: 64, experience: "6 yrs", avatar: "SD" },
-      { id: 105, name: "Amit Verma", service_type: "AC Repair", hourly_rate: 499, rating: 4.8, total_reviews: 43, experience: "7 yrs", avatar: "AV" },
-      { id: 106, name: "Deepak Rawat", service_type: "Painter", hourly_rate: 280, rating: 4.9, total_reviews: 29, experience: "4 yrs", avatar: "DR" }
-    ];
+    let authMode = "login";
+    let selectedProvider = null;
 
-    let mockBookings = [
-      { id: 1001, provider_name: "Vikram Sharma", service_type: "Electrician", status: "COMPLETED", notes: "Main switch fuse repair & bedroom lighting", rate: 349 },
-      { id: 1002, provider_name: "Rajesh Kumar", service_type: "Plumber", status: "PENDING", notes: "Bathroom pipeline leakage & new tap install", rate: 299 }
-    ];
-
-    function showToast(msg, isError = false) {
-      const t = document.getElementById('toast');
-      const icon = document.getElementById('toastIcon');
-      document.getElementById('toastMsg').innerText = msg;
-      
-      if (isError) {
-        icon.className = "fa-solid fa-circle-exclamation text-rose-400 text-lg";
-        t.className = "fixed top-5 right-5 z-50 transform translate-y-0 opacity-100 transition-all duration-300 max-w-sm flex items-center gap-3 px-4 py-3 bg-rose-950 text-white rounded-2xl shadow-2xl border border-rose-800";
+    // Save states
+    function persistData() {
+      localStorage.setItem('vg_providers', JSON.stringify(providers));
+      localStorage.setItem('vg_bookings', JSON.stringify(bookings));
+      if (currentUser) {
+        localStorage.setItem('vg_user', JSON.stringify(currentUser));
       } else {
-        icon.className = "fa-solid fa-circle-check text-emerald-400 text-lg";
-        t.className = "fixed top-5 right-5 z-50 transform translate-y-0 opacity-100 transition-all duration-300 max-w-sm flex items-center gap-3 px-4 py-3 bg-slate-900 text-white rounded-2xl shadow-2xl border border-slate-800";
+        localStorage.removeItem('vg_user');
       }
-
-      setTimeout(() => {
-        t.classList.replace('translate-y-0', '-translate-y-24');
-        t.classList.replace('opacity-100', 'opacity-0');
-      }, 3000);
     }
 
-    function showSection(id) {
-      ['home', 'providers', 'bookings'].forEach(s => {
-        document.getElementById('section' + s.charAt(0).toUpperCase() + s.slice(1)).classList.add('hidden');
-        const b = document.getElementById('nav' + s.charAt(0).toUpperCase() + s.slice(1));
-        if (b) b.className = "px-4 py-2 text-sm font-semibold rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition";
-      });
+    // UI Toast Notification helper
+    function showToast(message, isSuccess = true) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      const toastIcon = document.getElementById('toastIcon');
 
-      document.getElementById('section' + id.charAt(0).toUpperCase() + id.slice(1)).classList.remove('hidden');
-      const activeBtn = document.getElementById('nav' + id.charAt(0).toUpperCase() + id.slice(1));
-      if (activeBtn) activeBtn.className = "px-4 py-2 text-sm font-semibold rounded-xl text-brand-600 bg-brand-50 transition";
+      toastMessage.innerText = message;
+      if (isSuccess) {
+        toastIcon.className = "w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0";
+        toastIcon.innerHTML = '<i class="fa-solid fa-check"></i>';
+      } else {
+        toastIcon.className = "w-8 h-8 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center shrink-0";
+        toastIcon.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
+      }
 
-      if (id === 'providers') renderProviders();
-      if (id === 'bookings') renderBookings();
+      toast.classList.remove('translate-y-[-120%]', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.add('translate-y-[-120%]', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3500);
+    }
+
+    // Navigation Switcher
+    function showSection(section) {
+      document.getElementById('sectionHome').classList.add('hidden');
+      document.getElementById('sectionProviders').classList.add('hidden');
+      document.getElementById('sectionBookings').classList.add('hidden');
+
+      const navHome = document.getElementById('navHome');
+      const navProviders = document.getElementById('navProviders');
+      const navBookings = document.getElementById('navBookings');
+
+      const activeClass = "px-4 py-2 text-xs font-bold rounded-xl text-brand-600 bg-white shadow-sm transition";
+      const inactiveClass = "px-4 py-2 text-xs font-bold rounded-xl text-slate-600 hover:text-slate-900 hover:bg-white/60 transition";
+
+      navHome.className = inactiveClass;
+      navProviders.className = inactiveClass;
+      navBookings.className = inactiveClass;
+
+      if (section === 'home') {
+        document.getElementById('sectionHome').classList.remove('hidden');
+        navHome.className = activeClass;
+      } else if (section === 'providers') {
+        document.getElementById('sectionProviders').classList.remove('hidden');
+        navProviders.className = activeClass;
+        renderProviders();
+      } else if (section === 'bookings') {
+        document.getElementById('sectionBookings').classList.remove('hidden');
+        navBookings.className = activeClass;
+        renderBookings();
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function filterByCategory(cat) {
-      activeCategory = cat;
-      const select = document.getElementById('activeCategoryFilter');
-      if (select) select.value = cat;
-      showSection('providers');
+    // Modal Handlers
+    function openWorkerModal() {
+      document.getElementById('workerModal').classList.remove('hidden');
+      document.getElementById('workerModal').classList.add('flex');
     }
 
-    function handleSearch() {
-      const q = document.getElementById('searchInput').value.trim();
-      filterByCategory(q || 'all');
+    function closeWorkerModal() {
+      document.getElementById('workerModal').classList.add('hidden');
+      document.getElementById('workerModal').classList.remove('flex');
     }
 
-    function renderProviders() {
-      const c = document.getElementById('providersContainer');
-      const subtitle = document.getElementById('providersSubtitle');
-
-      let list = mockProviders;
-      if (activeCategory !== 'all') {
-        list = list.filter(p => p.service_type.toLowerCase().includes(activeCategory.toLowerCase()));
-        subtitle.innerText = `Showing experts for ${activeCategory}`;
-      } else {
-        subtitle.innerText = "Showing registered service experts near you";
-      }
-
-      c.innerHTML = list.map(p => `
-        <div class="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-sm hover:shadow-xl hover:shadow-brand-500/5 transition-all flex flex-col justify-between group">
-          <div>
-            <div class="flex items-start justify-between gap-3">
-              <div class="flex items-center gap-3">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-600 text-white font-bold font-display flex items-center justify-center text-lg shadow-md shadow-brand-500/20">
-                  ${p.avatar}
-                </div>
-                <div>
-                  <h3 class="font-display font-bold text-slate-900 group-hover:text-brand-600 transition">${p.name}</h3>
-                  <span class="inline-flex items-center gap-1 text-xs font-semibold text-slate-500">
-                    <i class="fa-solid fa-briefcase text-slate-400 text-[10px]"></i> ${p.service_type}
-                  </span>
-                </div>
-              </div>
-              <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-800 border border-amber-200/60 flex items-center gap-1">
-                <i class="fa-solid fa-star text-amber-500 text-[10px]"></i> ${p.rating}
-                <span class="text-[10px] text-amber-900/60 font-normal">(${p.total_reviews})</span>
-              </span>
-            </div>
-
-            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-              <span class="text-slate-500">Experience: <strong class="text-slate-800">${p.experience}</strong></span>
-              <span class="text-emerald-700 font-extrabold text-base bg-emerald-50 px-2.5 py-1 rounded-lg">₹${p.hourly_rate} / hr</span>
-            </div>
-          </div>
-
-          <button onclick="openBooking(${p.id}, '${p.name}', '${p.service_type}', ${p.hourly_rate}, '${p.avatar}')" class="mt-6 w-full py-2.5 bg-brand-50 hover:bg-brand-600 text-brand-600 hover:text-white rounded-xl text-sm font-bold transition shadow-sm">
-            Book Appointment
-          </button>
-        </div>
-      `).join('');
-    }
-
-    function renderBookings() {
-      const c = document.getElementById('bookingsContainer');
-      if (mockBookings.length === 0) {
-        c.innerHTML = `<div class="p-12 text-center bg-white rounded-3xl border border-slate-200 text-slate-400">No bookings created yet.</div>`;
-        return;
-      }
-
-      c.innerHTML = mockBookings.map(b => `
-        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div class="space-y-1">
-            <div class="flex items-center gap-2">
-              <span class="font-bold text-slate-900">${b.provider_name}</span>
-              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold ${
-                b.status === 'COMPLETED' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-amber-50 text-amber-700 border border-amber-200'
-              }">${b.status}</span>
-              <span class="text-xs font-bold text-slate-600">₹${b.rate}/hr</span>
-            </div>
-            <p class="text-xs text-slate-600"><span class="font-semibold text-slate-700">Work:</span> ${b.notes}</p>
-          </div>
-          <div>
-            ${b.status === 'PENDING' ? `
-              <button onclick="this.closest('.flex-col').remove(); showToast('Appointment cancelled');" class="text-xs text-rose-600 hover:underline font-bold px-3 py-1.5 border border-rose-200 rounded-lg hover:bg-rose-50">
-                Cancel
-              </button>
-            ` : `
-              <span class="text-xs text-emerald-600 font-bold flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> Job Done</span>
-            `}
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function openBooking(id, name, cat, rate, avatar) {
-      document.getElementById('bmProviderId').value = id;
-      document.getElementById('bmName').innerText = name;
-      document.getElementById('bmCategory').innerText = cat;
-      document.getElementById('bmRate').innerText = `₹${rate} / hr`;
-      document.getElementById('bmAvatar').innerText = avatar;
-      document.getElementById('bookingModal').classList.remove('hidden');
-    }
-
-    function closeBookingModal() {
-      document.getElementById('bookingModal').classList.add('hidden');
-    }
-
-    function submitBooking(e) {
-      e.preventDefault();
-      const name = document.getElementById('bmName').innerText;
-      const cat = document.getElementById('bmCategory').innerText;
-      const notes = document.getElementById('bmNotes').value;
-      const urg = document.getElementById('bmUrgency').value;
-      const rateText = document.getElementById('bmRate').innerText.replace(/[^0-9]/g, '');
-
-      mockBookings.unshift({
-        id: Date.now(),
-        provider_name: name,
-        service_type: cat,
-        status: 'PENDING',
-        notes: `${notes} [${urg}]`,
-        rate: parseInt(rateText) || 300
-      });
-
-      closeBookingModal();
-      showToast("Appointment booked successfully in ₹!");
-      showSection('bookings');
-    }
-
-    function openAuthModal(m) {
-      switchAuthMode(m);
+    function openAuthModal() {
       document.getElementById('authModal').classList.remove('hidden');
+      document.getElementById('authModal').classList.add('flex');
     }
 
     function closeAuthModal() {
       document.getElementById('authModal').classList.add('hidden');
+      document.getElementById('authModal').classList.remove('flex');
     }
 
-    function switchAuthMode(m) {
-      const isLogin = m === 'login';
-      document.getElementById('fieldFullName').classList.toggle('hidden', isLogin);
-      document.getElementById('authTitle').innerText = isLogin ? "Welcome to Vikori Gharzy" : "Create Free Account";
-      document.getElementById('authSubmitBtn').innerText = isLogin ? "Sign In" : "Register";
-      document.getElementById('modalTabLogin').className = isLogin ? "py-2 rounded-lg bg-white text-slate-900 shadow-sm transition" : "py-2 rounded-lg text-slate-500 hover:text-slate-900 transition";
-      document.getElementById('modalTabRegister').className = !isLogin ? "py-2 rounded-lg bg-white text-slate-900 shadow-sm transition" : "py-2 rounded-lg text-slate-500 hover:text-slate-900 transition";
+    function switchAuthMode(mode) {
+      authMode = mode;
+      const tabLogin = document.getElementById('modalTabLogin');
+      const tabRegister = document.getElementById('modalTabRegister');
+      const fieldFullName = document.getElementById('fieldFullName');
+      const authSubmitBtn = document.getElementById('authSubmitBtn');
+
+      if (mode === 'login') {
+        tabLogin.className = "py-2.5 rounded-lg bg-white text-slate-900 shadow-sm transition";
+        tabRegister.className = "py-2.5 rounded-lg text-slate-500 hover:text-slate-900 transition";
+        fieldFullName.classList.add('hidden');
+        authSubmitBtn.innerText = "Sign In";
+      } else {
+        tabRegister.className = "py-2.5 rounded-lg bg-white text-slate-900 shadow-sm transition";
+        tabLogin.className = "py-2.5 rounded-lg text-slate-500 hover:text-slate-900 transition";
+        fieldFullName.classList.remove('hidden');
+        authSubmitBtn.innerText = "Create Account";
+      }
     }
 
     function handleAuthSubmit(e) {
@@ -559,46 +708,303 @@
       const email = document.getElementById('inputEmail').value.trim();
       const name = document.getElementById('inputName').value.trim() || email.split('@')[0];
 
-      currentUser = { email: email, name: name, role: "customer" };
-      localStorage.setItem('vg_user', JSON.stringify(currentUser));
+      currentUser = {
+        name: name,
+        email: email,
+        role: "customer"
+      };
+
+      persistData();
+      renderAuthNav();
       closeAuthModal();
-      updateAuthUI();
-      showToast(`Logged in as ${email}`);
+      showToast(`Welcome, ${name}!`);
     }
 
-    function updateAuthUI() {
-      const slot = document.getElementById('authNavButtons');
+    function handleLogout() {
+      currentUser = null;
+      persistData();
+      renderAuthNav();
+      showToast("Logged out successfully");
+    }
+
+    function renderAuthNav() {
+      const container = document.getElementById('authNavButtons');
       if (currentUser) {
-        slot.innerHTML = `
-          <div class="flex items-center gap-2">
-            <span class="w-8 h-8 rounded-full bg-brand-100 text-brand-700 font-bold flex items-center justify-center text-xs">
-              ${currentUser.name ? currentUser.name.substring(0, 2).toUpperCase() : 'VM'}
-            </span>
-            <div class="hidden sm:block text-left">
-              <p class="text-xs font-bold text-slate-800 leading-tight">${currentUser.name || 'Viraj Manas'}</p>
-              <span class="text-[10px] text-slate-400 block">${currentUser.email}</span>
+        container.innerHTML = `
+          <div class="flex items-center gap-2 bg-slate-100 hover:bg-slate-200/80 px-3 py-1.5 rounded-xl transition cursor-pointer" onclick="handleLogout()" title="Click to logout">
+            <div class="w-6 h-6 rounded-full bg-brand-600 text-white text-[11px] font-bold flex items-center justify-center">
+              ${currentUser.name.charAt(0).toUpperCase()}
             </div>
-            <button onclick="logout()" class="ml-2 text-xs font-bold text-slate-600 hover:text-rose-600 px-2.5 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition">
-              Logout
-            </button>
+            <span class="text-xs font-bold text-slate-700 hidden sm:inline">${currentUser.name}</span>
+            <i class="fa-solid fa-right-from-bracket text-slate-400 text-xs ml-1"></i>
           </div>
         `;
       } else {
-        slot.innerHTML = `
-          <button onclick="openAuthModal('login')" class="px-4 py-2 text-sm font-bold text-slate-700 hover:text-slate-900">Sign In</button>
-          <button onclick="openAuthModal('register')" class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-sm font-bold shadow-md shadow-brand-500/20 transition">Get Started</button>
+        container.innerHTML = `
+          <button onclick="openAuthModal()" class="text-xs font-bold text-slate-700 hover:text-brand-600 px-3 py-2 rounded-xl transition">
+            Sign In
+          </button>
         `;
       }
     }
 
-    function logout() {
-      currentUser = null;
-      localStorage.removeItem('vg_user');
-      updateAuthUI();
-      showToast("Signed out.");
+    // ================= WORKER REGISTRATION HANDLER =================
+    function handleWorkerRegister(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('wpName').value.trim();
+      const category = document.getElementById('wpCategory').value;
+      const rate = parseFloat(document.getElementById('wpRate').value) || 300;
+      const phone = document.getElementById('wpPhone').value.trim();
+      const experience = document.getElementById('wpExperience').value;
+      const city = document.getElementById('wpCity').value.trim();
+
+      const newWorker = {
+        id: Date.now(),
+        name: name,
+        service_type: category,
+        hourly_rate: rate,
+        phone: phone,
+        city: city,
+        experience: experience,
+        rating: 5.0,
+        reviews_count: 1,
+        verified: true
+      };
+
+      // Push to top of list
+      providers.unshift(newWorker);
+      persistData();
+
+      closeWorkerModal();
+      document.getElementById('workerRegisterForm').reset();
+      showToast(`Badhai ho! ${name} Vikori Gharzy par live list ho gaye! 🎉`);
+
+      // Switch to providers view to show their new profile card
+      showSection('providers');
     }
 
-    updateAuthUI();
+    // ================= RENDER PROVIDER DIRECTORY =================
+    function renderProviders(filterList = null) {
+      const list = filterList || providers;
+      const container = document.getElementById('providersContainer');
+      container.innerHTML = '';
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full text-center py-16 bg-white rounded-3xl border border-slate-200">
+            <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto text-2xl text-slate-400 mb-3">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <h4 class="text-lg font-bold text-slate-800">Koi Worker Nahi Mila</h4>
+            <p class="text-xs text-slate-500 mt-1">Kisi doosri category ya price filter ko try kijiye.</p>
+          </div>
+        `;
+        return;
+      }
+
+      list.forEach(p => {
+        const initials = p.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+
+        const card = document.createElement('div');
+        card.className = "bg-white rounded-3xl p-6 border border-slate-200/90 hover:border-brand-500 hover:shadow-xl transition-all flex flex-col justify-between";
+        card.innerHTML = `
+          <div>
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-600 text-white flex items-center justify-center font-bold text-base font-display shadow-md">
+                  ${initials}
+                </div>
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <h3 class="font-extrabold text-slate-900 text-base leading-tight">${p.name}</h3>
+                    ${p.verified ? '<i class="fa-solid fa-circle-check text-blue-500 text-xs" title="Verified Worker"></i>' : ''}
+                  </div>
+                  <span class="inline-block mt-0.5 text-xs font-semibold text-slate-500">${p.city}</span>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="text-base font-extrabold text-emerald-600 font-display">₹${p.hourly_rate}</span>
+                <span class="text-[10px] text-slate-400 block font-semibold">/ hour</span>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+              <span class="px-2.5 py-1 rounded-lg bg-blue-50 text-brand-700 font-bold">${p.service_type}</span>
+              <div class="flex items-center gap-2">
+                <span class="text-slate-500 font-medium"><i class="fa-solid fa-briefcase text-slate-400 mr-1"></i>${p.experience}</span>
+                <span class="px-2 py-0.5 rounded-md bg-amber-50 text-amber-800 font-bold">
+                  ★ ${p.rating} (${p.reviews_count})
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-slate-100 grid grid-cols-2 gap-2">
+            <a href="tel:${p.phone.replace(/[^0-9]/g, '')}" class="py-2.5 px-3 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold flex items-center justify-center gap-1.5 transition">
+              <i class="fa-solid fa-phone text-emerald-600"></i> Direct Call
+            </a>
+            <button onclick="openBookingModal(${p.id})" class="py-2.5 px-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition shadow-sm">
+              <i class="fa-regular fa-calendar-check"></i> Book Now
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Filter by category
+    function filterByCategory(cat) {
+      document.getElementById('activeCategoryFilter').value = cat;
+      const subtitle = document.getElementById('providersSubtitle');
+
+      showSection('providers');
+
+      if (cat === 'all') {
+        subtitle.innerText = "Showing registered service experts near you";
+        renderProviders(providers);
+      } else {
+        subtitle.innerText = `Showing all verified ${cat} specialists`;
+        const filtered = providers.filter(p => p.service_type.toLowerCase() === cat.toLowerCase());
+        renderProviders(filtered);
+      }
+    }
+
+    // Search input handler
+    function handleSearch() {
+      const query = document.getElementById('searchInput').value.trim().toLowerCase();
+      const rateLimit = document.getElementById('rateFilter').value;
+
+      showSection('providers');
+
+      let results = providers.filter(p => {
+        const matchesQuery = p.name.toLowerCase().includes(query) || 
+                             p.service_type.toLowerCase().includes(query) || 
+                             p.city.toLowerCase().includes(query);
+        
+        let matchesRate = true;
+        if (rateLimit !== 'all') {
+          matchesRate = p.hourly_rate <= parseFloat(rateLimit);
+        }
+        return matchesQuery && matchesRate;
+      });
+
+      document.getElementById('providersSubtitle').innerText = `Search results for "${query || 'All'}" (${results.length} found)`;
+      renderProviders(results);
+    }
+
+    // ================= BOOKING ENGINE =================
+    function openBookingModal(providerId) {
+      selectedProvider = providers.find(p => p.id === providerId);
+      if (!selectedProvider) return;
+
+      document.getElementById('bmProviderId').value = selectedProvider.id;
+      document.getElementById('bmName').innerText = selectedProvider.name;
+      document.getElementById('bmCategory').innerText = selectedProvider.service_type;
+      document.getElementById('bmRate').innerText = `₹${selectedProvider.hourly_rate} / hr`;
+      document.getElementById('bmAvatar').innerText = selectedProvider.name.substring(0, 2).toUpperCase();
+
+      document.getElementById('bookingModal').classList.remove('hidden');
+      document.getElementById('bookingModal').classList.add('flex');
+    }
+
+    function closeBookingModal() {
+      document.getElementById('bookingModal').classList.add('hidden');
+      document.getElementById('bookingModal').classList.remove('flex');
+    }
+
+    function submitBooking(e) {
+      e.preventDefault();
+
+      if (!currentUser) {
+        openAuthModal();
+        return;
+      }
+
+      const notes = document.getElementById('bmNotes').value.trim();
+      const urgency = document.getElementById('bmUrgency').value;
+
+      const newBooking = {
+        id: Date.now(),
+        provider: selectedProvider,
+        customer: currentUser,
+        notes: notes,
+        urgency: urgency,
+        status: "CONFIRMED",
+        date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+      };
+
+      bookings.unshift(newBooking);
+      persistData();
+
+      closeBookingModal();
+      document.getElementById('bmNotes').value = '';
+      showToast("Appointment confirmed! Worker notified.");
+      showSection('bookings');
+    }
+
+    // Render Bookings List
+    function renderBookings() {
+      const container = document.getElementById('bookingsContainer');
+      container.innerHTML = '';
+
+      if (bookings.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-16 bg-white rounded-3xl border border-slate-200">
+            <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto text-2xl text-slate-400 mb-3">
+              <i class="fa-solid fa-calendar-xmark"></i>
+            </div>
+            <h4 class="text-lg font-bold text-slate-800">No Orders Yet</h4>
+            <p class="text-xs text-slate-500 mt-1">Aapne abhi tak koi service request book nahi ki hai.</p>
+            <button onclick="showSection('providers')" class="mt-4 px-5 py-2.5 bg-brand-600 text-white rounded-xl text-xs font-bold hover:bg-brand-700 transition">
+              Find Workers Now
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      bookings.forEach(b => {
+        const item = document.createElement('div');
+        item.className = "bg-white p-5 rounded-2xl border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm";
+        item.innerHTML = `
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2.5">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800">
+                ${b.status}
+              </span>
+              <span class="text-xs text-slate-400 font-semibold">• ${b.date}</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-sm sm:text-base">
+              ${b.provider.service_type} Service with ${b.provider.name}
+            </h4>
+            <p class="text-xs text-slate-600"><span class="font-semibold text-slate-700">Problem:</span> ${b.notes}</p>
+            <p class="text-xs text-brand-600 font-semibold"><i class="fa-regular fa-clock mr-1"></i>${b.urgency}</p>
+          </div>
+
+          <div class="flex items-center gap-2 pt-3 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+            <a href="tel:${b.provider.phone.replace(/[^0-9]/g, '')}" class="px-4 py-2 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
+              <i class="fa-solid fa-phone"></i> Call Worker
+            </a>
+            <button onclick="cancelBooking(${b.id})" class="px-3 py-2 text-slate-400 hover:text-rose-600 text-xs font-bold transition">
+              Cancel
+            </button>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    function cancelBooking(id) {
+      if (!confirm("Are you sure you want to cancel this booking request?")) return;
+      bookings = bookings.filter(b => b.id !== id);
+      persistData();
+      renderBookings();
+      showToast("Booking cancelled");
+    }
+
+    // Init UI
+    renderAuthNav();
     renderProviders();
   </script>
 </body>
