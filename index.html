@@ -3,414 +3,603 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vikori Gharzy - Dashboard</title>
+  <title>Vikori Gharzy | Trusted Local Service Marketplace</title>
+  
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-</head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Navbar -->
-  <header class="bg-indigo-700 text-white shadow-md sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-      <div class="flex items-center space-x-2">
-        <i class="fa-solid fa-house-chimney-user text-2xl text-amber-300"></i>
-        <h1 class="text-xl font-bold tracking-wide">Vikori Gharzy</h1>
-      </div>
-      <div id="authNav" class="flex items-center space-x-4">
-        <span id="userBadge" class="hidden text-sm bg-indigo-800 px-3 py-1 rounded-full border border-indigo-500 font-medium"></span>
-        <button id="logoutBtn" onclick="logout()" class="hidden text-sm bg-rose-600 hover:bg-rose-700 px-3 py-1 rounded shadow transition">Logout</button>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif']
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#2563eb',
+              600: '#1d4ed8',
+              700: '#1e40af',
+              800: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-brand-500 selection:text-white flex flex-col min-h-screen">
+
+  <div id="toast" class="fixed top-5 right-5 z-50 transform -translate-y-24 opacity-0 transition-all duration-300 max-w-sm flex items-center gap-3 px-4 py-3 bg-slate-900 text-white rounded-2xl shadow-2xl border border-slate-800">
+    <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+    <span id="toastMsg" class="text-sm font-medium">Notification message</span>
+  </div>
+
+  <header class="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <a href="#" onclick="showSection('home')" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-700 to-brand-500 flex items-center justify-center text-white shadow-lg shadow-brand-500/25 group-hover:scale-105 transition-transform">
+          <i class="fa-solid fa-house-chimney-crack text-xl"></i>
+        </div>
+        <div>
+          <span class="font-display font-extrabold text-2xl tracking-tight text-slate-900">Vikori<span class="text-brand-600">Gharzy</span></span>
+          <span class="block text-[10px] uppercase font-bold tracking-widest text-slate-400">Home Care & Services</span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-1">
+        <button onclick="showSection('home')" id="navHome" class="px-4 py-2 text-sm font-semibold rounded-xl text-brand-600 bg-brand-50 transition">
+          <i class="fa-solid fa-compass mr-1.5 opacity-80"></i> Explore
+        </button>
+        <button onclick="showSection('providers')" id="navProviders" class="px-4 py-2 text-sm font-semibold rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition">
+          <i class="fa-solid fa-user-gear mr-1.5 opacity-80"></i> Find Workers
+        </button>
+        <button onclick="showSection('bookings')" id="navBookings" class="px-4 py-2 text-sm font-semibold rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition">
+          <i class="fa-solid fa-calendar-check mr-1.5 opacity-80"></i> My Bookings
+        </button>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="mailto:virajmanas07@gmail.com" class="hidden lg:flex items-center gap-1.5 text-xs text-slate-500 hover:text-brand-600 font-semibold px-2.5 py-1.5 rounded-lg border border-slate-200 hover:border-brand-500 transition">
+          <i class="fa-regular fa-envelope text-brand-600"></i> virajmanas07@gmail.com
+        </a>
+        <div id="authNavButtons" class="flex items-center gap-2"></div>
       </div>
     </div>
   </header>
 
-  <main class="max-w-6xl mx-auto p-4 md:p-6 space-y-6">
-
-    <!-- Auth Section -->
-    <div id="authSection" class="grid md:grid-cols-2 gap-6 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-      <div class="space-y-4">
-        <h2 class="text-lg font-bold text-slate-900 border-b pb-2"><i class="fa-solid fa-right-to-bracket text-indigo-600 mr-2"></i>Login</h2>
-        <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Email / Username</label>
-          <input type="email" id="loginEmail" placeholder="Provider@gmail.com" class="w-full border rounded-lg p-2 text-sm focus:ring-2 focus:ring-indigo-400 outline-none">
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Password</label>
-          <input type="password" id="loginPass" placeholder="••••••••" class="w-full border rounded-lg p-2 text-sm focus:ring-2 focus:ring-indigo-400 outline-none">
-        </div>
-        <button onclick="handleLogin()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg text-sm font-semibold shadow transition">
-          Sign In
-        </button>
-      </div>
-
-      <div class="bg-indigo-50 p-5 rounded-lg border border-indigo-100 flex flex-col justify-between">
-        <div>
-          <h3 class="font-semibold text-indigo-900 mb-2">Backend Connection Status</h3>
-          <p class="text-xs text-indigo-700 leading-relaxed mb-4">
-            API target: <code class="bg-white px-1.5 py-0.5 rounded border border-indigo-200 text-indigo-800">http://127.0.0.1:8000</code>
+  <main class="flex-grow">
+    <section id="sectionHome" class="space-y-12">
+      <div class="bg-gradient-to-b from-blue-50/70 via-slate-50/50 to-white pt-14 pb-20 px-4 sm:px-6 lg:px-8 border-b border-slate-200/60">
+        <div class="max-w-4xl mx-auto text-center space-y-6">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-100/70 border border-blue-200 text-brand-700 text-xs font-bold shadow-sm">
+            <span class="w-2.5 h-2.5 rounded-full bg-brand-600 animate-ping"></span>
+            Verified Experts Across India • Direct Booking
+          </div>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-extrabold text-slate-900 tracking-tight leading-[1.15]">
+            Book Reliable Help For All Your <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-indigo-600">Home Needs</span>
+          </h1>
+          <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
+            From emergency plumbing to electrical wiring, carpentry, painting & deep cleaning — guaranteed reliability with transparent rates in <strong>Rupees (₹)</strong>.
           </p>
-          <div id="apiHealth" class="text-xs font-semibold text-emerald-700 bg-emerald-100 border border-emerald-300 p-2 rounded">
-            Checking backend status...
+
+          <div class="max-w-3xl mx-auto bg-white p-2.5 rounded-2xl shadow-xl shadow-slate-200/70 border border-slate-200 flex flex-col sm:flex-row items-center gap-2">
+            <div class="flex items-center gap-3 w-full px-3 py-2 border-b sm:border-b-0 sm:border-r border-slate-200">
+              <i class="fa-solid fa-magnifying-glass text-slate-400"></i>
+              <input id="searchInput" type="text" placeholder="Search service e.g. Plumber, Electrician, Painter..." class="w-full bg-transparent text-sm focus:outline-none text-slate-800 placeholder-slate-400">
+            </div>
+            <div class="w-full sm:w-auto flex items-center gap-2">
+              <select id="rateFilter" class="w-full sm:w-44 px-3 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none text-slate-700 font-medium">
+                <option value="all">Any Price</option>
+                <option value="300">Under ₹300 / hr</option>
+                <option value="500">Under ₹500 / hr</option>
+                <option value="800">Under ₹800 / hr</option>
+              </select>
+              <button onclick="handleSearch()" class="w-full sm:w-auto px-7 py-2.5 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-sm font-bold shadow-md shadow-brand-500/25 transition">
+                Search
+              </button>
+            </div>
+          </div>
+
+          <div class="pt-2 flex flex-wrap justify-center gap-2 text-xs">
+            <span class="text-slate-400 font-bold py-1.5">Popular:</span>
+            <button onclick="filterByCategory('Plumber')" class="px-3.5 py-1.5 bg-white hover:bg-brand-50 hover:text-brand-600 font-semibold rounded-full border border-slate-200 shadow-sm transition">🔧 Plumber</button>
+            <button onclick="filterByCategory('Electrician')" class="px-3.5 py-1.5 bg-white hover:bg-brand-50 hover:text-brand-600 font-semibold rounded-full border border-slate-200 shadow-sm transition">⚡ Electrician</button>
+            <button onclick="filterByCategory('Carpenter')" class="px-3.5 py-1.5 bg-white hover:bg-brand-50 hover:text-brand-600 font-semibold rounded-full border border-slate-200 shadow-sm transition">🪚 Carpenter</button>
+            <button onclick="filterByCategory('Cleaner')" class="px-3.5 py-1.5 bg-white hover:bg-brand-50 hover:text-brand-600 font-semibold rounded-full border border-slate-200 shadow-sm transition">🧹 Cleaning</button>
+            <button onclick="filterByCategory('AC Repair')" class="px-3.5 py-1.5 bg-white hover:bg-brand-50 hover:text-brand-600 font-semibold rounded-full border border-slate-200 shadow-sm transition">❄️ AC Repair</button>
           </div>
         </div>
-        <div class="text-xs text-slate-500 mt-4">
-          Roles available: <span class="font-medium text-slate-700">Customer</span> & <span class="font-medium text-slate-700">Provider</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Main Dashboard -->
-    <div id="dashboardSection" class="hidden space-y-6">
-
-      <!-- Navigation Tabs -->
-      <div class="flex space-x-2 border-b border-slate-200">
-        <button onclick="switchTab('providers')" id="tabBtnProviders" class="px-4 py-2 text-sm font-bold border-b-2 border-indigo-600 text-indigo-600">
-          <i class="fa-solid fa-users-gear mr-1"></i> Browse Providers
-        </button>
-        <button onclick="switchTab('mybookings')" id="tabBtnBookings" class="px-4 py-2 text-sm font-bold text-slate-500 hover:text-indigo-600 border-b-2 border-transparent">
-          <i class="fa-solid fa-calendar-check mr-1"></i> Bookings Management
-        </button>
       </div>
 
-      <!-- Tab 1: Providers -->
-      <div id="tabProviders" class="space-y-4">
-        <div class="flex justify-between items-center">
-          <h3 class="font-bold text-slate-800">Available Service Providers</h3>
-          <button onclick="loadProviders()" class="text-xs bg-slate-200 hover:bg-slate-300 text-slate-700 px-3 py-1.5 rounded transition">
-            <i class="fa-solid fa-arrows-rotate mr-1"></i> Refresh List
-          </button>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <div class="flex items-end justify-between">
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-900">Explore Services</h2>
+            <p class="text-sm text-slate-500 mt-1">Verified and trained specialists ready to help</p>
+          </div>
+          <button onclick="filterByCategory('all')" class="text-sm font-bold text-brand-600 hover:underline">View All Services →</button>
         </div>
-        <div id="providersList" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div onclick="filterByCategory('Plumber')" class="cursor-pointer group p-5 bg-white rounded-3xl border border-slate-200 hover:border-brand-500 hover:shadow-xl transition-all text-center">
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-blue-50 text-brand-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-wrench"></i>
+            </div>
+            <h3 class="mt-4 font-bold text-slate-800 text-sm">Plumbing</h3>
+            <p class="text-[11px] text-slate-400 mt-0.5">Pipes, leaks & taps</p>
+            <span class="inline-block mt-3 text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">From ₹249/hr</span>
+          </div>
+
+          <div onclick="filterByCategory('Electrician')" class="cursor-pointer group p-5 bg-white rounded-3xl border border-slate-200 hover:border-amber-500 hover:shadow-xl transition-all text-center">
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-bolt"></i>
+            </div>
+            <h3 class="mt-4 font-bold text-slate-800 text-sm">Electrician</h3>
+            <p class="text-[11px] text-slate-400 mt-0.5">Wiring, lights & fans</p>
+            <span class="inline-block mt-3 text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">From ₹299/hr</span>
+          </div>
+
+          <div onclick="filterByCategory('Carpenter')" class="cursor-pointer group p-5 bg-white rounded-3xl border border-slate-200 hover:border-orange-500 hover:shadow-xl transition-all text-center">
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-orange-50 text-orange-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-hammer"></i>
+            </div>
+            <h3 class="mt-4 font-bold text-slate-800 text-sm">Carpentry</h3>
+            <p class="text-[11px] text-slate-400 mt-0.5">Furniture & locks</p>
+            <span class="inline-block mt-3 text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">From ₹299/hr</span>
+          </div>
+
+          <div onclick="filterByCategory('Cleaner')" class="cursor-pointer group p-5 bg-white rounded-3xl border border-slate-200 hover:border-teal-500 hover:shadow-xl transition-all text-center">
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-broom"></i>
+            </div>
+            <h3 class="mt-4 font-bold text-slate-800 text-sm">Deep Cleaning</h3>
+            <p class="text-[11px] text-slate-400 mt-0.5">Kitchen & home</p>
+            <span class="inline-block mt-3 text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">From ₹199/hr</span>
+          </div>
+
+          <div onclick="filterByCategory('AC Repair')" class="cursor-pointer group p-5 bg-white rounded-3xl border border-slate-200 hover:border-indigo-500 hover:shadow-xl transition-all text-center">
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-snowflake"></i>
+            </div>
+            <h3 class="mt-4 font-bold text-slate-800 text-sm">AC & Cooling</h3>
+            <p class="text-[11px] text-slate-400 mt-0.5">Service & gas refill</p>
+            <span class="inline-block mt-3 text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">From ₹399/hr</span>
+          </div>
+
+          <div onclick="filterByCategory('Painter')" class="cursor-pointer group p-5 bg-white rounded-3xl border border-slate-200 hover:border-emerald-500 hover:shadow-xl transition-all text-center">
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-paint-roller"></i>
+            </div>
+            <h3 class="mt-4 font-bold text-slate-800 text-sm">House Painting</h3>
+            <p class="text-[11px] text-slate-400 mt-0.5">Interior & exterior</p>
+            <span class="inline-block mt-3 text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">From ₹250/hr</span>
+          </div>
+        </div>
       </div>
 
-      <!-- Tab 2: Bookings -->
-      <div id="tabMyBookings" class="hidden space-y-4">
-        <div class="flex justify-between items-center">
-          <h3 class="font-bold text-slate-800" id="bookingTabHeader">Bookings List</h3>
-          <button onclick="loadMyBookings()" class="text-xs bg-slate-200 hover:bg-slate-300 text-slate-700 px-3 py-1.5 rounded transition">
-            <i class="fa-solid fa-arrows-rotate mr-1"></i> Refresh
-          </button>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="bg-gradient-to-r from-slate-900 to-slate-800 rounded-3xl p-8 sm:p-12 text-white shadow-xl">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="space-y-2">
+              <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-brand-400 text-xl">
+                <i class="fa-solid fa-shield-halved"></i>
+              </div>
+              <h3 class="text-lg font-bold font-display">100% Verified Partners</h3>
+              <p class="text-xs text-slate-300">Identity verification and skill assessments for all active providers.</p>
+            </div>
+            <div class="space-y-2">
+              <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-emerald-400 text-xl">
+                <i class="fa-solid fa-indian-rupee-sign"></i>
+              </div>
+              <h3 class="text-lg font-bold font-display">Standard Rates in ₹</h3>
+              <p class="text-xs text-slate-300">Transparent hourly billing with direct booking confirmation.</p>
+            </div>
+            <div class="space-y-2">
+              <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-amber-400 text-xl">
+                <i class="fa-solid fa-star"></i>
+              </div>
+              <h3 class="text-lg font-bold font-display">Genuine User Ratings</h3>
+              <p class="text-xs text-slate-300">Ratings calculated only after verified jobs are completed.</p>
+            </div>
+          </div>
         </div>
-        <div id="bookingsList" class="space-y-3"></div>
       </div>
+    </section>
 
-    </div>
-
-    <!-- Review Modal -->
-    <div id="reviewModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
-      <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-6 space-y-4">
-        <div class="flex justify-between items-center border-b pb-2">
-          <h3 class="font-bold text-slate-900">Leave a Review</h3>
-          <button onclick="closeReviewModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
-        </div>
-        <input type="hidden" id="reviewBookingId">
+    <section id="sectionProviders" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Rating</label>
-          <select id="reviewRating" class="w-full border rounded-lg p-2 text-sm outline-none">
-            <option value="5">⭐⭐⭐⭐⭐ (5 - Excellent)</option>
-            <option value="4">⭐⭐⭐⭐ (4 - Very Good)</option>
-            <option value="3">⭐⭐⭐ (3 - Average)</option>
-            <option value="2">⭐⭐ (2 - Poor)</option>
-            <option value="1">⭐ (1 - Terrible)</option>
+          <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-900">Available Professionals</h2>
+          <p class="text-sm text-slate-500 mt-1" id="providersSubtitle">Showing registered service experts near you</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="text-xs text-slate-400 font-semibold uppercase">Filter Trade:</span>
+          <select id="activeCategoryFilter" onchange="filterByCategory(this.value)" class="text-sm px-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:outline-none text-slate-700 shadow-sm font-semibold">
+            <option value="all">All Specialties</option>
+            <option value="Plumber">Plumber</option>
+            <option value="Electrician">Electrician</option>
+            <option value="Carpenter">Carpenter</option>
+            <option value="Cleaner">Cleaner</option>
+            <option value="AC Repair">AC Repair</option>
+            <option value="Painter">Painter</option>
           </select>
         </div>
+      </div>
+
+      <div id="providersContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+    <section id="sectionBookings" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Your Feedback</label>
-          <textarea id="reviewComment" rows="3" placeholder="Share your experience..." class="w-full border rounded-lg p-2 text-sm outline-none"></textarea>
-        </div>
-        <div class="flex justify-end space-x-2 pt-2">
-          <button onclick="closeReviewModal()" class="px-3 py-1.5 border rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-100">Cancel</button>
-          <button onclick="submitReview()" class="px-4 py-1.5 bg-indigo-600 text-white rounded-lg text-xs font-semibold hover:bg-indigo-700 shadow">Submit Review</button>
+          <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-900">Bookings & Order Status</h2>
+          <p class="text-sm text-slate-500 mt-1">Track appointments, worker assignments, and reviews</p>
         </div>
       </div>
-    </div>
 
+      <div id="bookingsContainer" class="space-y-4"></div>
+    </section>
   </main>
 
+  <div id="authModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl relative border border-slate-100">
+      <button onclick="closeAuthModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 text-slate-500 hover:text-slate-900 flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="text-center mb-6">
+        <div class="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center mx-auto text-xl mb-3">
+          <i class="fa-solid fa-user-lock"></i>
+        </div>
+        <h3 id="authTitle" class="text-2xl font-display font-extrabold text-slate-900">Welcome to Vikori Gharzy</h3>
+        <p id="authSubtitle" class="text-xs text-slate-500 mt-1">Sign in with your email to manage or request services</p>
+      </div>
+
+      <div class="grid grid-cols-2 p-1 bg-slate-100 rounded-xl mb-6 text-sm font-semibold">
+        <button id="modalTabLogin" onclick="switchAuthMode('login')" class="py-2 rounded-lg bg-white text-slate-900 shadow-sm transition">Sign In</button>
+        <button id="modalTabRegister" onclick="switchAuthMode('register')" class="py-2 rounded-lg text-slate-500 hover:text-slate-900 transition">Register</button>
+      </div>
+
+      <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-4">
+        <div id="fieldFullName" class="hidden">
+          <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Full Name</label>
+          <input type="text" id="inputName" placeholder="e.g. Viraj Manas" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-brand-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Email Address</label>
+          <input type="email" id="inputEmail" required value="virajmanas07@gmail.com" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-brand-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Password</label>
+          <input type="password" id="inputPassword" required placeholder="••••••••" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-brand-500">
+        </div>
+
+        <button type="submit" id="authSubmitBtn" class="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-sm font-bold shadow-md shadow-brand-500/25 transition">
+          Sign In
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div id="bookingModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl relative border border-slate-100">
+      <button onclick="closeBookingModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 text-slate-500 hover:text-slate-900 flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="flex items-center gap-4 pb-6 border-b border-slate-200">
+        <div id="bmAvatar" class="w-14 h-14 rounded-2xl bg-brand-600 text-white flex items-center justify-center text-xl font-bold font-display">
+          VG
+        </div>
+        <div>
+          <span class="text-xs font-semibold text-brand-600 uppercase tracking-wider">Book Expert Appointment</span>
+          <h3 id="bmName" class="text-xl font-bold text-slate-900">Provider Name</h3>
+          <div class="flex items-center gap-3 text-xs text-slate-500 mt-1">
+            <span id="bmCategory" class="px-2 py-0.5 rounded-md bg-slate-100 font-medium">Plumber</span>
+            <span id="bmRate" class="font-bold text-emerald-600">₹350 / hr</span>
+          </div>
+        </div>
+      </div>
+
+      <form onsubmit="submitBooking(event)" class="mt-6 space-y-4">
+        <input type="hidden" id="bmProviderId">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Problem Description</label>
+          <textarea id="bmNotes" rows="3" required placeholder="Describe what needs repair or servicing in detail..." class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm outline-none focus:ring-2 focus:ring-brand-500"></textarea>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Urgency</label>
+          <select id="bmUrgency" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm">
+            <option value="Urgent (Within 2 Hours)">⚡ Urgent (Within 2 Hours)</option>
+            <option value="Today Evening">🕒 Today Evening</option>
+            <option value="Tomorrow Morning">📅 Tomorrow Morning</option>
+            <option value="Flexible Schedule">🗓️ Flexible / Coordinate over call</option>
+          </select>
+        </div>
+        <button type="submit" class="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-sm font-bold shadow-md shadow-brand-500/25 transition">
+          Confirm Appointment
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <footer class="bg-white border-t border-slate-200 py-10 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-brand-600 flex items-center justify-center text-white">
+          <i class="fa-solid fa-house-chimney-crack"></i>
+        </div>
+        <span class="font-display font-extrabold text-lg text-slate-900">Vikori<span class="text-brand-600">Gharzy</span></span>
+      </div>
+      <div class="text-center md:text-left text-xs text-slate-500 space-y-1">
+        <p>&copy; 2026 Vikori Gharzy Platform. All rights reserved.</p>
+        <p>Contact Support / Founder: <a href="mailto:virajmanas07@gmail.com" class="text-brand-600 font-bold hover:underline">virajmanas07@gmail.com</a></p>
+      </div>
+      <div class="flex items-center gap-4 text-slate-400 text-sm">
+        <a href="mailto:virajmanas07@gmail.com" class="hover:text-brand-600 transition" title="Email Us"><i class="fa-solid fa-envelope"></i></a>
+        <a href="https://github.com/manasvraj/Vikori_-Gharzy" target="_blank" class="hover:text-brand-600 transition" title="GitHub Repo"><i class="fa-brands fa-github"></i></a>
+      </div>
+    </div>
+  </footer>
+
   <script>
-    const API_BASE = "http://127.0.0.1:8000";
-    let token = localStorage.getItem("token") || null;
-    let currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
+    let currentUser = JSON.parse(localStorage.getItem('vg_user')) || {
+      id: 1,
+      name: "Viraj Manas",
+      email: "virajmanas07@gmail.com",
+      role: "customer"
+    };
+    let activeCategory = 'all';
 
-    async function checkBackend() {
-      const statusEl = document.getElementById("apiHealth");
-      try {
-        const res = await fetch(`${API_BASE}/docs`);
-        if (res.ok) {
-          statusEl.innerText = "🟢 Backend connected & operational";
-          statusEl.className = "text-xs font-semibold text-emerald-700 bg-emerald-100 border border-emerald-300 p-2 rounded";
-        }
-      } catch (err) {
-        statusEl.innerText = "🔴 Backend unreachable. Ensure Uvicorn is running!";
-        statusEl.className = "text-xs font-semibold text-rose-700 bg-rose-100 border border-rose-300 p-2 rounded";
-      }
-    }
+    let mockProviders = [
+      { id: 101, name: "Rajesh Kumar", service_type: "Plumber", hourly_rate: 299, rating: 4.9, total_reviews: 38, experience: "8 yrs", avatar: "RK" },
+      { id: 102, name: "Vikram Sharma", service_type: "Electrician", hourly_rate: 349, rating: 4.8, total_reviews: 52, experience: "10 yrs", avatar: "VS" },
+      { id: 103, name: "Mohammad Arif", service_type: "Carpenter", hourly_rate: 320, rating: 4.7, total_reviews: 21, experience: "5 yrs", avatar: "MA" },
+      { id: 104, name: "Sunita Devi", service_type: "Cleaner", hourly_rate: 249, rating: 5.0, total_reviews: 64, experience: "6 yrs", avatar: "SD" },
+      { id: 105, name: "Amit Verma", service_type: "AC Repair", hourly_rate: 499, rating: 4.8, total_reviews: 43, experience: "7 yrs", avatar: "AV" },
+      { id: 106, name: "Deepak Rawat", service_type: "Painter", hourly_rate: 280, rating: 4.9, total_reviews: 29, experience: "4 yrs", avatar: "DR" }
+    ];
 
-    async function handleLogin() {
-      const email = document.getElementById("loginEmail").value.trim();
-      const password = document.getElementById("loginPass").value.trim();
-      if (!email || !password) return alert("Please enter email and password");
+    let mockBookings = [
+      { id: 1001, provider_name: "Vikram Sharma", service_type: "Electrician", status: "COMPLETED", notes: "Main switch fuse repair & bedroom lighting", rate: 349 },
+      { id: 1002, provider_name: "Rajesh Kumar", service_type: "Plumber", status: "PENDING", notes: "Bathroom pipeline leakage & new tap install", rate: 299 }
+    ];
 
-      const formData = new URLSearchParams();
-      formData.append("username", email);
-      formData.append("password", password);
-
-      try {
-        const res = await fetch(`${API_BASE}/login`, {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: formData
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.detail || "Login failed");
-
-        token = data.access_token;
-        localStorage.setItem("token", token);
-
-        // Fetch current user details to check role
-        const meRes = await fetch(`${API_BASE}/me`, {
-          headers: { "Authorization": `Bearer ${token}` }
-        });
-        currentUser = await meRes.json();
-        localStorage.setItem("currentUser", JSON.stringify(currentUser));
-
-        initDashboard();
-      } catch (err) {
-        alert("Login Error: " + err.message);
-      }
-    }
-
-    function initDashboard() {
-      document.getElementById("authSection").classList.add("hidden");
-      document.getElementById("dashboardSection").classList.remove("hidden");
-      document.getElementById("userBadge").classList.remove("hidden");
+    function showToast(msg, isError = false) {
+      const t = document.getElementById('toast');
+      const icon = document.getElementById('toastIcon');
+      document.getElementById('toastMsg').innerText = msg;
       
-      const roleText = currentUser ? ` [${currentUser.role.toUpperCase()}]` : '';
-      const emailText = currentUser ? currentUser.email : "User";
-      document.getElementById("userBadge").innerText = `👤 ${emailText}${roleText}`;
-      document.getElementById("logoutBtn").classList.remove("hidden");
-
-      if (currentUser && currentUser.role === "provider") {
-        document.getElementById("tabBtnProviders").classList.add("hidden");
-        document.getElementById("bookingTabHeader").innerText = "Assigned Service Requests";
-        switchTab('mybookings');
+      if (isError) {
+        icon.className = "fa-solid fa-circle-exclamation text-rose-400 text-lg";
+        t.className = "fixed top-5 right-5 z-50 transform translate-y-0 opacity-100 transition-all duration-300 max-w-sm flex items-center gap-3 px-4 py-3 bg-rose-950 text-white rounded-2xl shadow-2xl border border-rose-800";
       } else {
-        document.getElementById("tabBtnProviders").classList.remove("hidden");
-        document.getElementById("bookingTabHeader").innerText = "Your Bookings";
-        loadProviders();
-        loadMyBookings();
+        icon.className = "fa-solid fa-circle-check text-emerald-400 text-lg";
+        t.className = "fixed top-5 right-5 z-50 transform translate-y-0 opacity-100 transition-all duration-300 max-w-sm flex items-center gap-3 px-4 py-3 bg-slate-900 text-white rounded-2xl shadow-2xl border border-slate-800";
+      }
+
+      setTimeout(() => {
+        t.classList.replace('translate-y-0', '-translate-y-24');
+        t.classList.replace('opacity-100', 'opacity-0');
+      }, 3000);
+    }
+
+    function showSection(id) {
+      ['home', 'providers', 'bookings'].forEach(s => {
+        document.getElementById('section' + s.charAt(0).toUpperCase() + s.slice(1)).classList.add('hidden');
+        const b = document.getElementById('nav' + s.charAt(0).toUpperCase() + s.slice(1));
+        if (b) b.className = "px-4 py-2 text-sm font-semibold rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition";
+      });
+
+      document.getElementById('section' + id.charAt(0).toUpperCase() + id.slice(1)).classList.remove('hidden');
+      const activeBtn = document.getElementById('nav' + id.charAt(0).toUpperCase() + id.slice(1));
+      if (activeBtn) activeBtn.className = "px-4 py-2 text-sm font-semibold rounded-xl text-brand-600 bg-brand-50 transition";
+
+      if (id === 'providers') renderProviders();
+      if (id === 'bookings') renderBookings();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function filterByCategory(cat) {
+      activeCategory = cat;
+      const select = document.getElementById('activeCategoryFilter');
+      if (select) select.value = cat;
+      showSection('providers');
+    }
+
+    function handleSearch() {
+      const q = document.getElementById('searchInput').value.trim();
+      filterByCategory(q || 'all');
+    }
+
+    function renderProviders() {
+      const c = document.getElementById('providersContainer');
+      const subtitle = document.getElementById('providersSubtitle');
+
+      let list = mockProviders;
+      if (activeCategory !== 'all') {
+        list = list.filter(p => p.service_type.toLowerCase().includes(activeCategory.toLowerCase()));
+        subtitle.innerText = `Showing experts for ${activeCategory}`;
+      } else {
+        subtitle.innerText = "Showing registered service experts near you";
+      }
+
+      c.innerHTML = list.map(p => `
+        <div class="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-sm hover:shadow-xl hover:shadow-brand-500/5 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-600 text-white font-bold font-display flex items-center justify-center text-lg shadow-md shadow-brand-500/20">
+                  ${p.avatar}
+                </div>
+                <div>
+                  <h3 class="font-display font-bold text-slate-900 group-hover:text-brand-600 transition">${p.name}</h3>
+                  <span class="inline-flex items-center gap-1 text-xs font-semibold text-slate-500">
+                    <i class="fa-solid fa-briefcase text-slate-400 text-[10px]"></i> ${p.service_type}
+                  </span>
+                </div>
+              </div>
+              <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-800 border border-amber-200/60 flex items-center gap-1">
+                <i class="fa-solid fa-star text-amber-500 text-[10px]"></i> ${p.rating}
+                <span class="text-[10px] text-amber-900/60 font-normal">(${p.total_reviews})</span>
+              </span>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+              <span class="text-slate-500">Experience: <strong class="text-slate-800">${p.experience}</strong></span>
+              <span class="text-emerald-700 font-extrabold text-base bg-emerald-50 px-2.5 py-1 rounded-lg">₹${p.hourly_rate} / hr</span>
+            </div>
+          </div>
+
+          <button onclick="openBooking(${p.id}, '${p.name}', '${p.service_type}', ${p.hourly_rate}, '${p.avatar}')" class="mt-6 w-full py-2.5 bg-brand-50 hover:bg-brand-600 text-brand-600 hover:text-white rounded-xl text-sm font-bold transition shadow-sm">
+            Book Appointment
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function renderBookings() {
+      const c = document.getElementById('bookingsContainer');
+      if (mockBookings.length === 0) {
+        c.innerHTML = `<div class="p-12 text-center bg-white rounded-3xl border border-slate-200 text-slate-400">No bookings created yet.</div>`;
+        return;
+      }
+
+      c.innerHTML = mockBookings.map(b => `
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-slate-900">${b.provider_name}</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold ${
+                b.status === 'COMPLETED' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-amber-50 text-amber-700 border border-amber-200'
+              }">${b.status}</span>
+              <span class="text-xs font-bold text-slate-600">₹${b.rate}/hr</span>
+            </div>
+            <p class="text-xs text-slate-600"><span class="font-semibold text-slate-700">Work:</span> ${b.notes}</p>
+          </div>
+          <div>
+            ${b.status === 'PENDING' ? `
+              <button onclick="this.closest('.flex-col').remove(); showToast('Appointment cancelled');" class="text-xs text-rose-600 hover:underline font-bold px-3 py-1.5 border border-rose-200 rounded-lg hover:bg-rose-50">
+                Cancel
+              </button>
+            ` : `
+              <span class="text-xs text-emerald-600 font-bold flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> Job Done</span>
+            `}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openBooking(id, name, cat, rate, avatar) {
+      document.getElementById('bmProviderId').value = id;
+      document.getElementById('bmName').innerText = name;
+      document.getElementById('bmCategory').innerText = cat;
+      document.getElementById('bmRate').innerText = `₹${rate} / hr`;
+      document.getElementById('bmAvatar').innerText = avatar;
+      document.getElementById('bookingModal').classList.remove('hidden');
+    }
+
+    function closeBookingModal() {
+      document.getElementById('bookingModal').classList.add('hidden');
+    }
+
+    function submitBooking(e) {
+      e.preventDefault();
+      const name = document.getElementById('bmName').innerText;
+      const cat = document.getElementById('bmCategory').innerText;
+      const notes = document.getElementById('bmNotes').value;
+      const urg = document.getElementById('bmUrgency').value;
+      const rateText = document.getElementById('bmRate').innerText.replace(/[^0-9]/g, '');
+
+      mockBookings.unshift({
+        id: Date.now(),
+        provider_name: name,
+        service_type: cat,
+        status: 'PENDING',
+        notes: `${notes} [${urg}]`,
+        rate: parseInt(rateText) || 300
+      });
+
+      closeBookingModal();
+      showToast("Appointment booked successfully in ₹!");
+      showSection('bookings');
+    }
+
+    function openAuthModal(m) {
+      switchAuthMode(m);
+      document.getElementById('authModal').classList.remove('hidden');
+    }
+
+    function closeAuthModal() {
+      document.getElementById('authModal').classList.add('hidden');
+    }
+
+    function switchAuthMode(m) {
+      const isLogin = m === 'login';
+      document.getElementById('fieldFullName').classList.toggle('hidden', isLogin);
+      document.getElementById('authTitle').innerText = isLogin ? "Welcome to Vikori Gharzy" : "Create Free Account";
+      document.getElementById('authSubmitBtn').innerText = isLogin ? "Sign In" : "Register";
+      document.getElementById('modalTabLogin').className = isLogin ? "py-2 rounded-lg bg-white text-slate-900 shadow-sm transition" : "py-2 rounded-lg text-slate-500 hover:text-slate-900 transition";
+      document.getElementById('modalTabRegister').className = !isLogin ? "py-2 rounded-lg bg-white text-slate-900 shadow-sm transition" : "py-2 rounded-lg text-slate-500 hover:text-slate-900 transition";
+    }
+
+    function handleAuthSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('inputEmail').value.trim();
+      const name = document.getElementById('inputName').value.trim() || email.split('@')[0];
+
+      currentUser = { email: email, name: name, role: "customer" };
+      localStorage.setItem('vg_user', JSON.stringify(currentUser));
+      closeAuthModal();
+      updateAuthUI();
+      showToast(`Logged in as ${email}`);
+    }
+
+    function updateAuthUI() {
+      const slot = document.getElementById('authNavButtons');
+      if (currentUser) {
+        slot.innerHTML = `
+          <div class="flex items-center gap-2">
+            <span class="w-8 h-8 rounded-full bg-brand-100 text-brand-700 font-bold flex items-center justify-center text-xs">
+              ${currentUser.name ? currentUser.name.substring(0, 2).toUpperCase() : 'VM'}
+            </span>
+            <div class="hidden sm:block text-left">
+              <p class="text-xs font-bold text-slate-800 leading-tight">${currentUser.name || 'Viraj Manas'}</p>
+              <span class="text-[10px] text-slate-400 block">${currentUser.email}</span>
+            </div>
+            <button onclick="logout()" class="ml-2 text-xs font-bold text-slate-600 hover:text-rose-600 px-2.5 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition">
+              Logout
+            </button>
+          </div>
+        `;
+      } else {
+        slot.innerHTML = `
+          <button onclick="openAuthModal('login')" class="px-4 py-2 text-sm font-bold text-slate-700 hover:text-slate-900">Sign In</button>
+          <button onclick="openAuthModal('register')" class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-sm font-bold shadow-md shadow-brand-500/20 transition">Get Started</button>
+        `;
       }
     }
 
     function logout() {
-      localStorage.removeItem("token");
-      localStorage.removeItem("currentUser");
-      token = null;
       currentUser = null;
-      location.reload();
+      localStorage.removeItem('vg_user');
+      updateAuthUI();
+      showToast("Signed out.");
     }
 
-    function switchTab(tab) {
-      if (tab === 'providers') {
-        document.getElementById("tabProviders").classList.remove("hidden");
-        document.getElementById("tabMyBookings").classList.add("hidden");
-        document.getElementById("tabBtnProviders").className = "px-4 py-2 text-sm font-bold border-b-2 border-indigo-600 text-indigo-600";
-        document.getElementById("tabBtnBookings").className = "px-4 py-2 text-sm font-bold text-slate-500 hover:text-indigo-600 border-b-2 border-transparent";
-      } else {
-        document.getElementById("tabProviders").classList.add("hidden");
-        document.getElementById("tabMyBookings").classList.remove("hidden");
-        document.getElementById("tabBtnBookings").className = "px-4 py-2 text-sm font-bold border-b-2 border-indigo-600 text-indigo-600";
-        document.getElementById("tabBtnProviders").className = "px-4 py-2 text-sm font-bold text-slate-500 hover:text-indigo-600 border-b-2 border-transparent";
-        loadMyBookings();
-      }
-    }
-
-    async function loadProviders() {
-      const container = document.getElementById("providersList");
-      container.innerHTML = `<p class="text-xs text-slate-400">Loading providers...</p>`;
-      try {
-        const res = await fetch(`${API_BASE}/providers/`);
-        const providers = await res.json();
-        if (providers.length === 0) {
-          container.innerHTML = `<p class="text-xs text-slate-500">No providers available yet.</p>`;
-          return;
-        }
-
-        container.innerHTML = providers.map(p => `
-          <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-between">
-            <div>
-              <div class="flex items-center space-x-3 mb-2">
-                <div class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-sm">
-                  ${(p.email || 'P')[0].toUpperCase()}
-                </div>
-                <div>
-                  <h4 class="font-semibold text-sm text-slate-900">${p.email}</h4>
-                  <span class="text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded">ID: ${p.id}</span>
-                </div>
-              </div>
-            </div>
-            <button onclick="bookProvider(${p.id})" class="mt-4 w-full bg-slate-900 hover:bg-slate-800 text-white py-1.5 rounded-lg text-xs font-medium transition">
-              Book Service
-            </button>
-          </div>
-        `).join("");
-      } catch (err) {
-        container.innerHTML = `<p class="text-xs text-rose-500">Failed to load: ${err.message}</p>`;
-      }
-    }
-
-    async function bookProvider(providerId) {
-      if (!confirm(`Confirm booking with Provider #${providerId}?`)) return;
-      try {
-        const res = await fetch(`${API_BASE}/bookings/`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          },
-          body: JSON.stringify({ provider_id: providerId, category_id: 1 })
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.detail || "Booking failed");
-
-        alert("Booking created! ID: " + data.id);
-        switchTab('mybookings');
-      } catch (err) {
-        alert("Booking error: " + err.message);
-      }
-    }
-
-    async function updateStatus(bookingId, newStatus) {
-      try {
-        const res = await fetch(`${API_BASE}/bookings/${bookingId}/status`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          },
-          body: JSON.stringify({ status: newStatus })
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.detail || "Status update failed");
-
-        loadMyBookings();
-      } catch (err) {
-        alert("Update Error: " + err.message);
-      }
-    }
-
-    async function loadMyBookings() {
-      const container = document.getElementById("bookingsList");
-      container.innerHTML = `<p class="text-xs text-slate-400">Loading bookings...</p>`;
-      try {
-        const res = await fetch(`${API_BASE}/bookings/me`, {
-          headers: { "Authorization": `Bearer ${token}` }
-        });
-        const bookings = await res.json();
-        if (bookings.length === 0) {
-          container.innerHTML = `<p class="text-xs text-slate-500 bg-white p-4 rounded-lg border">No bookings found.</p>`;
-          return;
-        }
-
-        const isProvider = currentUser && currentUser.role === "provider";
-
-        container.innerHTML = bookings.map(b => {
-          let actionButtons = "";
-          const statusLower = b.status.toLowerCase();
-
-          if (isProvider) {
-            if (statusLower === 'pending') {
-              actionButtons = `
-                <button onclick="updateStatus(${b.id}, 'accepted')" class="text-xs bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-3 py-1.5 rounded-lg transition shadow-sm">
-                  Accept
-                </button>
-              `;
-            } else if (statusLower === 'accepted') {
-              actionButtons = `
-                <button onclick="updateStatus(${b.id}, 'completed')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-3 py-1.5 rounded-lg transition shadow-sm">
-                  Mark Completed
-                </button>
-              `;
-            } else {
-              actionButtons = `<span class="text-xs font-semibold text-emerald-600"><i class="fa-solid fa-circle-check mr-1"></i>Finished</span>`;
-            }
-          } else {
-            if (statusLower === 'completed') {
-              actionButtons = `
-                <button onclick="openReviewModal(${b.id})" class="text-xs bg-amber-500 hover:bg-amber-600 text-white font-semibold px-3 py-1.5 rounded-lg transition shadow-sm">
-                  ⭐ Leave Review
-                </button>
-              `;
-            } else {
-              actionButtons = `<span class="text-xs text-slate-400 italic">In progress...</span>`;
-            }
-          }
-
-          return `
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between sm:items-center gap-3">
-              <div>
-                <div class="flex items-center space-x-2">
-                  <span class="font-bold text-sm text-slate-800">Booking #${b.id}</span>
-                  <span class="text-xs font-semibold px-2 py-0.5 rounded ${
-                    statusLower === 'completed' ? 'bg-emerald-100 text-emerald-700' : 
-                    statusLower === 'accepted' ? 'bg-blue-100 text-blue-700' : 'bg-amber-100 text-amber-800'
-                  }">
-                    ${b.status.toUpperCase()}
-                  </span>
-                </div>
-                <p class="text-xs text-slate-500 mt-1">Provider ID: ${b.provider_id} • Customer ID: ${b.user_id}</p>
-              </div>
-              <div class="flex items-center space-x-2">
-                ${actionButtons}
-              </div>
-            </div>
-          `;
-        }).join("");
-      } catch (err) {
-        container.innerHTML = `<p class="text-xs text-rose-500">Failed to load: ${err.message}</p>`;
-      }
-    }
-
-    function openReviewModal(bookingId) {
-      document.getElementById("reviewBookingId").value = bookingId;
-      document.getElementById("reviewModal").classList.remove("hidden");
-      document.getElementById("reviewModal").classList.add("flex");
-    }
-
-    function closeReviewModal() {
-      document.getElementById("reviewModal").classList.add("hidden");
-      document.getElementById("reviewModal").classList.remove("flex");
-    }
-
-    async function submitReview() {
-      const bookingId = parseInt(document.getElementById("reviewBookingId").value);
-      const rating = parseInt(document.getElementById("reviewRating").value);
-      const comment = document.getElementById("reviewComment").value.trim();
-
-      try {
-        const res = await fetch(`${API_BASE}/reviews/`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          },
-          body: JSON.stringify({ booking_id: bookingId, rating, comment })
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.detail || "Review failed");
-
-        alert("Review submitted!");
-        closeReviewModal();
-      } catch (err) {
-        alert("Error: " + err.message);
-      }
-    }
-
-    window.onload = () => {
-      checkBackend();
-      if (token && currentUser) {
-        initDashboard();
-      }
-    };
+    updateAuthUI();
+    renderProviders();
   </script>
 </body>
 </html>
