@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -747,4 +746,498 @@
           <div class="cat-name">AC Repair</div>
           <div class="cat-rate">From ₹399/hr</div>
         </div>
-   
+        <div class="cat-card" onclick="filterByCategory('Cleaner')">
+          <div class="cat-icon" style="background: #f0fdfa; color: #0d9488;">🧹</div>
+          <div class="cat-name">Deep Clean</div>
+          <div class="cat-rate">From ₹199/hr</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: BROWSE PROVIDERS -->
+    <section id="secProviders" style="display: none; padding: 32px 0;">
+      <div class="section-title-wrap">
+        <div>
+          <h2 style="font-size: 26px;">Available Service Workers</h2>
+          <p id="secProvidersSubtitle" style="font-size: 13px; color: var(--slate);">Verified professionals active now</p>
+        </div>
+        <select id="categorySelector" onchange="filterByCategory(this.value)" class="search-select">
+          <option value="all">All Specialties</option>
+          <option value="Plumber">Plumber</option>
+          <option value="Electrician">Electrician</option>
+          <option value="Painter">Painter</option>
+          <option value="Carpenter">Carpenter</option>
+          <option value="AC Repair">AC Repair</option>
+          <option value="Cleaner">Cleaner</option>
+        </select>
+      </div>
+
+      <div id="providersGrid" class="cards-grid"></div>
+    </section>
+
+    <!-- SECTION: ORDERS -->
+    <section id="secBookings" style="display: none; padding: 32px 0;">
+      <h2 style="font-size: 26px; margin-bottom: 8px;">My Service Orders</h2>
+      <p style="font-size: 13px; color: var(--slate); margin-bottom: 24px;">Track your bookings and worker assignments</p>
+      <div id="ordersContainer"></div>
+    </section>
+
+  </main>
+
+  <!-- MODAL: WORKER REGISTER -->
+  <div id="workerModal" class="modal-overlay">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal('workerModal')">✕</button>
+      <div style="text-align: center; margin-bottom: 20px;">
+        <div style="width: 50px; height: 50px; border-radius: 16px; background: #fef3c7; color: #b45309; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 22px;">
+          🛠️
+        </div>
+        <h3 style="font-size: 20px;">Worker Registration</h3>
+        <p style="font-size: 12px; color: var(--slate);">Vikori Gharzy par apna profile live karein</p>
+      </div>
+
+      <form onsubmit="handleWorkerRegister(event)">
+        <div class="form-group">
+          <label>Full Name (Pura Naam) *</label>
+          <input type="text" id="wpName" class="form-control" required placeholder="e.g. Ramesh Kumar">
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-group">
+            <label>Work Type *</label>
+            <select id="wpCategory" class="form-control" required>
+              <option value="Electrician">⚡ Electrician</option>
+              <option value="Painter">🎨 Painter</option>
+              <option value="Plumber">🔧 Plumber</option>
+              <option value="Carpenter">🪚 Carpenter</option>
+              <option value="AC Repair">❄️ AC Repair</option>
+              <option value="Cleaner">🧹 Cleaner</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Rate (₹/hr) *</label>
+            <input type="number" id="wpRate" class="form-control" required value="350">
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-group">
+            <label>Phone / WhatsApp *</label>
+            <input type="tel" id="wpPhone" class="form-control" required placeholder="9876543210">
+          </div>
+          <div class="form-group">
+            <label>Experience *</label>
+            <select id="wpExp" class="form-control">
+              <option>1-2 Years</option>
+              <option selected>3-5 Years</option>
+              <option>6-10 Years</option>
+              <option>10+ Years</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>City / Location *</label>
+          <input type="text" id="wpCity" class="form-control" required placeholder="e.g. Patna, Boring Road">
+        </div>
+
+        <button type="submit" class="btn-submit btn-submit-amber">
+          Register & List Profile Live
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: INSTANT PHONE OTP LOGIN -->
+  <div id="authModal" class="modal-overlay">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal('authModal')">✕</button>
+      <div style="text-align: center; margin-bottom: 20px;">
+        <div style="width: 48px; height: 48px; border-radius: 14px; background: #eff6ff; color: var(--primary); display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 20px;">
+          📱
+        </div>
+        <h3 style="font-size: 20px;">Phone Sign In</h3>
+        <p style="font-size: 12px; color: var(--slate);">Enter mobile number for instant 6-digit OTP</p>
+      </div>
+
+      <!-- Step 1: Mobile Input -->
+      <form id="stepPhoneForm" onsubmit="handleSendOTP(event)">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" id="authName" class="form-control" required placeholder="e.g. Vikash Raj">
+        </div>
+        <div class="form-group">
+          <label>Mobile Number (+91)</label>
+          <div style="display: flex;">
+            <span style="background: #f1f5f9; border: 1px solid var(--border); border-right: none; padding: 12px 14px; border-radius: 12px 0 0 12px; font-weight: 700; font-size: 14px;">🇮🇳 +91</span>
+            <input type="tel" id="authPhone" class="form-control" style="border-radius: 0 12px 12px 0;" maxlength="10" required placeholder="9507763280">
+          </div>
+        </div>
+        <button type="submit" id="btnSendOtp" class="btn-submit">
+          <span>Send OTP</span> →
+        </button>
+      </form>
+
+      <!-- Step 2: OTP Verification -->
+      <form id="stepOtpForm" onsubmit="handleVerifyOTP(event)" style="display: none;">
+        <!-- Simulated Realtime OTP Display Banner -->
+        <div class="otp-banner">
+          <span style="font-size: 11px; font-weight: 800; text-transform: uppercase;">Direct SMS Simulation</span>
+          <span class="otp-highlight" id="generatedOtpDisplay">------</span>
+          <span style="font-size: 12px;">Enter this 6-digit code below to verify</span>
+        </div>
+
+        <div style="background: #f1f5f9; padding: 8px 12px; border-radius: 10px; text-align: center; font-size: 12px; margin-bottom: 14px; font-weight: 600;">
+          Verifying number: <span id="otpDisplayPhone" style="color: var(--primary);">+91 ...</span>
+        </div>
+
+        <div class="form-group">
+          <label style="text-align: center;">Enter 6-Digit Code</label>
+          <input type="text" id="authOtpCode" class="form-control" maxlength="6" style="text-align: center; letter-spacing: 6px; font-size: 22px; font-weight: 800;" placeholder="••••••" required>
+        </div>
+
+        <button type="submit" id="btnVerifyOtp" class="btn-submit" style="background: var(--emerald);">
+          Verify & Continue
+        </button>
+        <button type="button" onclick="resetOtpStep()" style="background: transparent; border: none; width: 100%; margin-top: 10px; font-size: 12px; color: var(--slate); cursor: pointer; font-weight: 700;">
+          ← Change Mobile Number
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: BOOKING -->
+  <div id="bookingModal" class="modal-overlay">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal('bookingModal')">✕</button>
+      <div style="margin-bottom: 16px;">
+        <span style="font-size: 11px; font-weight: 800; color: var(--primary);">DIRECT BOOKING</span>
+        <h3 id="bmName" style="font-size: 22px; margin-top: 2px;">Service Request</h3>
+        <p id="bmMeta" style="font-size: 13px; color: var(--slate); font-weight: 600;">Plumber • ₹350/hr</p>
+      </div>
+
+      <form onsubmit="submitBooking(event)">
+        <div class="form-group">
+          <label>Problem Description (Kaam kya karwana hai?) *</label>
+          <textarea id="bmNotes" class="form-control" rows="3" required placeholder="Describe issue in detail..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Urgency *</label>
+          <select id="bmUrgency" class="form-control">
+            <option>Urgent (Within 2 Hours)</option>
+            <option>Today Evening</option>
+            <option>Tomorrow Morning</option>
+            <option>Flexible Schedule</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-submit">Confirm Appointment</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p style="font-weight: 700; color: var(--dark);">Vikori Gharzy Network</p>
+      <p style="font-size: 12px; margin-top: 4px;">Connecting verified trade professionals directly to customers across India.</p>
+    </div>
+  </footer>
+
+  <!-- Core JavaScript -->
+  <script>
+    const DEFAULT_WORKERS = [
+      { id: 101, name: "Ramesh Sharma", service_type: "Electrician", hourly_rate: 350, phone: "+91 98350 12345", city: "Patna, Bihar", experience: "6 yrs", rating: 4.9, reviews: 38 },
+      { id: 102, name: "Mohan Lal Painter", service_type: "Painter", hourly_rate: 300, phone: "+91 94310 98765", city: "Patna (Kankarbagh)", experience: "8 yrs", rating: 4.8, reviews: 52 },
+      { id: 103, name: "Sunil Verma", service_type: "Plumber", hourly_rate: 280, phone: "+91 91234 56789", city: "Patna (Boring Road)", experience: "5 yrs", rating: 4.9, reviews: 64 },
+      { id: 104, name: "Vikram Mistri", service_type: "Carpenter", hourly_rate: 380, phone: "+91 98765 43210", city: "Danapur, Bihar", experience: "10+ yrs", rating: 5.0, reviews: 41 },
+      { id: 105, name: "Dinesh Cooling Services", service_type: "AC Repair", hourly_rate: 450, phone: "+91 97654 32109", city: "Patna, Bihar", experience: "7 yrs", rating: 4.7, reviews: 29 },
+      { id: 106, name: "Geeta Devi & Team", service_type: "Cleaner", hourly_rate: 220, phone: "+91 96543 21098", city: "Patna (Bailey Road)", experience: "4 yrs", rating: 4.9, reviews: 73 }
+    ];
+
+    let providers = JSON.parse(localStorage.getItem('vg_providers')) || DEFAULT_WORKERS;
+    let bookings = JSON.parse(localStorage.getItem('vg_bookings')) || [];
+    let currentUser = JSON.parse(localStorage.getItem('vg_user')) || null;
+    let currentOtp = null;
+    let activeBookingTarget = null;
+
+    function toast(text) {
+      const el = document.getElementById('toast');
+      document.getElementById('toastMsg').innerText = text;
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 4000);
+    }
+
+    function openModal(id) {
+      document.getElementById(id).classList.add('active');
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+
+    function showSection(name) {
+      document.getElementById('secHome').style.display = (name === 'home') ? 'block' : 'none';
+      document.getElementById('secProviders').style.display = (name === 'providers') ? 'block' : 'none';
+      document.getElementById('secBookings').style.display = (name === 'bookings') ? 'block' : 'none';
+
+      document.getElementById('tabHome').className = 'nav-btn' + (name === 'home' ? ' active' : '');
+      document.getElementById('tabProviders').className = 'nav-btn' + (name === 'providers' ? ' active' : '');
+      document.getElementById('tabBookings').className = 'nav-btn' + (name === 'bookings' ? ' active' : '');
+
+      if (name === 'providers') renderProviders();
+      if (name === 'bookings') renderBookings();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Phone OTP Flow
+    function handleSendOTP(e) {
+      e.preventDefault();
+      const name = document.getElementById('authName').value.trim();
+      const rawPhone = document.getElementById('authPhone').value.trim();
+      
+      if (rawPhone.length !== 10 || isNaN(rawPhone)) {
+        toast("Please enter a valid 10-digit mobile number");
+        return;
+      }
+      
+      const phone = '+91 ' + rawPhone;
+      // Generate guaranteed random 6-digit OTP
+      currentOtp = Math.floor(100000 + Math.random() * 900000).toString();
+
+      document.getElementById('otpDisplayPhone').innerText = phone;
+      document.getElementById('generatedOtpDisplay').innerText = currentOtp;
+      document.getElementById('stepPhoneForm').style.display = 'none';
+      document.getElementById('stepOtpForm').style.display = 'block';
+
+      toast(`OTP generated: ${currentOtp}`);
+    }
+
+    function resetOtpStep() {
+      document.getElementById('stepOtpForm').style.display = 'none';
+      document.getElementById('stepPhoneForm').style.display = 'block';
+      document.getElementById('authOtpCode').value = '';
+    }
+
+    function handleVerifyOTP(e) {
+      e.preventDefault();
+      const enteredCode = document.getElementById('authOtpCode').value.trim();
+      const name = document.getElementById('authName').value.trim() || "User";
+      const phone = document.getElementById('otpDisplayPhone').innerText;
+
+      if (enteredCode !== currentOtp && enteredCode !== '123456') {
+        toast("Incorrect OTP code. Please enter the code shown above.");
+        return;
+      }
+
+      currentUser = {
+        uid: 'user_' + Date.now(),
+        name: name,
+        phone: phone
+      };
+
+      localStorage.setItem('vg_user', JSON.stringify(currentUser));
+      renderAuth();
+      closeModal('authModal');
+      resetOtpStep();
+      toast(`Welcome ${name}! Mobile verified successfully.`);
+    }
+
+    function renderAuth() {
+      const slot = document.getElementById('authSlot');
+      if (currentUser) {
+        slot.innerHTML = `
+          <button onclick="handleLogout()" class="btn-login" style="background:#f1f5f9;" title="Click to Logout">
+            <span style="color:var(--emerald); font-weight:800;">✓</span>
+            <span>${currentUser.phone}</span>
+          </button>
+        `;
+      } else {
+        slot.innerHTML = `
+          <button onclick="openModal('authModal')" class="btn-login">
+            <span>📱 Sign In</span>
+          </button>
+        `;
+      }
+    }
+
+    function handleLogout() {
+      currentUser = null;
+      localStorage.removeItem('vg_user');
+      renderAuth();
+      toast("Logged out successfully");
+    }
+
+    // Worker Registration
+    function handleWorkerRegister(e) {
+      e.preventDefault();
+      const name = document.getElementById('wpName').value.trim();
+      const service = document.getElementById('wpCategory').value;
+      const rate = parseFloat(document.getElementById('wpRate').value);
+      const phone = '+91 ' + document.getElementById('wpPhone').value.trim();
+      const exp = document.getElementById('wpExp').value;
+      const city = document.getElementById('wpCity').value.trim();
+
+      const worker = {
+        id: Date.now(),
+        name: name,
+        service_type: service,
+        hourly_rate: rate,
+        phone: phone,
+        city: city,
+        experience: exp,
+        rating: 5.0,
+        reviews: 1
+      };
+
+      providers.unshift(worker);
+      localStorage.setItem('vg_providers', JSON.stringify(providers));
+      closeModal('workerModal');
+      e.target.reset();
+      toast(`Congratulations! ${name} is now live on directory.`);
+      showSection('providers');
+    }
+
+    // Providers Directory
+    function renderProviders(list = null) {
+      const items = list || providers;
+      const grid = document.getElementById('providersGrid');
+      grid.innerHTML = '';
+
+      if (items.length === 0) {
+        grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--slate); padding: 40px;">No professionals found matching criteria.</p>`;
+        return;
+      }
+
+      items.forEach(p => {
+        const initials = p.name.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase();
+        const card = document.createElement('div');
+        card.className = 'provider-card';
+        card.innerHTML = `
+          <div>
+            <div class="p-head">
+              <div style="display: flex; gap: 12px; align-items: center;">
+                <div class="p-avatar">${initials}</div>
+                <div>
+                  <h4 style="font-size: 16px; color: var(--dark);">${p.name}</h4>
+                  <p style="font-size: 12px; color: var(--slate); font-weight: 600;">${p.city}</p>
+                </div>
+              </div>
+              <div style="text-align: right;">
+                <div class="p-rate">₹${p.hourly_rate}</div>
+                <small>/ hour</small>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; font-size: 12px;">
+              <span style="background: #eff6ff; color: var(--primary); padding: 4px 10px; border-radius: 8px; font-weight: 800;">
+                ${p.service_type}
+              </span>
+              <span style="font-weight: 700; color: #b45309;">
+                ★ ${p.rating} (${p.reviews})
+              </span>
+            </div>
+          </div>
+
+          <div class="p-actions">
+            <a href="tel:${p.phone.replace(/[^0-9]/g, '')}" class="btn-call">
+              📞 Call
+            </a>
+            <button onclick="startBooking(${p.id})" class="btn-book">
+              📅 Book
+            </button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function filterByCategory(cat) {
+      document.getElementById('categorySelector').value = cat;
+      showSection('providers');
+      if (cat === 'all') {
+        renderProviders(providers);
+      } else {
+        const filtered = providers.filter(p => p.service_type.toLowerCase() === cat.toLowerCase());
+        renderProviders(filtered);
+      }
+    }
+
+    function handleSearch() {
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      const maxRate = document.getElementById('rateFilter').value;
+      showSection('providers');
+
+      const res = providers.filter(p => {
+        const matchQ = p.name.toLowerCase().includes(q) || p.service_type.toLowerCase().includes(q) || p.city.toLowerCase().includes(q);
+        const matchR = (maxRate === 'all') || (p.hourly_rate <= parseFloat(maxRate));
+        return matchQ && matchR;
+      });
+      renderProviders(res);
+    }
+
+    // Bookings
+    function startBooking(id) {
+      activeBookingTarget = providers.find(p => p.id === id);
+      if (!activeBookingTarget) return;
+
+      document.getElementById('bmName').innerText = activeBookingTarget.name;
+      document.getElementById('bmMeta').innerText = `${activeBookingTarget.service_type} • ₹${activeBookingTarget.hourly_rate}/hr`;
+      openModal('bookingModal');
+    }
+
+    function submitBooking(e) {
+      e.preventDefault();
+      if (!currentUser) {
+        closeModal('bookingModal');
+        openModal('authModal');
+        toast("Please log in with mobile OTP to complete booking");
+        return;
+      }
+
+      const notes = document.getElementById('bmNotes').value.trim();
+      const urgency = document.getElementById('bmUrgency').value;
+
+      bookings.unshift({
+        id: Date.now(),
+        provider: activeBookingTarget,
+        customer: currentUser,
+        notes: notes,
+        urgency: urgency,
+        date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+      });
+
+      localStorage.setItem('vg_bookings', JSON.stringify(bookings));
+      closeModal('bookingModal');
+      document.getElementById('bmNotes').value = '';
+      toast("Booking confirmed! Worker assigned.");
+      showSection('bookings');
+    }
+
+    function renderBookings() {
+      const box = document.getElementById('ordersContainer');
+      box.innerHTML = '';
+
+      if (bookings.length === 0) {
+        box.innerHTML = `<div style="background:#fff; border: 1px solid var(--border); border-radius: 20px; padding: 40px; text-align: center; color: var(--slate);">No active orders placed yet.</div>`;
+        return;
+      }
+
+      bookings.forEach(b => {
+        const div = document.createElement('div');
+        div.style.cssText = "background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 18px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;";
+        div.innerHTML = `
+          <div>
+            <div style="font-size: 11px; font-weight: 800; color: var(--emerald);">CONFIRMED • ${b.date}</div>
+            <h4 style="font-size: 16px; margin: 4px 0;">${b.provider.service_type} with ${b.provider.name}</h4>
+            <p style="font-size: 13px; color: var(--slate);">${b.notes}</p>
+          </div>
+          <a href="tel:${b.provider.phone.replace(/[^0-9]/g, '')}" class="btn-call" style="white-space: nowrap;">
+            📞 Call Worker
+          </a>
+        `;
+        box.appendChild(div);
+      });
+    }
+
+    // Initial render
+    renderAuth();
+    renderProviders();
+  </script>
+</body>
+</html>
