@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vikori Gharzy - Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen">
+
+  <!-- Navbar -->
+  <header class="bg-indigo-700 text-white shadow-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <i class="fa-solid fa-house-chimney-user text-2xl text-amber-300"></i>
+        <h1 class="text-xl font-bold tracking-wide">Vikori Gharzy</h1>
+      </div>
+      <div id="authNav" class="flex items-center space-x-4">
+        <span id="userBadge" class="hidden text-sm bg-indigo-800 px-3 py-1 rounded-full border border-indigo-500 font-medium"></span>
+        <button id="logoutBtn" onclick="logout()" class="hidden text-sm bg-rose-600 hover:bg-rose-700 px-3 py-1 rounded shadow transition">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto p-4 md:p-6 space-y-6">
+
+    <!-- Auth Section -->
+    <div id="authSection" class="grid md:grid-cols-2 gap-6 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+      <div class="space-y-4">
+        <h2 class="text-lg font-bold text-slate-900 border-b pb-2"><i class="fa-solid fa-right-to-bracket text-indigo-600 mr-2"></i>Login</h2>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Email / Username</label>
+          <input type="email" id="loginEmail" placeholder="Provider@gmail.com" class="w-full border rounded-lg p-2 text-sm focus:ring-2 focus:ring-indigo-400 outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Password</label>
+          <input type="password" id="loginPass" placeholder="••••••••" class="w-full border rounded-lg p-2 text-sm focus:ring-2 focus:ring-indigo-400 outline-none">
+        </div>
+        <button onclick="handleLogin()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg text-sm font-semibold shadow transition">
+          Sign In
+        </button>
+      </div>
+
+      <div class="bg-indigo-50 p-5 rounded-lg border border-indigo-100 flex flex-col justify-between">
+        <div>
+          <h3 class="font-semibold text-indigo-900 mb-2">Backend Connection Status</h3>
+          <p class="text-xs text-indigo-700 leading-relaxed mb-4">
+            API target: <code class="bg-white px-1.5 py-0.5 rounded border border-indigo-200 text-indigo-800">http://127.0.0.1:8000</code>
+          </p>
+          <div id="apiHealth" class="text-xs font-semibold text-emerald-700 bg-emerald-100 border border-emerald-300 p-2 rounded">
+            Checking backend status...
+          </div>
+        </div>
+        <div class="text-xs text-slate-500 mt-4">
+          Roles available: <span class="font-medium text-slate-700">Customer</span> & <span class="font-medium text-slate-700">Provider</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="dashboardSection" class="hidden space-y-6">
+
+      <!-- Navigation Tabs -->
+      <div class="flex space-x-2 border-b border-slate-200">
+        <button onclick="switchTab('providers')" id="tabBtnProviders" class="px-4 py-2 text-sm font-bold border-b-2 border-indigo-600 text-indigo-600">
+          <i class="fa-solid fa-users-gear mr-1"></i> Browse Providers
+        </button>
+        <button onclick="switchTab('mybookings')" id="tabBtnBookings" class="px-4 py-2 text-sm font-bold text-slate-500 hover:text-indigo-600 border-b-2 border-transparent">
+          <i class="fa-solid fa-calendar-check mr-1"></i> Bookings Management
+        </button>
+      </div>
+
+      <!-- Tab 1: Providers -->
+      <div id="tabProviders" class="space-y-4">
+        <div class="flex justify-between items-center">
+          <h3 class="font-bold text-slate-800">Available Service Providers</h3>
+          <button onclick="loadProviders()" class="text-xs bg-slate-200 hover:bg-slate-300 text-slate-700 px-3 py-1.5 rounded transition">
+            <i class="fa-solid fa-arrows-rotate mr-1"></i> Refresh List
+          </button>
+        </div>
+        <div id="providersList" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </div>
+
+      <!-- Tab 2: Bookings -->
+      <div id="tabMyBookings" class="hidden space-y-4">
+        <div class="flex justify-between items-center">
+          <h3 class="font-bold text-slate-800" id="bookingTabHeader">Bookings List</h3>
+          <button onclick="loadMyBookings()" class="text-xs bg-slate-200 hover:bg-slate-300 text-slate-700 px-3 py-1.5 rounded transition">
+            <i class="fa-solid fa-arrows-rotate mr-1"></i> Refresh
+          </button>
+        </div>
+        <div id="bookingsList" class="space-y-3"></div>
+      </div>
+
+    </div>
+
+    <!-- Review Modal -->
+    <div id="reviewModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+      <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-6 space-y-4">
+        <div class="flex justify-between items-center border-b pb-2">
+          <h3 class="font-bold text-slate-900">Leave a Review</h3>
+          <button onclick="closeReviewModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+        </div>
+        <input type="hidden" id="reviewBookingId">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Rating</label>
+          <select id="reviewRating" class="w-full border rounded-lg p-2 text-sm outline-none">
+            <option value="5">⭐⭐⭐⭐⭐ (5 - Excellent)</option>
+            <option value="4">⭐⭐⭐⭐ (4 - Very Good)</option>
+            <option value="3">⭐⭐⭐ (3 - Average)</option>
+            <option value="2">⭐⭐ (2 - Poor)</option>
+            <option value="1">⭐ (1 - Terrible)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Your Feedback</label>
+          <textarea id="reviewComment" rows="3" placeholder="Share your experience..." class="w-full border rounded-lg p-2 text-sm outline-none"></textarea>
+        </div>
+        <div class="flex justify-end space-x-2 pt-2">
+          <button onclick="closeReviewModal()" class="px-3 py-1.5 border rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-100">Cancel</button>
+          <button onclick="submitReview()" class="px-4 py-1.5 bg-indigo-600 text-white rounded-lg text-xs font-semibold hover:bg-indigo-700 shadow">Submit Review</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    const API_BASE = "http://127.0.0.1:8000";
+    let token = localStorage.getItem("token") || null;
+    let currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
+
+    async function checkBackend() {
+      const statusEl = document.getElementById("apiHealth");
+      try {
+        const res = await fetch(`${API_BASE}/docs`);
+        if (res.ok) {
+          statusEl.innerText = "🟢 Backend connected & operational";
+          statusEl.className = "text-xs font-semibold text-emerald-700 bg-emerald-100 border border-emerald-300 p-2 rounded";
+        }
+      } catch (err) {
+        statusEl.innerText = "🔴 Backend unreachable. Ensure Uvicorn is running!";
+        statusEl.className = "text-xs font-semibold text-rose-700 bg-rose-100 border border-rose-300 p-2 rounded";
+      }
+    }
+
+    async function handleLogin() {
+      const email = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPass").value.trim();
+      if (!email || !password) return alert("Please enter email and password");
+
+      const formData = new URLSearchParams();
+      formData.append("username", email);
+      formData.append("password", password);
+
+      try {
+        const res = await fetch(`${API_BASE}/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: formData
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Login failed");
+
+        token = data.access_token;
+        localStorage.setItem("token", token);
+
+        // Fetch current user details to check role
+        const meRes = await fetch(`${API_BASE}/me`, {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        currentUser = await meRes.json();
+        localStorage.setItem("currentUser", JSON.stringify(currentUser));
+
+        initDashboard();
+      } catch (err) {
+        alert("Login Error: " + err.message);
+      }
+    }
+
+    function initDashboard() {
+      document.getElementById("authSection").classList.add("hidden");
+      document.getElementById("dashboardSection").classList.remove("hidden");
+      document.getElementById("userBadge").classList.remove("hidden");
+      
+      const roleText = currentUser ? ` [${currentUser.role.toUpperCase()}]` : '';
+      const emailText = currentUser ? currentUser.email : "User";
+      document.getElementById("userBadge").innerText = `👤 ${emailText}${roleText}`;
+      document.getElementById("logoutBtn").classList.remove("hidden");
+
+      if (currentUser && currentUser.role === "provider") {
+        document.getElementById("tabBtnProviders").classList.add("hidden");
+        document.getElementById("bookingTabHeader").innerText = "Assigned Service Requests";
+        switchTab('mybookings');
+      } else {
+        document.getElementById("tabBtnProviders").classList.remove("hidden");
+        document.getElementById("bookingTabHeader").innerText = "Your Bookings";
+        loadProviders();
+        loadMyBookings();
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem("token");
+      localStorage.removeItem("currentUser");
+      token = null;
+      currentUser = null;
+      location.reload();
+    }
+
+    function switchTab(tab) {
+      if (tab === 'providers') {
+        document.getElementById("tabProviders").classList.remove("hidden");
+        document.getElementById("tabMyBookings").classList.add("hidden");
+        document.getElementById("tabBtnProviders").className = "px-4 py-2 text-sm font-bold border-b-2 border-indigo-600 text-indigo-600";
+        document.getElementById("tabBtnBookings").className = "px-4 py-2 text-sm font-bold text-slate-500 hover:text-indigo-600 border-b-2 border-transparent";
+      } else {
+        document.getElementById("tabProviders").classList.add("hidden");
+        document.getElementById("tabMyBookings").classList.remove("hidden");
+        document.getElementById("tabBtnBookings").className = "px-4 py-2 text-sm font-bold border-b-2 border-indigo-600 text-indigo-600";
+        document.getElementById("tabBtnProviders").className = "px-4 py-2 text-sm font-bold text-slate-500 hover:text-indigo-600 border-b-2 border-transparent";
+        loadMyBookings();
+      }
+    }
+
+    async function loadProviders() {
+      const container = document.getElementById("providersList");
+      container.innerHTML = `<p class="text-xs text-slate-400">Loading providers...</p>`;
+      try {
+        const res = await fetch(`${API_BASE}/providers/`);
+        const providers = await res.json();
+        if (providers.length === 0) {
+          container.innerHTML = `<p class="text-xs text-slate-500">No providers available yet.</p>`;
+          return;
+        }
+
+        container.innerHTML = providers.map(p => `
+          <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center space-x-3 mb-2">
+                <div class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-sm">
+                  ${(p.email || 'P')[0].toUpperCase()}
+                </div>
+                <div>
+                  <h4 class="font-semibold text-sm text-slate-900">${p.email}</h4>
+                  <span class="text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded">ID: ${p.id}</span>
+                </div>
+              </div>
+            </div>
+            <button onclick="bookProvider(${p.id})" class="mt-4 w-full bg-slate-900 hover:bg-slate-800 text-white py-1.5 rounded-lg text-xs font-medium transition">
+              Book Service
+            </button>
+          </div>
+        `).join("");
+      } catch (err) {
+        container.innerHTML = `<p class="text-xs text-rose-500">Failed to load: ${err.message}</p>`;
+      }
+    }
+
+    async function bookProvider(providerId) {
+      if (!confirm(`Confirm booking with Provider #${providerId}?`)) return;
+      try {
+        const res = await fetch(`${API_BASE}/bookings/`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify({ provider_id: providerId, category_id: 1 })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Booking failed");
+
+        alert("Booking created! ID: " + data.id);
+        switchTab('mybookings');
+      } catch (err) {
+        alert("Booking error: " + err.message);
+      }
+    }
+
+    async function updateStatus(bookingId, newStatus) {
+      try {
+        const res = await fetch(`${API_BASE}/bookings/${bookingId}/status`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify({ status: newStatus })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Status update failed");
+
+        loadMyBookings();
+      } catch (err) {
+        alert("Update Error: " + err.message);
+      }
+    }
+
+    async function loadMyBookings() {
+      const container = document.getElementById("bookingsList");
+      container.innerHTML = `<p class="text-xs text-slate-400">Loading bookings...</p>`;
+      try {
+        const res = await fetch(`${API_BASE}/bookings/me`, {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        const bookings = await res.json();
+        if (bookings.length === 0) {
+          container.innerHTML = `<p class="text-xs text-slate-500 bg-white p-4 rounded-lg border">No bookings found.</p>`;
+          return;
+        }
+
+        const isProvider = currentUser && currentUser.role === "provider";
+
+        container.innerHTML = bookings.map(b => {
+          let actionButtons = "";
+          const statusLower = b.status.toLowerCase();
+
+          if (isProvider) {
+            if (statusLower === 'pending') {
+              actionButtons = `
+                <button onclick="updateStatus(${b.id}, 'accepted')" class="text-xs bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-3 py-1.5 rounded-lg transition shadow-sm">
+                  Accept
+                </button>
+              `;
+            } else if (statusLower === 'accepted') {
+              actionButtons = `
+                <button onclick="updateStatus(${b.id}, 'completed')" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-3 py-1.5 rounded-lg transition shadow-sm">
+                  Mark Completed
+                </button>
+              `;
+            } else {
+              actionButtons = `<span class="text-xs font-semibold text-emerald-600"><i class="fa-solid fa-circle-check mr-1"></i>Finished</span>`;
+            }
+          } else {
+            if (statusLower === 'completed') {
+              actionButtons = `
+                <button onclick="openReviewModal(${b.id})" class="text-xs bg-amber-500 hover:bg-amber-600 text-white font-semibold px-3 py-1.5 rounded-lg transition shadow-sm">
+                  ⭐ Leave Review
+                </button>
+              `;
+            } else {
+              actionButtons = `<span class="text-xs text-slate-400 italic">In progress...</span>`;
+            }
+          }
+
+          return `
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between sm:items-center gap-3">
+              <div>
+                <div class="flex items-center space-x-2">
+                  <span class="font-bold text-sm text-slate-800">Booking #${b.id}</span>
+                  <span class="text-xs font-semibold px-2 py-0.5 rounded ${
+                    statusLower === 'completed' ? 'bg-emerald-100 text-emerald-700' : 
+                    statusLower === 'accepted' ? 'bg-blue-100 text-blue-700' : 'bg-amber-100 text-amber-800'
+                  }">
+                    ${b.status.toUpperCase()}
+                  </span>
+                </div>
+                <p class="text-xs text-slate-500 mt-1">Provider ID: ${b.provider_id} • Customer ID: ${b.user_id}</p>
+              </div>
+              <div class="flex items-center space-x-2">
+                ${actionButtons}
+              </div>
+            </div>
+          `;
+        }).join("");
+      } catch (err) {
+        container.innerHTML = `<p class="text-xs text-rose-500">Failed to load: ${err.message}</p>`;
+      }
+    }
+
+    function openReviewModal(bookingId) {
+      document.getElementById("reviewBookingId").value = bookingId;
+      document.getElementById("reviewModal").classList.remove("hidden");
+      document.getElementById("reviewModal").classList.add("flex");
+    }
+
+    function closeReviewModal() {
+      document.getElementById("reviewModal").classList.add("hidden");
+      document.getElementById("reviewModal").classList.remove("flex");
+    }
+
+    async function submitReview() {
+      const bookingId = parseInt(document.getElementById("reviewBookingId").value);
+      const rating = parseInt(document.getElementById("reviewRating").value);
+      const comment = document.getElementById("reviewComment").value.trim();
+
+      try {
+        const res = await fetch(`${API_BASE}/reviews/`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify({ booking_id: bookingId, rating, comment })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Review failed");
+
+        alert("Review submitted!");
+        closeReviewModal();
+      } catch (err) {
+        alert("Error: " + err.message);
+      }
+    }
+
+    window.onload = () => {
+      checkBackend();
+      if (token && currentUser) {
+        initDashboard();
+      }
+    };
+  </script>
+</body>
+</html>
