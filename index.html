@@ -149,130 +149,321 @@
     }
 
     /* Navbar */
-/* --- Navbar Styling --- */
-.navbar-container {
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+* {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+.pro-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* NAVBAR */
+.pro-navbar {
+  position: sticky;
+  top: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #e2e8f0;
+  z-index: 100;
+}
+
+.nav-inner {
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 48px;
-  background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
 }
-.navbar-container .logo {
+
+.brand-logo {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-weight: 700;
-  font-size: 18px;
-}
-.nav-links {
-  display: flex;
-  gap: 28px;
-}
-.nav-links a {
-  text-decoration: none;
-  color: #4b5563;
-  font-weight: 500;
-  font-size: 15px;
-  transition: color 0.2s;
-}
-.nav-links a:hover,
-.nav-links a.active {
-  color: #2563eb;
+  font-size: 20px;
   font-weight: 600;
+  color: #1e293b;
 }
 
-/* --- Hero Section Styling --- */
-.hero-section {
-  max-width: 850px;
-  margin: 40px auto 20px;
-  padding: 0 20px;
-}
-.badge {
-  display: inline-block;
-  color: #2563eb;
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 10px;
-}
-.hero-title {
-  font-size: 38px;
+.logo-mark {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #fff;
   font-weight: 800;
-  color: #111827;
-  line-height: 1.25;
-  margin-bottom: 12px;
-}
-.hero-title span {
-  color: #1e3a8a;
-}
-.hero-subtitle {
-  color: #4b5563;
-  font-size: 16px;
-  margin-bottom: 28px;
-  line-height: 1.5;
+  font-size: 14px;
+  padding: 6px 9px;
+  border-radius: 8px;
 }
 
-/* --- Sleek Search Bar --- */
-.search-box {
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav-item {
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  color: #64748b;
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover, .nav-item.active {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  background: #f1f5f9;
+  color: #334155;
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background: #e2e8f0;
+}
+
+.btn-primary {
+  padding: 8px 18px;
+  border-radius: 9999px;
+  background: #0f172a;
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  background: #1e293b;
+}
+
+/* HERO SECTION */
+.pro-hero {
+  padding: 48px 0 24px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #dbeafe;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  margin-bottom: 20px;
+}
+
+.badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2563eb;
+}
+
+.hero-heading {
+  font-size: 46px;
+  line-height: 1.18;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  margin: 0 0 16px;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtext {
+  max-width: 680px;
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: #475569;
+  margin: 0 0 32px;
+}
+
+/* SEARCH BAR CAPSULE */
+.pro-search-wrapper {
   display: flex;
   align-items: center;
   background: #ffffff;
-  border: 1px solid #d1d5db;
-  border-radius: 50px;
-  padding: 6px 8px 6px 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-  max-width: 650px;
+  border: 1px solid #e2e8f0;
+  border-radius: 9999px;
+  padding: 6px 8px 6px 18px;
+  max-width: 720px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+  transition: all 0.2s ease;
 }
-.search-box:focus-within {
-  border-color: #2563eb;
-  box-shadow: 0 4px 24px rgba(37, 99, 235, 0.15);
+
+.pro-search-wrapper:focus-within {
+  border-color: #3b82f6;
+  box-shadow: 0 12px 30px -4px rgba(37, 99, 235, 0.15);
 }
-.input-group {
+
+.search-input-box {
   display: flex;
   align-items: center;
-  flex: 1;
-  gap: 10px;
+  gap: 12px;
+  flex: 1.8;
 }
-.input-group svg {
-  color: #9ca3af;
+
+.search-icon {
+  color: #94a3b8;
+  flex-shrink: 0;
 }
-.input-group input {
+
+.search-input-box input {
   width: 100%;
   border: none;
   outline: none;
-  font-size: 15px;
-  color: #1f2937;
+  font-size: 14.5px;
+  color: #0f172a;
+  background: transparent;
 }
-.divider {
+
+.search-divider {
   width: 1px;
-  height: 26px;
-  background-color: #e5e7eb;
+  height: 28px;
+  background-color: #e2e8f0;
   margin: 0 14px;
 }
-.select-group select {
+
+.search-select-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  color: #64748b;
+}
+
+.search-select-box select {
   border: none;
   outline: none;
   background: transparent;
   font-size: 14px;
-  color: #374151;
+  font-weight: 500;
+  color: #334155;
+  width: 100%;
   cursor: pointer;
-  padding-right: 12px;
 }
-.btn-search {
+
+.btn-search-action {
   background: #2563eb;
   color: #ffffff;
   border: none;
-  border-radius: 40px;
-  padding: 10px 24px;
-  font-size: 14px;
+  border-radius: 9999px;
+  padding: 12px 28px;
+  font-size: 14.5px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
 }
-.btn-search:hover {
+
+.btn-search-action:hover {
   background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+/* WORKER BANNER */
+.pro-worker-banner {
+  margin-top: 40px;
+  background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
+  border-radius: 20px;
+  padding: 28px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #ffffff;
+  box-shadow: 0 14px 28px -6px rgba(234, 88, 12, 0.25);
+}
+
+.banner-content {
+  max-width: 650px;
+}
+
+.banner-pill {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.banner-content h2 {
+  font-size: 21px;
+  margin: 0 0 6px;
+  font-weight: 700;
+}
+
+.banner-content p {
+  font-size: 14px;
+  margin: 0;
+  opacity: 0.92;
+  line-height: 1.4;
+}
+
+.banner-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  color: #ea580c;
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+.banner-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .hero-heading { font-size: 32px; }
+  .pro-search-wrapper { flex-direction: column; border-radius: 16px; padding: 12px; gap: 12px; }
+  .search-divider { display: none; }
+  .btn-search-action { width: 100%; border-radius: 10px; }
+  .pro-worker-banner { flex-direction: column; align-items: flex-start; gap: 20px; }
 }
     /* Worker CTA Banner */
     .worker-banner {
@@ -623,28 +814,85 @@
   </div>
 
   <!-- Navbar -->
-<header style="background: #ffffff; border-bottom: 1px solid #e5e7eb; padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; font-family: sans-serif;">
-  <!-- Logo -->
-  <div onclick="showSection('home')" style="cursor: pointer; display: flex; align-items: center;">
-    <img src="logo.png" alt="Vikori Gharzy" style="height: 46px; width: auto; object-fit: contain;">
+<!-- PROFESSIONAL NAVBAR -->
+<nav class="pro-navbar">
+  <div class="pro-container nav-inner">
+    <div class="brand-logo">
+      <!-- Aapka logo yahan -->
+      <span class="logo-mark">VG</span>
+      <span class="logo-text">Vikori<strong>Gharzy</strong></span>
+    </div>
+
+    <div class="nav-menu">
+      <a href="#home" class="nav-item active">Home</a>
+      <a href="#workers" class="nav-item">Find Workers</a>
+      <a href="#orders" class="nav-item">My Orders</a>
+    </div>
+
+    <div class="nav-actions">
+      <a href="#worker-register" class="btn-secondary">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        Worker Register
+      </a>
+      <a href="#signin" class="btn-primary">Sign In</a>
+    </div>
   </div>
+</nav>
 
-  <!-- Nav Links -->
-  <nav style="display: flex; gap: 24px; align-items: center;">
-    <button onclick="showSection('home')" style="background: none; border: none; text-decoration: none; color: #374151; font-size: 14px; font-weight: 600; cursor: pointer;">Home</button>
-    <button onclick="showSection('providers')" style="background: none; border: none; text-decoration: none; color: #374151; font-size: 14px; font-weight: 500; cursor: pointer;">Find Workers</button>
-    <button onclick="showSection('bookings')" style="background: none; border: none; text-decoration: none; color: #374151; font-size: 14px; font-weight: 500; cursor: pointer;">My Orders</button>
-  </nav>
+<!-- PROFESSIONAL HERO SECTION -->
+<header class="pro-hero">
+  <div class="pro-container">
+    <div class="hero-badge">
+      <span class="badge-dot"></span> 100% Direct Worker Connection
+    </div>
+    
+    <h1 class="hero-heading">
+      Ghar ke har kaam ke liye <br>
+      <span class="gradient-text">Verified Service Experts</span>
+    </h1>
+    
+    <p class="hero-subtext">
+      Plumber, Electrician, Painter ya AC Technician ko seedhe unke hourly rate (₹/hr) par hire kijiye. Bina kisi commission ya delay ke.
+    </p>
 
-  <!-- Auth & Worker Register Buttons -->
-  <div style="display: flex; align-items: center; gap: 10px;">
-    <button onclick="openModal('workerModal')" style="background: #f3f4f6; border: 1px solid #d1d5db; color: #374151; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer;">
-      🛠️ Worker Register
-    </button>
-    <div id="authSlot"></div>
+    <!-- FLOATING SEARCH BAR -->
+    <div class="pro-search-wrapper">
+      <div class="search-input-box">
+        <svg class="search-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <input type="text" placeholder="Search service e.g. Plumber, Painter, AC Repair...">
+      </div>
+
+      <div class="search-divider"></div>
+
+      <div class="search-select-box">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <select>
+          <option value="">Any Price</option>
+          <option value="200">Under ₹200/hr</option>
+          <option value="500">Under ₹500/hr</option>
+          <option value="1000">Under ₹1000/hr</option>
+        </select>
+      </div>
+
+      <button type="button" class="btn-search-action">
+        Search
+      </button>
+    </div>
+
+    <!-- WORKER CTA BANNER -->
+    <div class="pro-worker-banner">
+      <div class="banner-content">
+        <span class="banner-pill">KHAAS SKILLED WORKERS KE LIYE</span>
+        <h2>Electrician, Painter ya Plumber ho? Register Karein!</h2>
+        <p>Apna worker card banaiye, apna rate (₹/hr) khud set karein aur direct customer calls paayein.</p>
+      </div>
+      <a href="#partner-register" class="banner-cta-btn">
+        Join as Service Partner
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
   </div>
 </header>
- 
   <!-- Main Container -->
   <main class="container">
 
