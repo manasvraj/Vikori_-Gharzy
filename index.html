@@ -9,98 +9,11 @@
 
   <!-- Google Fonts & FontAwesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Cabinet+Grotesk:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
-    .support-widget {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 9999;
-}
-
-.support-btn {
-  background-color: #2563eb;
-  color: #ffffff;
-  border: none;
-  border-radius: 50px;
-  padding: 12px 20px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.support-popup {
-  display: none;
-  width: 280px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
-  margin-bottom: 12px;
-  overflow: hidden;
-  border: 1px solid #e5e7eb;
-}
-
-.support-header {
-  background-color: #1f2937;
-  color: #ffffff;
-  padding: 12px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.support-header h4 {
-  margin: 0;
-  font-size: 15px;
-}
-
-.close-btn {
-  background: none;
-  border: none;
-  color: #ffffff;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-.support-body {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.support-body p {
-  margin: 0 0 6px 0;
-  font-size: 13px;
-  color: #4b5563;
-}
-
-.support-opt {
-  display: block;
-  text-align: center;
-  padding: 10px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.support-opt.wa {
-  background-color: #25D366;
-  color: #ffffff;
-}
-
-.support-opt.call {
-  background-color: #f3f4f6;
-  color: #111827;
-  border: 1px solid #d1d5db;
-}
     :root {
       --primary: #2563eb;
       --primary-hover: #1d4ed8;
@@ -147,7 +60,64 @@
       padding: 0 16px;
       width: 100%;
     }
-nav-btn {
+
+    /* Navbar */
+    header {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .logo-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .logo-badge {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #2563eb, #4f46e5);
+      border-radius: 14px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 8px 16px rgba(37, 99, 235, 0.25);
+    }
+
+    .logo-text {
+      font-size: 22px;
+      letter-spacing: -0.5px;
+      font-weight: 800;
+    }
+    .logo-text span { color: var(--primary); }
+
+    .nav-tabs {
+      display: none;
+      background: #f1f5f9;
+      padding: 4px;
+      border-radius: 14px;
+      gap: 4px;
+    }
+    @media (min-width: 768px) {
+      .nav-tabs { display: flex; }
+    }
+
+    .nav-btn {
       border: none;
       background: transparent;
       padding: 8px 18px;
@@ -665,85 +635,33 @@ nav-btn {
   </div>
 
   <!-- Navbar -->
-<!-- PROFESSIONAL NAVBAR -->
-<nav class="pro-navbar">
-  <div class="pro-container nav-inner">
-    <div class="brand-logo">
-      <!-- Aapka logo yahan -->
-      <span class="logo-mark">VG</span>
-      <span class="logo-text">Vikori<strong>Gharzy</strong></span>
-    </div>
-
-    <div class="nav-menu">
-      <a href="#home" class="nav-item active">Home</a>
-      <a href="#workers" class="nav-item">Find Workers</a>
-      <a href="#orders" class="nav-item">My Orders</a>
-    </div>
-
-    <div class="nav-actions">
-      <a href="#worker-register" class="btn-secondary">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-        Worker Register
-      </a>
-      <a href="#signin" class="btn-primary">Sign In</a>
-    </div>
-  </div>
-</nav>
-
-<!-- PROFESSIONAL HERO SECTION -->
-<header class="pro-hero">
-  <div class="pro-container">
-    <div class="hero-badge">
-      <span class="badge-dot"></span> 100% Direct Worker Connection
-    </div>
-    
-    <h1 class="hero-heading">
-      Ghar ke har kaam ke liye <br>
-      <span class="gradient-text">Verified Service Experts</span>
-    </h1>
-    
-    <p class="hero-subtext">
-      Plumber, Electrician, Painter ya AC Technician ko seedhe unke hourly rate (₹/hr) par hire kijiye. Bina kisi commission ya delay ke.
-    </p>
-
-    <!-- FLOATING SEARCH BAR -->
-    <div class="pro-search-wrapper">
-      <div class="search-input-box">
-        <svg class="search-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-        <input type="text" placeholder="Search service e.g. Plumber, Painter, AC Repair...">
+  <header>
+    <div class="container nav-inner">
+      <div class="logo-group" onclick="showSection('home')">
+        <div class="logo-badge">
+          <i class="fa-solid fa-house-chimney-crack"></i>
+        </div>
+        <div>
+          <div class="logo-text">Vikori<span>Gharzy</span></div>
+        </div>
       </div>
 
-      <div class="search-divider"></div>
+      <nav class="nav-tabs">
+        <button onclick="showSection('home')" id="tabHome" class="nav-btn active">Explore</button>
+        <button onclick="showSection('providers')" id="tabProviders" class="nav-btn">Find Workers</button>
+        <button onclick="showSection('bookings')" id="tabBookings" class="nav-btn">My Orders</button>
+      </nav>
 
-      <div class="search-select-box">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        <select>
-          <option value="">Any Price</option>
-          <option value="200">Under ₹200/hr</option>
-          <option value="500">Under ₹500/hr</option>
-          <option value="1000">Under ₹1000/hr</option>
-        </select>
+      <div class="nav-actions">
+        <button onclick="openModal('workerModal')" class="btn-worker-reg">
+          <i class="fa-solid fa-screwdriver-wrench"></i>
+          <span>Worker Register</span>
+        </button>
+        <div id="authSlot"></div>
       </div>
-
-      <button type="button" class="btn-search-action">
-        Search
-      </button>
     </div>
+  </header>
 
-    <!-- WORKER CTA BANNER -->
-    <div class="pro-worker-banner">
-      <div class="banner-content">
-        <span class="banner-pill">KHAAS SKILLED WORKERS KE LIYE</span>
-        <h2>Electrician, Painter ya Plumber ho? Register Karein!</h2>
-        <p>Apna worker card banaiye, apna rate (₹/hr) khud set karein aur direct customer calls paayein.</p>
-      </div>
-      <a href="#partner-register" class="banner-cta-btn">
-        Join as Service Partner
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-    </div>
-  </div>
-</header>
   <!-- Main Container -->
   <main class="container">
 
@@ -1019,41 +937,6 @@ nav-btn {
     <div class="container">
       <p style="font-weight: 700; color: var(--dark);">Vikori Gharzy Network</p>
       <p style="font-size: 12px; margin-top: 4px;">Connecting verified trade professionals directly to customers across India.</p>
-     <!-- Contact & Social Bar under Network Text -->
-<div style="margin-top: 14px; display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap;">
-
-  <!-- Instagram -->
-  <a href="https://www.instagram.com/vikorigharzy" 
-     target="_blank" 
-     rel="noopener noreferrer" 
-     style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none; padding: 7px 14px; border-radius: 20px; background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 2px 5px rgba(0,0,0,0.05); color: #1e293b; font-size: 13px; font-weight: 600;">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="#E1306C"/>
-    </svg>
-    <span>Instagram</span>
-  </a>
-
- <!-- WhatsApp Community Link -->
-  <a href="https://chat.whatsapp.com/JrUBBxN6kNF59RqWGjgdt9" 
-     target="_blank" 
-     rel="noopener noreferrer" 
-     style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none; padding: 7px 14px; border-radius: 20px; background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 2px 5px rgba(0,0,0,0.05); color: #1e293b; font-size: 13px; font-weight: 600;">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366">
-      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91 0-5.46-4.45-9.92-9.91-9.92zm0 18.17c-1.52 0-3-.4-4.31-1.18l-.31-.18-3.12.82.83-3.04-.2-.32c-.86-1.37-1.31-2.96-1.31-4.59 0-4.53 3.69-8.22 8.23-8.22 4.54 0 8.23 3.69 8.23 8.22 0 4.53-3.69 8.22-8.24 8.22z"/>
-    </svg>
-    <span>WhatsApp</span>
-  </a>
-
-  <!-- Email Support -->
-  <a href="vikorigharzy@gmail.com" 
-     style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none; padding: 7px 14px; border-radius: 20px; background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 2px 5px rgba(0,0,0,0.05); color: #1e293b; font-size: 13px; font-weight: 600;">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="#2563eb">
-      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-    </svg>
-    <span>Email Us</span>
-  </a>
-
-</div>
     </div>
   </footer>
 
@@ -1352,44 +1235,9 @@ nav-btn {
       });
     }
 
-function toggleSupport() {
-  const popup = document.getElementById("supportPopup");
-  if (popup.style.display === "block") {
-    popup.style.display = "none";
-  } 
-  else {
-    popup.style.display = "block";
-  }
-}  
     // Initial render
     renderAuth();
     renderProviders();
   </script>
-  </script>
-
-
-<div class="support-widget">
-  <div class="support-popup" id="supportPopup">
-    <div class="support-header">
-      <h4>Customer Support</h4>
-      <button class="close-btn" onclick="toggleSupport()">×</button>
-    </div>
-    <div class="support-body">
-      <p>Namaste! Vikori Gharzy support team se judein:</p>
-      <a href="https://wa.me/919507763280?text=Hello%20Vikori%20Gharzy%20Support" target="_blank" class="support-opt wa">
-        <span>💬 Chat on WhatsApp</span>
-      </a>
-      <a href="tel:+91XXXXXXXXXX" class="support-opt call">
-        <span>📞 Direct Call Help</span>
-      </a>
-    </div>
-  </div>
-  <button class="support-btn" onclick="toggleSupport()">
-    <span>Support 🎧</span>
-  </button>
-</div>
-
-</body>
-</html>
 </body>
 </html>
