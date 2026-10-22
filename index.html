@@ -713,29 +713,29 @@
       — Har Ghar Ka Apna —
     </p>
 
-    <!-- Services Quick Tabs -->
-    <div style="display: flex; justify-content: center; align-items: center; gap: 16px; font-size: 14px; font-weight: 600; font-family: 'Poppins', sans-serif; margin-bottom: 26px; flex-wrap: wrap;">
-      <span style="color: #FF8A00; cursor: pointer; border-bottom: 2px solid #FF8A00; padding-bottom: 2px;">Plumber</span>
-      <span style="opacity: 0.4;">|</span>
-      <span style="cursor: pointer; color: #ffffff;">Electrician</span>
-      <span style="opacity: 0.4;">|</span>
-      <span style="cursor: pointer; color: #ffffff;">Painter</span>
-      <span style="opacity: 0.4;">|</span>
-      <span style="cursor: pointer; color: #ffffff;">Carpenter</span>
-      <span style="opacity: 0.4;">|</span>
-      <span style="cursor: pointer; color: #ffffff;">AC Repair</span>
-    </div>
+   <!-- Services Quick Tabs (Clickable Filters) -->
+<div style="display: flex; justify-content: center; align-items: center; gap: 14px; font-size: 14px; font-weight: 600; font-family: 'Poppins', sans-serif; margin-bottom: 26px; flex-wrap: wrap;">
+  <span onclick="filterWorkersByCategory('Plumber')" style="color: #FF8A00; cursor: pointer; border-bottom: 2px solid #FF8A00; padding-bottom: 2px;">Plumber</span>
+  <span style="opacity: 0.4; color: #ffffff;">|</span>
+  <span onclick="filterWorkersByCategory('Electrician')" style="cursor: pointer; color: #ffffff;">Electrician</span>
+  <span style="opacity: 0.4; color: #ffffff;">|</span>
+  <span onclick="filterWorkersByCategory('Painter')" style="cursor: pointer; color: #ffffff;">Painter</span>
+  <span style="opacity: 0.4; color: #ffffff;">|</span>
+  <span onclick="filterWorkersByCategory('Carpenter')" style="cursor: pointer; color: #ffffff;">Carpenter</span>
+  <span style="opacity: 0.4; color: #ffffff;">|</span>
+  <span onclick="filterWorkersByCategory('AC Repair')" style="cursor: pointer; color: #ffffff;">AC Repair</span>
+</div>
 
-    <!-- Center Search Bar -->
-    <div style="display: flex; align-items: center; background: #ffffff; border-radius: 50px; padding: 6px 8px 6px 20px; max-width: 580px; margin: 0 auto; box-shadow: 0 12px 30px rgba(0,0,0,0.3);">
-      <input type="text" placeholder="Search service e.g. Plumber, Electrician..." style="border: none; outline: none; width: 100%; font-size: 14px; font-family: 'Poppins', sans-serif; color: #374151;">
-      <button style="background: #FF8A00; border: none; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; box-shadow: 0 3px 10px rgba(255, 138, 0, 0.4);">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-      </button>
-    </div>
+<!-- Center Search Bar -->
+<div style="display: flex; align-items: center; background: #ffffff; border-radius: 50px; padding: 6px 8px 6px 20px; max-width: 580px; margin: 0 auto; box-shadow: 0 12px 30px rgba(0,0,0,0.3);">
+  <input type="text" id="heroSearchInput" onkeyup="handleHeroSearch(event)" placeholder="Search service e.g. Plumber, Electrician..." style="border: none; outline: none; width: 100%; font-size: 14px; font-family: 'Poppins', sans-serif; color: #374151;">
+  <button onclick="executeHeroSearch()" style="background: #FF8A00; border: none; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; box-shadow: 0 3px 10px rgba(255, 138, 0, 0.4);">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+  </button>
+</div>
 
   </div>
 </section>
@@ -1380,6 +1380,48 @@ window.addEventListener('click', function(e) {
     menu.style.display = 'none';
   }
 });
+    // Category quick filter (Plumber, Electrician, etc.)
+function filterWorkersByCategory(category) {
+  showSection('providers');
+  const searchInput = document.getElementById('heroSearchInput');
+  if (searchInput) searchInput.value = category;
+  applyFilter(category);
+}
+
+// Enter key press par search trigger ho
+function handleHeroSearch(event) {
+  if (event.key === 'Enter') {
+    executeHeroSearch();
+  }
+}
+
+// Search button click handler
+function executeHeroSearch() {
+  const query = document.getElementById('heroSearchInput').value.trim();
+  if (!query) return;
+  showSection('providers');
+  applyFilter(query);
+}
+
+// Cards filter logic
+function applyFilter(keyword) {
+  const lowerKey = keyword.toLowerCase();
+  const workerCards = document.querySelectorAll('#workersList > div');
+  
+  workerCards.forEach(card => {
+    const text = card.innerText.toLowerCase();
+    if (text.includes(lowerKey)) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+
+  const providersSec = document.getElementById('secProviders');
+  if (providersSec) {
+    providersSec.scrollIntoView({ behavior: 'smooth' });
+  }
+}
   </script>
 </body>
 </html>
