@@ -635,33 +635,105 @@
   </div>
 
   <!-- Navbar -->
-  <header>
-    <div class="container nav-inner">
-      <div class="logo-group" onclick="showSection('home')">
-        <div class="logo-badge">
-          <i class="fa-solid fa-house-chimney-crack"></i>
-        </div>
-        <div>
-          <div class="logo-text">Vikori<span>Gharzy</span></div>
-        </div>
-      </div>
+  <!-- ================= NAVBAR ================= -->
+<header style="background: #ffffff; border-bottom: 1px solid #e5e7eb; padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; font-family: 'Poppins', sans-serif;">
+  <!-- Logo -->
+  <a href="/" style="display: flex; align-items: center; text-decoration: none;">
+    <img src="logo.png" alt="Vikori Gharzy" style="height: 46px; width: auto; object-fit: contain;">
+  </a>
 
-      <nav class="nav-tabs">
-        <button onclick="showSection('home')" id="tabHome" class="nav-btn active">Explore</button>
-        <button onclick="showSection('providers')" id="tabProviders" class="nav-btn">Find Workers</button>
-        <button onclick="showSection('bookings')" id="tabBookings" class="nav-btn">My Orders</button>
-      </nav>
+  <!-- Nav Links -->
+  <nav style="display: flex; gap: 24px; align-items: center;">
+    <a href="#" style="text-decoration: none; color: #374151; font-size: 14px; font-weight: 500;">Home</a>
+    <a href="#" style="text-decoration: none; color: #374151; font-size: 14px; font-weight: 500;">Properties</a>
+    <a href="#" style="text-decoration: none; color: #374151; font-size: 14px; font-weight: 500;">About</a>
+    <a href="#" style="text-decoration: none; color: #374151; font-size: 14px; font-weight: 500;">Contact</a>
+  </nav>
 
-      <div class="nav-actions">
-        <button onclick="openModal('workerModal')" class="btn-worker-reg">
-          <i class="fa-solid fa-screwdriver-wrench"></i>
-          <span>Worker Register</span>
-        </button>
-        <div id="authSlot"></div>
-      </div>
+  <!-- Auth Buttons -->
+  <div style="display: flex; align-items: center; gap: 12px;">
+    <button style="background: none; border: 1px solid #d1d5db; color: #374151; padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer;">Login</button>
+    <button style="background: #FF8A00; border: none; color: #ffffff; padding: 8px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; box-shadow: 0 2px 6px rgba(255, 138, 0, 0.3);">Sign Up</button>
+  </div>
+</header>
+
+<!-- ================= HERO SECTION ================= -->
+<section style="position: relative; min-height: 460px; background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat; display: flex; align-items: center; justify-content: center; text-align: center; color: #ffffff; padding: 60px 20px 80px 20px;">
+  <!-- Dark Gradient Overlay -->
+  <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0, 32, 64, 0.88) 0%, rgba(0, 51, 102, 0.75) 50%, rgba(0, 32, 64, 0.88) 100%);"></div>
+
+  <!-- Hero Content -->
+  <div style="position: relative; z-index: 2; max-width: 820px; width: 100%;">
+    <h1 style="font-family: 'Montserrat', sans-serif; font-size: 42px; font-weight: 800; line-height: 1.2; margin: 0 0 16px 0;">
+      Find Your <br>
+      Dream Home <br>
+      With <span style="color: #FF8A00;">Vikori Gharzy</span>
+    </h1>
+
+    <!-- Category Tabs -->
+    <div style="display: flex; justify-content: center; gap: 18px; font-size: 15px; font-weight: 500; font-family: 'Poppins', sans-serif; margin-bottom: 24px; opacity: 0.95;">
+      <span style="cursor: pointer; border-bottom: 2px solid #FF8A00; padding-bottom: 2px;">Buy</span>
+      <span style="opacity: 0.5;">|</span>
+      <span style="cursor: pointer;">Rent</span>
+      <span style="opacity: 0.5;">|</span>
+      <span style="cursor: pointer;">PG/Hostel</span>
+      <span style="opacity: 0.5;">|</span>
+      <span style="cursor: pointer;">Land</span>
     </div>
-  </header>
 
+    <!-- Center Search Bar with Orange Button -->
+    <div style="display: flex; align-items: center; background: #ffffff; border-radius: 50px; padding: 6px 8px 6px 20px; max-width: 600px; margin: 0 auto; box-shadow: 0 10px 25px rgba(0,0,0,0.25);">
+      <input type="text" placeholder="Search location, property, etc..." style="border: none; outline: none; width: 100%; font-size: 14px; font-family: 'Poppins', sans-serif; color: #374151;">
+      <button style="background: #FF8A00; border: none; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 4 FEATURE BADGES BAR ================= -->
+<div style="background: #ffffff; border-bottom: 1px solid #e5e7eb; box-shadow: 0 4px 12px rgba(0,0,0,0.03); padding: 20px 5%; display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 20px; font-family: 'Poppins', sans-serif;">
+  
+  <!-- Feature 1 -->
+  <div style="display: flex; align-items: center; gap: 12px;">
+    <div style="color: #FF8A00; font-size: 26px;">🏠</div>
+    <div style="text-align: left;">
+      <div style="font-weight: 700; font-size: 13px; color: #003366;">Verified Listings</div>
+      <div style="font-size: 11px; color: #6b7280;">Trusted & Safe</div>
+    </div>
+  </div>
+
+  <!-- Feature 2 -->
+  <div style="display: flex; align-items: center; gap: 12px;">
+    <div style="color: #FF8A00; font-size: 26px;">🏷️</div>
+    <div style="text-align: left;">
+      <div style="font-weight: 700; font-size: 13px; color: #003366;">Best Deals</div>
+      <div style="font-size: 11px; color: #6b7280;">For Every Budget</div>
+    </div>
+  </div>
+
+  <!-- Feature 3 -->
+  <div style="display: flex; align-items: center; gap: 12px;">
+    <div style="color: #FF8A00; font-size: 26px;">⚡</div>
+    <div style="text-align: left;">
+      <div style="font-weight: 700; font-size: 13px; color: #003366;">Easy Process</div>
+      <div style="font-size: 11px; color: #6b7280;">Hassle Free</div>
+    </div>
+  </div>
+
+  <!-- Feature 4 -->
+  <div style="display: flex; align-items: center; gap: 12px;">
+    <div style="color: #FF8A00; font-size: 26px;">🎧</div>
+    <div style="text-align: left;">
+      <div style="font-weight: 700; font-size: 13px; color: #003366;">24/7 Support</div>
+      <div style="font-size: 11px; color: #6b7280;">Always With You</div>
+    </div>
+  </div>
+
+</div>
   <!-- Main Container -->
   <main class="container">
 
