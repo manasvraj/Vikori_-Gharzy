@@ -14,6 +14,94 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
+    .support-widget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+}
+
+.support-btn {
+  background-color: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.support-popup {
+  display: none;
+  width: 280px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  margin-bottom: 12px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.support-header {
+  background-color: #1f2937;
+  color: #ffffff;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.support-header h4 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.support-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.support-body p {
+  margin: 0 0 6px 0;
+  font-size: 13px;
+  color: #4b5563;
+}
+
+.support-opt {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.support-opt.wa {
+  background-color: #25D366;
+  color: #ffffff;
+}
+
+.support-opt.call {
+  background-color: #f3f4f6;
+  color: #111827;
+  border: 1px solid #d1d5db;
+}
     :root {
       --primary: #2563eb;
       --primary-hover: #1d4ed8;
@@ -1235,9 +1323,44 @@
       });
     }
 
+function toggleSupport() {
+  const popup = document.getElementById("supportPopup");
+  if (popup.style.display === "block") {
+    popup.style.display = "none";
+  } 
+  else {
+    popup.style.display = "block";
+  }
+}  
     // Initial render
     renderAuth();
     renderProviders();
   </script>
+  </script>
+
+
+<div class="support-widget">
+  <div class="support-popup" id="supportPopup">
+    <div class="support-header">
+      <h4>Customer Support</h4>
+      <button class="close-btn" onclick="toggleSupport()">×</button>
+    </div>
+    <div class="support-body">
+      <p>Namaste! Vikori Gharzy support team se judein:</p>
+      <a href="https://wa.me/919507763280?text=Hello%20Vikori%20Gharzy%20Support" target="_blank" class="support-opt wa">
+        <span>💬 Chat on WhatsApp</span>
+      </a>
+      <a href="tel:+91XXXXXXXXXX" class="support-opt call">
+        <span>📞 Direct Call Help</span>
+      </a>
+    </div>
+  </div>
+  <button class="support-btn" onclick="toggleSupport()">
+    <span>Support 🎧</span>
+  </button>
+</div>
+
+</body>
+</html>
 </body>
 </html>
