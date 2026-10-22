@@ -643,12 +643,28 @@
   </a>
 
   <!-- Nav Links -->
-  <nav style="display: flex; gap: 20px; align-items: center;">
-    <button onclick="showSection('home')" style="background: none; border: none; color: #003366; font-size: 14px; font-weight: 700; cursor: pointer;">Home</button>
-    <button onclick="showSection('providers')" style="background: none; border: none; color: #374151; font-size: 14px; font-weight: 500; cursor: pointer;">Find Workers</button>
-    <button onclick="showSection('bookings')" style="background: none; border: none; color: #374151; font-size: 14px; font-weight: 500; cursor: pointer;">My Orders</button>
-  </nav>
+ <!-- 3-Lines (Hamburger Menu) Dropdown -->
+<div style="position: relative;">
+  <!-- 3 Line Button -->
+  <button onclick="toggleMenu()" style="background: none; border: 1px solid #e2e8f0; border-radius: 8px; padding: 6px 10px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; align-items: center; justify-content: center;">
+    <span style="display: block; width: 20px; height: 2px; background: #003366; border-radius: 2px;"></span>
+    <span style="display: block; width: 20px; height: 2px; background: #003366; border-radius: 2px;"></span>
+    <span style="display: block; width: 20px; height: 2px; background: #003366; border-radius: 2px;"></span>
+  </button>
 
+  <!-- Dropdown Options (Initially Hidden) -->
+  <div id="navDropdown" style="display: none; position: absolute; right: 0; top: 40px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 170px; z-index: 1001; overflow: hidden; font-family: 'Poppins', sans-serif;">
+    <button onclick="handleNavClick('home')" style="width: 100%; text-align: left; padding: 10px 16px; background: none; border: none; border-bottom: 1px solid #f1f5f9; font-size: 13px; font-weight: 600; color: #003366; cursor: pointer;">
+      🏠 Home
+    </button>
+    <button onclick="handleNavClick('providers')" style="width: 100%; text-align: left; padding: 10px 16px; background: none; border: none; border-bottom: 1px solid #f1f5f9; font-size: 13px; font-weight: 500; color: #374151; cursor: pointer;">
+      👨‍🔧 Find Workers
+    </button>
+    <button onclick="handleNavClick('bookings')" style="width: 100%; text-align: left; padding: 10px 16px; background: none; border: none; font-size: 13px; font-weight: 500; color: #374151; cursor: pointer;">
+      📋 My Orders
+    </button>
+  </div>
+</div>
   <!-- Worker Register & Auth -->
  <!-- Right Action Buttons (Sign In + Worker Register) -->
 <div style="display: flex; align-items: center; gap: 10px; flex-shrink: 0;">
@@ -1331,29 +1347,29 @@
     // Initial render
     renderAuth();
     renderProviders();
-    function showSection(name) {
-  // 1. Teeno main sections/dashboards
-  const homeHero = document.getElementById('secHome');
-  const prov = document.getElementById('secProviders');
-  const book = document.getElementById('secBookings');
-
-  // 2. Pehle sabhi ko hide kar do
-  if (homeHero) homeHero.style.display = 'none';
-  if (prov) prov.style.display = 'none';
-  if (book) book.style.display = 'none';
-
-  // 3. Jo tab select hua hai, sirf usi ka dashboard dikhao
-  if (name === 'home') {
-    if (homeHero) homeHero.style.display = 'block';
-  } else if (name === 'providers') {
-    if (prov) prov.style.display = 'block';
-  } else if (name === 'bookings') {
-    if (book) book.style.display = 'block';
+ // Dropdown kholne aur band karne ke liye
+function toggleMenu() {
+  const menu = document.getElementById('navDropdown');
+  if (menu.style.display === 'block') {
+    menu.style.display = 'none';
+  } else {
+    menu.style.display = 'block';
   }
-
-  // 4. Page ko top par reset karo smooth view ke liye
-  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+// Option click hone par section dikhane aur menu band karne ke liye
+function handleNavClick(name) {
+  showSection(name);
+  document.getElementById('navDropdown').style.display = 'none';
+}
+
+// Bahar click karne par menu apne aap band ho jaye
+window.addEventListener('click', function(e) {
+  const menu = document.getElementById('navDropdown');
+  if (menu && !e.target.closest('button')) {
+    menu.style.display = 'none';
+  }
+});
   </script>
 </body>
 </html>
