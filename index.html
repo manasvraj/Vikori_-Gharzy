@@ -837,67 +837,100 @@
     </section>
 
   </main>
+<!-- MODAL: WORKER REGISTER -->
+<div id="workerModal" class="modal-overlay">
+```
 
-  <!-- MODAL: WORKER REGISTER -->
-  <div id="workerModal" class="modal-overlay">
-    <div class="modal-card">
-      <button class="modal-close" onclick="closeModal('workerModal')">✕</button>
-      <div style="text-align: center; margin-bottom: 20px;">
-        <div style="width: 50px; height: 50px; border-radius: 16px; background: #fef3c7; color: #b45309; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 22px;">
-          🛠️
-        </div>
-        <h3 style="font-size: 20px;">Worker Registration</h3>
-        <p style="font-size: 12px; color: var(--slate);">Vikori Gharzy par apna profile live karein</p>
+---
+
+### Ab yahan kya karna hai:
+
+1. **Line 841** (`<!-- MODAL: WORKER REGISTER -->`)[cite: 10] se select karna shuru karo.
+2. Neeche scroll karo jahan iska aakhri **`</div>`** (aur uske andar ka `</form>`) khatam hota hai (aamtaur par 40-50 lines neeche).
+3. Us pure block ko delete karke uski jagah ye clean aur modern code paste kar do:
+
+```html
+<!-- ================= MODAL: WORKER REGISTER ================= -->
+<div id="workerModal" style="display: none; position: fixed; inset: 0; background: rgba(0, 20, 45, 0.65); backdrop-filter: blur(4px); z-index: 2000; align-items: center; justify-content: center; padding: 16px; font-family: 'Poppins', sans-serif; box-sizing: border-box;">
+  
+  <div style="background: #ffffff; width: 100%; max-width: 520px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.25); overflow: hidden; position: relative;">
+    
+    <!-- Modal Header -->
+    <div style="background: linear-gradient(135deg, #003366, #001f3f); padding: 20px 24px; color: #ffffff; position: relative;">
+      <button type="button" onclick="closeModal('workerModal')" style="position: absolute; right: 16px; top: 16px; background: rgba(255,255,255,0.15); border: none; color: #ffffff; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center;">
+        ✕
+      </button>
+      <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(255, 138, 0, 0.2); border: 1px solid #FF8A00; color: #FF8A00; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 20px; margin-bottom: 6px;">
+        🛠️ ZERO COMMISSION
+      </div>
+      <h3 style="margin: 0; font-family: 'Montserrat', sans-serif; font-size: 19px; font-weight: 700;">Join as Service Partner</h3>
+      <p style="margin: 4px 0 0 0; font-size: 12px; opacity: 0.85;">Apna kaam shuru karein aur direct customers se call/kaam payein</p>
+    </div>
+
+    <!-- Form Body -->
+    <form id="workerRegisterForm" onsubmit="handleWorkerRegister(event)" style="padding: 20px 24px; display: flex; flex-direction: column; gap: 12px; max-height: 80vh; overflow-y: auto;">
+      
+      <!-- Full Name -->
+      <div>
+        <label style="display: block; font-size: 12px; font-weight: 600; color: #1e293b; margin-bottom: 4px;">Aapka Poora Naam *</label>
+        <input type="text" id="regWorkerName" required placeholder="e.g. Ramesh Kumar" style="width: 100%; padding: 9px 12px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 13px; outline: none; box-sizing: border-box;">
       </div>
 
-      <form onsubmit="handleWorkerRegister(event)">
-        <div class="form-group">
-          <label>Full Name (Pura Naam) *</label>
-          <input type="text" id="wpName" class="form-control" required placeholder="e.g. Ramesh Kumar">
+      <!-- Calling Phone + WhatsApp in 2 Columns -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div>
+          <label style="display: block; font-size: 12px; font-weight: 600; color: #1e293b; margin-bottom: 4px;">Calling Phone No. *</label>
+          <input type="tel" id="regWorkerPhone" required placeholder="10-digit number" pattern="[0-9]{10}" style="width: 100%; padding: 9px 12px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 13px; outline: none; box-sizing: border-box;">
         </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-          <div class="form-group">
-            <label>Work Type *</label>
-            <select id="wpCategory" class="form-control" required>
-              <option value="Electrician">⚡ Electrician</option>
-              <option value="Painter">🎨 Painter</option>
-              <option value="Plumber">🔧 Plumber</option>
-              <option value="Carpenter">🪚 Carpenter</option>
-              <option value="AC Repair">❄️ AC Repair</option>
-              <option value="Cleaner">🧹 Cleaner</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Rate (₹/hr) *</label>
-            <input type="number" id="wpRate" class="form-control" required value="350">
-          </div>
+        <div>
+          <label style="display: block; font-size: 12px; font-weight: 600; color: #1e293b; margin-bottom: 4px;">WhatsApp Number</label>
+          <input type="tel" id="regWorkerWa" placeholder="Same or alternative" pattern="[0-9]{10}" style="width: 100%; padding: 9px 12px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 13px; outline: none; box-sizing: border-box;">
         </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-          <div class="form-group">
-            <label>Phone / WhatsApp *</label>
-            <input type="tel" id="wpPhone" class="form-control" required placeholder="9876543210">
-          </div>
-          <div class="form-group">
-            <label>Experience *</label>
-            <select id="wpExp" class="form-control">
-              <option>1-2 Years</option>
-              <option selected>3-5 Years</option>
-              <option>6-10 Years</option>
-              <option>10+ Years</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>City / Location *</label>
-          <input type="text" id="wpCity" class="form-control" required placeholder="e.g. Patna, Boring Road">
-        </div>
+      </div>
 
-        <button type="submit" class="btn-submit btn-submit-amber">
-          Register & List Profile Live
-        </button>
-      </form>
-    </div>
+      <!-- Skill Category + Experience -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div>
+          <label style="display: block; font-size: 12px; font-weight: 600; color: #1e293b; margin-bottom: 4px;">Skill Category *</label>
+          <select id="regWorkerSkill" required style="width: 100%; padding: 9px 12px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 13px; outline: none; background: #fff; box-sizing: border-box;">
+            <option value="">Select Skill</option>
+            <option value="Plumber">Plumber (नल मिस्त्री)</option>
+            <option value="Electrician">Electrician (बिजली मिस्त्री)</option>
+            <option value="Painter">Painter (पेंटर)</option>
+            <option value="Carpenter">Carpenter (बढ़ई)</option>
+            <option value="AC Repair">AC Repair</option>
+          </select>
+        </div>
+        <div>
+          <label style="display: block; font-size: 12px; font-weight: 600; color: #1e293b; margin-bottom: 4px;">Experience *</label>
+          <select id="regWorkerExp" required style="width: 100%; padding: 9px 12px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 13px; outline: none; background: #fff; box-sizing: border-box;">
+            <option value="1+ Years">1+ Saal</option>
+            <option value="3+ Years">3+ Saal</option>
+            <option value="5+ Years" selected>5+ Saal</option>
+            <option value="10+ Years">10+ Saal</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Hourly Rate + City/Area -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div>
+          <label style="display: block; font-size: 12px; font-weight: 600; color: #1e293b; margin-bottom: 4px;">Hourly Rate (₹) *</label>
+          <input type="number" id="regWorkerRate" required placeholder="e.g. 199" style="width: 100%; padding: 9px 12px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 13px; outline: none; box-sizing: border-box;">
+        </div>
+        <div>
+          <label style="display: block; font-size: 12px; font-weight: 600; color: #1e293b; margin-bottom: 4px;">City / Area *</label>
+          <input type="text" id="regWorkerCity" required placeholder="e.g. Patna, Kankarbagh" style="width: 100%; padding: 9px 12px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 13px; outline: none; box-sizing: border-box;">
+        </div>
+      </div>
+
+      <button type="submit" style="margin-top: 6px; width: 100%; background: linear-gradient(135deg, #FF8A00, #ff9e2c); color: #ffffff; border: none; padding: 11px; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(255, 138, 0, 0.3);">
+        Register Now as Worker
+      </button>
+    </form>
+
   </div>
+</div>
 
   <!-- MODAL: INSTANT PHONE OTP LOGIN -->
   <div id="authModal" class="modal-overlay">
