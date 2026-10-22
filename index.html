@@ -650,12 +650,22 @@
   </nav>
 
   <!-- Worker Register & Auth -->
-  <div style="display: flex; align-items: center; gap: 12px;">
-    <button onclick="openModal('workerModal')" style="background: #fff7ed; border: 1px solid #fed7aa; color: #ea580c; padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer;">
-      🛠️ Worker Register
+ <!-- Right Action Buttons (Sign In + Worker Register) -->
+<div style="display: flex; align-items: center; gap: 10px; flex-shrink: 0;">
+  
+  <!-- Sign In Button (Container for auth / Login) -->
+  <div id="authSlot" style="display: flex; align-items: center;">
+    <button onclick="openModal('loginModal')" style="background: transparent; border: 1.5px solid #003366; color: #003366; padding: 7px 16px; border-radius: 20px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.2s; font-family: 'Poppins', sans-serif;">
+      Sign In
     </button>
-    <div id="authSlot"></div>
   </div>
+
+  <!-- Worker Register Button (Brand Orange) -->
+  <button onclick="openModal('workerModal')" style="background: linear-gradient(135deg, #FF8A00, #ff9e2c); border: none; color: #ffffff; padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(255, 138, 0, 0.35); transition: transform 0.2s, box-shadow 0.2s; font-family: 'Poppins', sans-serif;">
+    <span>🛠️</span> Worker Register
+  </button>
+
+</div>
 </header>
 
 <!-- ================= HERO SECTION (HOME SERVICES) ================= -->
