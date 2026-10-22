@@ -634,81 +634,59 @@
     <span id="toastMsg">Notification message</span>
   </div>
 
-  <!-- Navbar -->
-<!-- ================= NAVBAR ================= -->
-<!-- ================= NAVBAR ================= -->
+<!-- ================= CLEAN NAVBAR (WITH ALL DASHBOARD OPTIONS IN MENU) ================= -->
 <header style="background: #ffffff; border-bottom: 1px solid #e5e7eb; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.04); font-family: 'Poppins', sans-serif;">
-  <div style="max-width: 1200px; width: 100%; margin: 0 auto; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box;">
+  <div style="max-width: 1200px; width: 100%; margin: 0 auto; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box;">
     
     <!-- Left: Logo -->
     <a href="/" onclick="showSection('home'); return false;" style="display: flex; align-items: center; text-decoration: none;">
-      <img src="logo.png" alt="Vikori Gharzy" style="height: 44px; width: auto; object-fit: contain;">
+      <img src="logo.png" alt="Vikori Gharzy" style="height: 42px; width: auto; object-fit: contain;">
     </a>
 
-    <!-- Right Corner: Actions + 3-Line Menu -->
-    <div style="display: flex; align-items: center; gap: 14px; margin-left: auto;">
-      
-      <!-- Worker Register Button -->
-      <button onclick="openModal('workerModal')" style="background: linear-gradient(135deg, #FF8A00, #ff9e2c); border: none; color: #ffffff; padding: 7px 16px; border-radius: 20px; font-size: 13px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 3px 10px rgba(255, 138, 0, 0.3); font-family: 'Poppins', sans-serif;">
-        <span>🛠️</span> Worker Register
+    <!-- Right: Only 3-Line Menu Button & Full Dropdown -->
+    <div style="position: relative;">
+      <!-- Hamburger Button (☰) -->
+      <button onclick="toggleMenu(event)" style="background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+        <span style="display: block; width: 22px; height: 2px; background: #003366; border-radius: 2px;"></span>
+        <span style="display: block; width: 22px; height: 2px; background: #003366; border-radius: 2px;"></span>
+        <span style="display: block; width: 22px; height: 2px; background: #003366; border-radius: 2px;"></span>
       </button>
 
-      <!-- 3-Lines (Hamburger Menu) Button & Dropdown -->
-      <div style="position: relative; display: inline-block;">
-        <button onclick="toggleMenu(event)" style="background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 8px; padding: 8px 10px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-          <span style="display: block; width: 20px; height: 2px; background: #003366; border-radius: 2px;"></span>
-          <span style="display: block; width: 20px; height: 2px; background: #003366; border-radius: 2px;"></span>
-          <span style="display: block; width: 20px; height: 2px; background: #003366; border-radius: 2px;"></span>
-        </button>
-
-        <!-- Dropdown Menu -->
-        <div id="navDropdown" style="display: none; position: absolute; right: 0; top: 46px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.12); width: 180px; z-index: 1001; overflow: hidden;">
-          <button onclick="handleNavClick('home')" style="width: 100%; text-align: left; padding: 12px 16px; background: none; border: none; border-bottom: 1px solid #f1f5f9; font-size: 13px; font-weight: 600; color: #003366; cursor: pointer; font-family: 'Poppins', sans-serif;">
+      <!-- Dropdown Menu -->
+      <div id="navDropdown" style="display: none; position: absolute; right: 0; top: 48px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; box-shadow: 0 12px 30px rgba(0,0,0,0.15); width: 220px; z-index: 1001; overflow: hidden; font-family: 'Poppins', sans-serif;">
+        
+        <!-- Navigation Section -->
+        <div style="padding: 6px 0; border-bottom: 1px solid #f1f5f9;">
+          <button onclick="handleNavClick('home')" style="width: 100%; text-align: left; padding: 10px 16px; background: none; border: none; font-size: 13px; font-weight: 600; color: #003366; cursor: pointer;">
             🏠 Home
           </button>
-          <button onclick="handleNavClick('providers')" style="width: 100%; text-align: left; padding: 12px 16px; background: none; border: none; border-bottom: 1px solid #f1f5f9; font-size: 13px; font-weight: 500; color: #374151; cursor: pointer; font-family: 'Poppins', sans-serif;">
+          <button onclick="handleNavClick('providers')" style="width: 100%; text-align: left; padding: 10px 16px; background: none; border: none; font-size: 13px; font-weight: 500; color: #374151; cursor: pointer;">
             👨‍🔧 Find Workers
           </button>
-          <button onclick="handleNavClick('bookings')" style="width: 100%; text-align: left; padding: 12px 16px; background: none; border: none; font-size: 13px; font-weight: 500; color: #374151; cursor: pointer; font-family: 'Poppins', sans-serif;">
+          <button onclick="handleNavClick('bookings')" style="width: 100%; text-align: left; padding: 10px 16px; background: none; border: none; font-size: 13px; font-weight: 500; color: #374151; cursor: pointer;">
             📋 My Orders
           </button>
         </div>
-      </div>
 
+        <!-- Account & Registration Section -->
+        <div style="padding: 8px 12px; background: #fafafa; display: flex; flex-direction: column; gap: 8px;">
+          <!-- Sign In Slot / Button -->
+          <div id="authSlot">
+            <button onclick="openModal('loginModal'); closeMenu();" style="width: 100%; background: #ffffff; border: 1.5px solid #003366; color: #003366; padding: 8px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; text-align: center;">
+              Sign In
+            </button>
+          </div>
+
+          <!-- Worker Register Button -->
+          <button onclick="openModal('workerModal'); closeMenu();" style="width: 100%; background: linear-gradient(135deg, #FF8A00, #ff9e2c); border: none; color: #ffffff; padding: 9px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; text-align: center; box-shadow: 0 3px 8px rgba(255, 138, 0, 0.3);">
+            🛠️ Worker Register
+          </button>
+        </div>
+
+      </div>
     </div>
 
   </div>
-</header>
-  <!-- Dropdown Options (Initially Hidden) -->
-  <div id="navDropdown" style="display: none; position: absolute; right: 0; top: 40px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 170px; z-index: 1001; overflow: hidden; font-family: 'Poppins', sans-serif;">
-    <button onclick="handleNavClick('home')" style="width: 100%; text-align: left; padding: 10px 16px; background: none; border: none; border-bottom: 1px solid #f1f5f9; font-size: 13px; font-weight: 600; color: #003366; cursor: pointer;">
-      🏠 Home
-    </button>
-    <button onclick="handleNavClick('providers')" style="width: 100%; text-align: left; padding: 10px 16px; background: none; border: none; border-bottom: 1px solid #f1f5f9; font-size: 13px; font-weight: 500; color: #374151; cursor: pointer;">
-      👨‍🔧 Find Workers
-    </button>
-    <button onclick="handleNavClick('bookings')" style="width: 100%; text-align: left; padding: 10px 16px; background: none; border: none; font-size: 13px; font-weight: 500; color: #374151; cursor: pointer;">
-      📋 My Orders
-    </button>
-  </div>
-</div>
-  <!-- Worker Register & Auth -->
- <!-- Right Action Buttons (Sign In + Worker Register) -->
-<div style="display: flex; align-items: center; gap: 10px; flex-shrink: 0;">
-  
-  <!-- Sign In Button (Container for auth / Login) -->
-  <div id="authSlot" style="display: flex; align-items: center;">
-    <button onclick="openModal('loginModal')" style="background: transparent; border: 1.5px solid #003366; color: #003366; padding: 7px 16px; border-radius: 20px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.2s; font-family: 'Poppins', sans-serif;">
-      Sign In
-    </button>
-  </div>
-
-  <!-- Worker Register Button (Brand Orange) -->
-  <button onclick="openModal('workerModal')" style="background: linear-gradient(135deg, #FF8A00, #ff9e2c); border: none; color: #ffffff; padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(255, 138, 0, 0.35); transition: transform 0.2s, box-shadow 0.2s; font-family: 'Poppins', sans-serif;">
-    <span>🛠️</span> Worker Register
-  </button>
-
-</div>
 </header>
 
 <!-- ================= HERO SECTION (HOME SERVICES) ================= -->
@@ -1374,25 +1352,28 @@
     // Initial render
     renderAuth();
     renderProviders();
- // Dropdown kholne aur band karne ke liye
+ // Dropdown open/close karne ke liye
 function toggleMenu(e) {
   if (e) e.stopPropagation();
   const menu = document.getElementById('navDropdown');
   if (menu) {
-    if (menu.style.display === 'block') {
-      menu.style.display = 'none';
-    } else {
-      menu.style.display = 'block';
-    }
+    menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
   }
 }
-// Option click hone par section dikhane aur menu band karne ke liye
-function handleNavClick(name) {
-  showSection(name);
-  document.getElementById('navDropdown').style.display = 'none';
+
+// Menu band karne ke liye helper
+function closeMenu() {
+  const menu = document.getElementById('navDropdown');
+  if (menu) menu.style.display = 'none';
 }
 
-// Bahar click karne par menu apne aap band ho jaye
+// Dashboard tab click karne ke liye
+function handleNavClick(name) {
+  showSection(name);
+  closeMenu();
+}
+
+// Bahar click karne par dropdown band ho jaye
 window.addEventListener('click', function(e) {
   const menu = document.getElementById('navDropdown');
   if (menu && !e.target.closest('button')) {
