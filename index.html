@@ -669,7 +669,7 @@
 </header>
 
 <!-- ================= HERO SECTION (HOME SERVICES) ================= -->
-<section style="position: relative; min-height: 480px; background: url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat; display: flex; align-items: center; justify-content: center; text-align: center; color: #ffffff; padding: 60px 20px 80px 20px; font-family: 'Poppins', sans-serif;">
+<section id="secHome" style="position: relative; min-height: 480px; background: url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat; display: flex; align-items: center; justify-content: center; text-align: center; color: #ffffff; padding: 60px 20px 80px 20px; font-family: 'Poppins', sans-serif;">
   <!-- Dark Navy Overlay -->
   <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0, 32, 64, 0.92) 0%, rgba(0, 51, 102, 0.82) 50%, rgba(0, 32, 64, 0.92) 100%);"></div>
 
@@ -1331,6 +1331,29 @@
     // Initial render
     renderAuth();
     renderProviders();
+    function showSection(name) {
+  // 1. Teeno main sections/dashboards
+  const homeHero = document.getElementById('secHome');
+  const prov = document.getElementById('secProviders');
+  const book = document.getElementById('secBookings');
+
+  // 2. Pehle sabhi ko hide kar do
+  if (homeHero) homeHero.style.display = 'none';
+  if (prov) prov.style.display = 'none';
+  if (book) book.style.display = 'none';
+
+  // 3. Jo tab select hua hai, sirf usi ka dashboard dikhao
+  if (name === 'home') {
+    if (homeHero) homeHero.style.display = 'block';
+  } else if (name === 'providers') {
+    if (prov) prov.style.display = 'block';
+  } else if (name === 'bookings') {
+    if (book) book.style.display = 'block';
+  }
+
+  // 4. Page ko top par reset karo smooth view ke liye
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
   </script>
 </body>
 </html>
